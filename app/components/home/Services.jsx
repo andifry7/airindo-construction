@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowRight, CheckCircle2, ChevronRight, FileText, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronRight } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import IndustrialVisual from "@/components/ui/IndustrialVisual";
 import ServiceDetailModal from "@/components/home/ServiceDetailModal";
@@ -10,6 +10,79 @@ import { services } from "@/lib/data";
 export default function Services({ onOpenQuote }) {
   const [selectedService, setSelectedService] = useState(null);
   const [filterCategory, setFilterCategory] = useState("all");
+
+  const validCategoryIds = services.map((s) => s.id);
+
+  useEffect(() => {
+    const syncFromUrl = (shouldScroll = false) => {
+      if (typeof window === "undefined") return;
+
+      const hash = window.location.hash.replace("#", "").trim().toLowerCase();
+      const searchParams = new URLSearchParams(window.location.search);
+      const queryCat = (
+        searchParams.get("kategori") ||
+        searchParams.get("category") ||
+        ""
+      ).toLowerCase();
+
+      const target = hash || queryCat;
+
+      if (target && validCategoryIds.includes(target)) {
+        setFilterCategory(target);
+        if (shouldScroll) {
+          setTimeout(() => {
+            const el = document.getElementById("layanan");
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }, 80);
+        }
+      } else if (target === "" || target === "layanan" || target === "all") {
+        setFilterCategory("all");
+      }
+    };
+
+    syncFromUrl(true);
+
+    const onHashChange = () => syncFromUrl(true);
+    const onPopState = () => syncFromUrl(true);
+
+    const onSelectCategory = (e) => {
+      const cat = e.detail;
+      if (cat && validCategoryIds.includes(cat)) {
+        setFilterCategory(cat);
+        setTimeout(() => {
+          const el = document.getElementById("layanan");
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 80);
+      } else if (cat === "all") {
+        setFilterCategory("all");
+      }
+    };
+
+    window.addEventListener("hashchange", onHashChange);
+    window.addEventListener("popstate", onPopState);
+    window.addEventListener("airindo:select-category", onSelectCategory);
+
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      window.removeEventListener("popstate", onPopState);
+      window.removeEventListener("airindo:select-category", onSelectCategory);
+    };
+  }, []);
+
+  const handleFilterChange = (catId) => {
+    setFilterCategory(catId);
+    if (typeof window !== "undefined") {
+      const newUrl =
+        catId === "all"
+          ? window.location.pathname
+          : `${window.location.pathname}#${catId}`;
+      window.history.replaceState(null, "", newUrl);
+    }
+  };
 
   const filteredServices =
     filterCategory === "all"
@@ -29,7 +102,7 @@ export default function Services({ onOpenQuote }) {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           <button
             type="button"
-            onClick={() => setFilterCategory("all")}
+            onClick={() => handleFilterChange("all")}
             className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
               filterCategory === "all"
                 ? "bg-brand text-white shadow-md shadow-brand/20"
@@ -42,7 +115,7 @@ export default function Services({ onOpenQuote }) {
             <button
               key={s.id}
               type="button"
-              onClick={() => setFilterCategory(s.id)}
+              onClick={() => handleFilterChange(s.id)}
               className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
                 filterCategory === s.id
                   ? "bg-brand text-white shadow-md shadow-brand/20"
@@ -61,6 +134,7 @@ export default function Services({ onOpenQuote }) {
             return (
               <div
                 key={s.id}
+                id={s.id}
                 className="card card-hover flex flex-col justify-between overflow-hidden group cursor-pointer"
                 onClick={() => setSelectedService(s)}
               >

@@ -18,6 +18,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavLinkClick = (href) => {
+    if (typeof window !== "undefined") {
+      if (href.includes("#")) {
+        const cat = href.split("#")[1];
+        window.dispatchEvent(new CustomEvent("airindo:select-category", { detail: cat }));
+      } else if (href === "/layanan") {
+        window.dispatchEvent(new CustomEvent("airindo:select-category", { detail: "all" }));
+      }
+    }
+  };
+
   return (
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
@@ -36,6 +47,7 @@ export default function Navbar() {
               <li key={item.label} className="group relative">
                 <Link
                   href={item.href}
+                  onClick={() => handleNavLinkClick(item.href)}
                   className="flex items-center gap-1.5 py-4 transition-colors hover:text-sky-300"
                 >
                   {item.label}
@@ -47,6 +59,7 @@ export default function Navbar() {
                       <li key={child.label}>
                         <Link
                           href={child.href}
+                          onClick={() => handleNavLinkClick(child.href)}
                           className="block px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-blue-50 hover:text-brand"
                         >
                           {child.label}
@@ -83,7 +96,10 @@ export default function Navbar() {
                     <div className="space-y-2">
                       <Link
                         href={item.href}
-                        onClick={() => setMobileOpen(false)}
+                        onClick={() => {
+                          handleNavLinkClick(item.href);
+                          setMobileOpen(false);
+                        }}
                         className="block py-1 hover:text-sky-300"
                       >
                         {item.label}
@@ -93,7 +109,10 @@ export default function Navbar() {
                           <li key={child.label}>
                             <Link
                               href={child.href}
-                              onClick={() => setMobileOpen(false)}
+                              onClick={() => {
+                                handleNavLinkClick(child.href);
+                                setMobileOpen(false);
+                              }}
                               className="block py-1 text-xs text-blue-100/80 hover:text-white"
                             >
                               • {child.label}
@@ -105,7 +124,10 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href={item.href}
-                      onClick={() => setMobileOpen(false)}
+                      onClick={() => {
+                        handleNavLinkClick(item.href);
+                        setMobileOpen(false);
+                      }}
                       className="block py-1 hover:text-sky-300"
                     >
                       {item.label}

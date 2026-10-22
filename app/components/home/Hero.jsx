@@ -169,7 +169,7 @@ export default function Hero({ onOpenQuote }) {
               </p>
               <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
                 <Link
-                  href="/layanan"
+                  href={`/layanan#${currentTab.id === "piping" ? "mechanical" : currentTab.id}`}
                   className="inline-flex items-center gap-1 text-sky-300 font-semibold hover:text-white"
                 >
                   Detail Kapabilitas <ArrowRight size={12} />
