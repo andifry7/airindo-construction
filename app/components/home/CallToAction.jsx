@@ -13,16 +13,18 @@ import { ctaPoints, company } from "@/lib/data";
 
 export default function CallToAction({ onOpenQuote }) {
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-br from-[#061e47] via-[#092b63] to-[#041633] py-20 text-white md:py-24">
-      {/* Background Grid Pattern */}
+    <section className="relative isolate overflow-hidden bg-[#031124] py-20 text-white md:py-24">
+      {/* Background Photo - strictly covers and fits the section */}
       <div
-        className="absolute inset-0 opacity-10 pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
-          backgroundSize: "28px 28px",
+          backgroundImage: `url("/images/sectionCTA.webp")`,
         }}
       />
-      <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
+
+      {/* Blue Gradient Overlay from the left */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#031124] via-[#051c3d]/95 via-45% to-[#072550]/40" />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#031124]/90 via-transparent to-[#041633]/60" />
 
       <div className="container-x relative z-10">
         <div className="max-w-3xl lg:ml-[10%]">

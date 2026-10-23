@@ -1,3 +1,5 @@
+"use client";
+
 import { highlights } from "@/lib/data";
 import { CheckCircle2 } from "lucide-react";
 

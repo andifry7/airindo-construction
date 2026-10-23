@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -15,6 +15,12 @@ import {
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { company, companyStats } from "@/lib/data";
+
+const heroImages = [
+  "/images/hero/hero 1.webp",
+  "/images/hero/hero 2.webp",
+  "/images/hero/hero 3.webp",
+];
 
 const heroTabs = [
   {
@@ -53,23 +59,39 @@ const heroTabs = [
 
 export default function Hero({ onOpenQuote }) {
   const [activeTab, setActiveTab] = useState(heroTabs[0].id);
+  const [currentBg, setCurrentBg] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentBg((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const currentTab = heroTabs.find((t) => t.id === activeTab) || heroTabs[0];
 
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#061a38] via-[#092b60] to-[#04193a] pb-24 pt-16 text-white md:pb-28 md:pt-24">
-      {/* Decorative Blueprint Background Grid */}
-      <div
-        className="absolute inset-0 opacity-10 pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
-          backgroundSize: "32px 32px",
-        }}
-      />
+    <section className="relative isolate overflow-hidden bg-[#051733] pb-24 pt-16 text-white md:pb-28 md:pt-24">
+      {/* Background Slideshow Images */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {heroImages.map((src, idx) => (
+          <div
+            key={src}
+            className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out transform ${
+              idx === currentBg
+                ? "opacity-75 scale-100"
+                : "opacity-0 scale-105"
+            }`}
+            style={{
+              backgroundImage: `url("${encodeURI(src)}")`,
+            }}
+          />
+        ))}
 
-      {/* Radiant Glowing Orbs */}
-      <div className="absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none" />
-      <div className="absolute right-0 top-1/3 h-96 w-96 rounded-full bg-cyan-400/15 blur-3xl pointer-events-none" />
+        {/* Natural Dark Gradient for Clean Text Readability without Heavy Blue Tint */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030914]/90 via-[#030914]/60 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#041226]/95" />
+      </div>
 
       <div className="container-x relative z-10">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.9fr] lg:items-center">
@@ -110,6 +132,23 @@ export default function Hero({ onOpenQuote }) {
               >
                 Tentang Kami
               </Link>
+            </div>
+
+            {/* Background Slide Indicators */}
+            <div className="mt-4 flex items-center gap-2">
+              {heroImages.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setCurrentBg(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    idx === currentBg
+                      ? "w-7 bg-cyan-400"
+                      : "w-2 bg-white/30 hover:bg-white/60"
+                  }`}
+                  aria-label={`Slide foto hero ${idx + 1}`}
+                />
+              ))}
             </div>
 
             {/* Quick Guarantees */}
@@ -201,8 +240,8 @@ export default function Hero({ onOpenQuote }) {
             </div>
 
             {/* Quick Contact Hotline */}
-            <div className="mt-5 flex items-center justify-between rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-3 text-xs text-emerald-200">
-              <span className="flex items-center gap-1.5">
+            <div className="mt-5 flex items-center justify-between rounded-xl bg-[#064e3b] border border-emerald-500/60 p-3 text-xs text-emerald-100 shadow-md">
+              <span className="flex items-center gap-1.5 font-medium">
                 <MessageCircle size={14} className="text-emerald-400" /> Hotline
                 Proyek / WhatsApp:
               </span>
