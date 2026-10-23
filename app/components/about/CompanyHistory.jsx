@@ -167,8 +167,6 @@ export default function CompanyHistory() {
             <div className="mt-4">
               <LocationMap
                 locations={[workshops[selectedWorkshop]]}
-                title={`Peta Lokasi ${workshops[selectedWorkshop].name}`}
-                subtitle={workshops[selectedWorkshop].location}
                 height="220px"
               />
             </div>

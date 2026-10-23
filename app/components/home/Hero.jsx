@@ -76,7 +76,7 @@ export default function Hero({ onOpenQuote }) {
           {/* Left Column: Headlines & CTA */}
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-200 backdrop-blur-sm">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
               <span>PT. Airindo Teknologi Perkasa • Sejak 2013</span>
             </div>
 

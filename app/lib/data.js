@@ -99,7 +99,7 @@ export const highlights = [
   {
     icon: Briefcase,
     title: "Tenaga Ahli Bersertifikat",
-    text: "Didukung insinyur senior dan juru las (welder) berlisensi ASME & Depnaker.",
+    text: "Didukung tenaga profesional berpengalaman dalam pelaksanaan proyek konstruksi dan instalasi industri.",
     badge: "Certified Engineers",
   },
   {
@@ -111,13 +111,13 @@ export const highlights = [
   {
     icon: ShieldCheck,
     title: "Standar Kualitas & K3",
-    text: "Prosedur pengujian NDT (Radiography, Ultrasonic, Hydrotest) dengan standar ASME B31.",
+    text: "Menjalankan pekerjaan dengan memperhatikan standar kualitas, keselamatan kerja, dan ketentuan proyek.",
     badge: "ASME & ISO Compliant",
   },
   {
     icon: MessageSquareText,
     title: "Koordinasi Responsif 24/7",
-    text: "Komunikasi teknis transparan dan pelaporan berkala hingga tahap commissioning.",
+    text: "Koordinasi yang jelas dan responsif untuk mendukung kelancaran setiap tahapan pekerjaan.",
     badge: "Direct Support",
   },
 ];

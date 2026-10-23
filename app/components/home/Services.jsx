@@ -197,16 +197,6 @@ export default function Services({ onOpenQuote }) {
                   >
                     Lihat Scope &amp; Standar <ChevronRight size={14} />
                   </button>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (onOpenQuote) onOpenQuote(s.title);
-                    }}
-                    className="rounded-md bg-white border border-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-700 hover:border-brand hover:text-brand"
-                  >
-                    RFQ
-                  </button>
                 </div>
               </div>
             );

@@ -328,16 +328,14 @@ Pesan: ${formData.message || "Ingin konsultasi proyek"}`;
           {/* Interactive Google Map Section with Tabs */}
           <div>
             <SectionHeading
-              eyebrow="Peta Interaktif Google Maps"
-              title="Temukan Lokasi Kantor &amp; Workshop Kami"
-              description="Pilih lokasi di bawah untuk melihat rute petunjuk arah ke Kantor Pusat di Jakarta Pusat maupun fasilitas Workshop di Sentul dan Semarang."
+              eyebrow="Peta Lokasi"
+              title="Poin Alamat Kantor &amp; Workshop"
+              description="Titik alamat resmi Kantor Pusat di Jakarta Pusat serta fasilitas Workshop di Sentul dan Semarang."
             />
 
             <div className="mt-8">
               <LocationMap
                 locations={allLocations}
-                title="Peta Lokasi Fasilitas PT. Airindo Teknologi Perkasa"
-                subtitle="Klik tab untuk beralih antara Kantor Pusat, Workshop Sentul, dan Workshop Semarang"
                 height="420px"
               />
             </div>

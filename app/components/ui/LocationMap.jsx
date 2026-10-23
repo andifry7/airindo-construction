@@ -1,89 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, ExternalLink, Copy, Check, Navigation, Building2, Factory } from "lucide-react";
+import { MapPin, ExternalLink, Navigation, Building2, Factory } from "lucide-react";
 
 export default function LocationMap({
   locations = [],
-  title = "Peta Lokasi & Petunjuk Arah",
-  subtitle = "Temukan fasilitas kantor dan workshop kami di Google Maps",
+  title = "Peta Lokasi",
   defaultIndex = 0,
-  height = "320px",
+  height = "340px",
   className = "",
 }) {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
-  const [copied, setCopied] = useState(false);
 
   if (!locations || locations.length === 0) return null;
 
   const current = locations[activeIndex] || locations[0];
-  const query = current.mapQuery || current.address || current.location;
-  const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+  const addressText = current.address || current.location || current.mapQuery;
+  const query = addressText;
+  const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
   const directMapsUrl = current.mapsUrl || `https://maps.google.com/?q=${encodeURIComponent(query)}`;
-
-  const handleCopy = () => {
-    const textToCopy = `${current.name ? current.name + " - " : ""}${current.address || current.location}`;
-    if (navigator?.clipboard?.writeText) {
-      navigator.clipboard.writeText(textToCopy);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
 
   return (
     <div className={`overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card ${className}`}>
-      {/* Header bar */}
-      <div className="border-b border-slate-100 bg-slate-50/70 p-4 sm:p-5">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand text-white shadow-sm">
-                <MapPin size={14} />
-              </span>
-              <h4 className="text-sm font-bold text-brand-navy">{title}</h4>
-            </div>
-            {subtitle && (
-              <p className="mt-1 text-xs text-brand-muted pl-8">{subtitle}</p>
-            )}
-          </div>
-
-          {/* Quick Direct Link button */}
-          <div className="flex items-center gap-2 pl-8 sm:pl-0">
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
-              title="Salin alamat ke clipboard"
-            >
-              {copied ? (
-                <>
-                  <Check size={13} className="text-emerald-600" />
-                  <span className="text-emerald-700 font-bold">Tersalin</span>
-                </>
-              ) : (
-                <>
-                  <Copy size={13} className="text-slate-500" />
-                  <span>Salin Alamat</span>
-                </>
-              )}
-            </button>
-
-            <a
-              href={directMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-brand-navy transition"
-            >
-              <Navigation size={13} />
-              <span>Buka Google Maps</span>
-              <ExternalLink size={12} className="opacity-80" />
-            </a>
-          </div>
-        </div>
-
-        {/* Location switcher tabs (if multiple locations) */}
-        {locations.length > 1 && (
-          <div className="mt-3.5 flex flex-wrap gap-2 border-t border-slate-200/70 pt-3">
+      {/* Tab switcher when multiple locations exist */}
+      {locations.length > 1 && (
+        <div className="border-b border-slate-100 bg-slate-50/80 px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap gap-2">
             {locations.map((loc, idx) => {
               const isActive = activeIndex === idx;
               const Icon = loc.type === "workshop" ? Factory : Building2;
@@ -91,10 +33,7 @@ export default function LocationMap({
                 <button
                   key={loc.name || idx}
                   type="button"
-                  onClick={() => {
-                    setActiveIndex(idx);
-                    setCopied(false);
-                  }}
+                  onClick={() => setActiveIndex(idx)}
                   className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                     isActive
                       ? "bg-brand text-white shadow-sm ring-1 ring-brand"
@@ -102,18 +41,30 @@ export default function LocationMap({
                   }`}
                 >
                   <Icon size={13} className={isActive ? "text-white" : "text-brand"} />
-                  <span>{loc.name || `Lokasi ${idx + 1}`}</span>
+                  <span>{loc.name || `Poin ${idx + 1}`}</span>
                 </button>
               );
             })}
           </div>
-        )}
-      </div>
 
-      {/* Embedded Google Maps iframe */}
+          <a
+            href={directMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand hover:text-brand-navy"
+            title="Buka di Google Maps"
+          >
+            <Navigation size={12} />
+            <span>Buka Google Maps</span>
+            <ExternalLink size={11} className="opacity-70" />
+          </a>
+        </div>
+      )}
+
+      {/* Embedded Google Maps showing address point marker */}
       <div className="relative w-full bg-slate-100" style={{ height }}>
         <iframe
-          title={`Google Map - ${current.name || "Airindo Construction"}`}
+          title={`Google Map - ${current.name || "Alamat"}`}
           src={embedUrl}
           width="100%"
           height="100%"
@@ -121,27 +72,22 @@ export default function LocationMap({
           allowFullScreen={false}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="w-full h-full grayscale-[15%] contrast-105"
+          className="w-full h-full"
         />
 
-        {/* Floating Address Bar on Bottom of Map */}
-        <div className="absolute bottom-3 left-3 right-3 sm:right-auto sm:max-w-md rounded-xl border border-white/80 bg-white/95 p-3.5 shadow-lg backdrop-blur-md">
+        {/* Floating Address Point - solely displays the address point */}
+        <div className="absolute bottom-3 left-3 right-3 sm:right-auto sm:max-w-md rounded-xl border border-white/90 bg-white/95 px-3.5 py-2.5 shadow-md backdrop-blur-md">
           <div className="flex items-start gap-2.5">
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-brand mt-0.5">
-              <MapPin size={15} />
-            </div>
-            <div>
-              <h5 className="text-xs font-bold text-brand-navy">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-red-50 text-red-600 mt-0.5">
+              <MapPin size={14} />
+            </span>
+            <div className="min-w-0">
+              <span className="text-[11px] font-bold text-brand-navy block truncate">
                 {current.name}
-              </h5>
-              <p className="mt-0.5 text-[11px] leading-relaxed text-slate-600">
-                {current.address || current.location}
+              </span>
+              <p className="mt-0.5 text-[11.5px] leading-relaxed text-slate-600">
+                {addressText}
               </p>
-              {current.features && (
-                <span className="mt-1 inline-block text-[10px] font-semibold text-brand">
-                  • {current.features}
-                </span>
-              )}
             </div>
           </div>
         </div>

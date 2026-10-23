@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   ArrowRight,
   Send,
@@ -68,9 +69,15 @@ export default function CallToAction({ onOpenQuote }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-6 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-600/40 transition hover:bg-emerald-700 hover:scale-105"
             >
-              <Send size={15} /> Konsultasi Proyek via WhatsApp{" "}
-              <ArrowRight size={15} />
+              <Send size={15} /> Hubungi kami sekarang <ArrowRight size={15} />
             </a>
+
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/10 px-6 py-3 text-xs font-bold text-white backdrop-blur-sm transition hover:bg-white/20 hover:scale-105"
+            >
+              <FileText size={15} /> Lihat profil perusahaan
+            </Link>
           </div>
         </div>
       </div>

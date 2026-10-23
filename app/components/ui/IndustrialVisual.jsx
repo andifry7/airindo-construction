@@ -1,6 +1,15 @@
 "use client";
 
-import { Wrench, Zap, Cpu, Flame, Shield, Activity, HardHat, Gauge } from "lucide-react";
+import {
+  Wrench,
+  Zap,
+  Cpu,
+  Flame,
+  Shield,
+  Activity,
+  HardHat,
+  Gauge,
+} from "lucide-react";
 
 export default function IndustrialVisual({
   type = "mechanical",
@@ -88,12 +97,44 @@ export default function IndustrialVisual({
         className="absolute inset-0 h-full w-full opacity-20 pointer-events-none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <line x1="0" y1="30%" x2="100%" y2="30%" stroke={theme.accent} strokeWidth="1" strokeDasharray="6 4" />
-        <line x1="20%" y1="0" x2="20%" y2="100%" stroke={theme.accent} strokeWidth="1" strokeDasharray="4 6" />
-        <line x1="75%" y1="0" x2="75%" y2="100%" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="3 3" />
+        <line
+          x1="0"
+          y1="30%"
+          x2="100%"
+          y2="30%"
+          stroke={theme.accent}
+          strokeWidth="1"
+          strokeDasharray="6 4"
+        />
+        <line
+          x1="20%"
+          y1="0"
+          x2="20%"
+          y2="100%"
+          stroke={theme.accent}
+          strokeWidth="1"
+          strokeDasharray="4 6"
+        />
+        <line
+          x1="75%"
+          y1="0"
+          x2="75%"
+          y2="100%"
+          stroke="#ffffff"
+          strokeWidth="0.8"
+          strokeDasharray="3 3"
+        />
         <circle cx="20%" cy="30%" r="5" fill={theme.accent} />
         <circle cx="75%" cy="30%" r="4" fill="#ffffff" />
-        <circle cx="50%" cy="65%" r="35" stroke={theme.accent} strokeWidth="1" fill="none" strokeDasharray="4 4" />
+        <circle
+          cx="50%"
+          cy="65%"
+          r="35"
+          stroke={theme.accent}
+          strokeWidth="1"
+          fill="none"
+          strokeDasharray="4 4"
+        />
       </svg>
 
       {/* Radial Gradient Glow Spot */}
@@ -105,7 +146,10 @@ export default function IndustrialVisual({
       {/* Top Header Badge */}
       <div className="relative z-10 flex items-center justify-between p-3.5">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/30 px-2.5 py-0.5 text-[9.5px] font-mono font-semibold tracking-wider text-white/90 uppercase">
-          <span className="h-1.5 w-1.5 rounded-full animate-ping" style={{ backgroundColor: theme.accent }} />
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ backgroundColor: theme.accent }}
+          />
           {theme.tag}
         </span>
         <div className="flex items-center gap-1 text-[10px] text-white/60 font-mono">
@@ -140,7 +184,9 @@ export default function IndustrialVisual({
         <span className="flex items-center gap-1">
           <Gauge size={10} className="text-white/80" /> QMS / K3 PASS
         </span>
-        <span className="text-[9px] uppercase tracking-wider text-white/50">ATP-ENG</span>
+        <span className="text-[9px] uppercase tracking-wider text-white/50">
+          ATP-ENG
+        </span>
       </div>
     </div>
   );
