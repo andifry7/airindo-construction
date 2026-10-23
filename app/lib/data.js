@@ -467,7 +467,7 @@ export const ctaPoints = [
   {
     icon: MessagesSquare,
     title: "Konsultasi Teknis Gratis",
-    text: "Diskusikan gambar teknik (isometric) & rancangan anggaran biaya (RAB).",
+    text: "Dapatkan solusi terbaik untuk proyek Anda.",
   },
   {
     icon: BadgeCheck,
@@ -482,7 +482,7 @@ export const ctaPoints = [
   {
     icon: Handshake,
     title: "Kemitraan Jangka Panjang",
-    text: "Layanan purna jual, inspeksi berkala, dan dukungan emergency maintenance.",
+    text: "Kami tumbuh bersama kesuksesan Anda.",
   },
 ];
 

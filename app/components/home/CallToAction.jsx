@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowRight, Send, PhoneCall, FileText, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight,
+  Send,
+  PhoneCall,
+  FileText,
+  CheckCircle2,
+} from "lucide-react";
 import Button from "@/components/ui/Button";
 import { ctaPoints, company } from "@/lib/data";
 
@@ -28,7 +34,8 @@ export default function CallToAction({ onOpenQuote }) {
           </h2>
 
           <p className="mt-4 max-w-xl text-[14.5px] leading-relaxed text-blue-100/90">
-            Tim estimasi teknik dan insinyur kami siap memberikan konsultasi awal, telaah gambar kerja (isometric drawing), hingga proposal penawaran komersial yang transparan dan kompetitif.
+            Kami siap membantu mewujudkan kebutuhan konstruksi dan engineering
+            Anda dengan solusi yang tepat, berkualitas, dan profesional.
           </p>
 
           {/* Interactive Feature Points */}
@@ -54,12 +61,15 @@ export default function CallToAction({ onOpenQuote }) {
           {/* Action CTAs */}
           <div className="mt-9 flex flex-wrap items-center gap-3.5">
             <a
-              href={company.whatsappUrl("Halo tim Airindo, saya ingin berkonsultasi & mengajukan RFQ penawaran proyek.")}
+              href={company.whatsappUrl(
+                "Halo tim Airindo, saya ingin berkonsultasi & mengajukan RFQ penawaran proyek.",
+              )}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-6 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-600/40 transition hover:bg-emerald-700 hover:scale-105"
             >
-              <Send size={15} /> Konsultasi Proyek via WhatsApp <ArrowRight size={15} />
+              <Send size={15} /> Konsultasi Proyek via WhatsApp{" "}
+              <ArrowRight size={15} />
             </a>
           </div>
         </div>

@@ -21,28 +21,32 @@ const heroTabs = [
     id: "piping",
     label: "Mechanical & Piping",
     icon: Wrench,
-    summary: "Spesialis fabrikasi pipa penstock tekanan tinggi, steam header, and tangki industri standar ASME & API.",
+    summary:
+      "Spesialis fabrikasi pipa penstock tekanan tinggi, steam header, and tangki industri standar ASME & API.",
     tag: "High-Pressure Piping",
   },
   {
     id: "electrical",
     label: "Electrical & Substation",
     icon: Zap,
-    summary: "Instalasi gardu distribusi tegangan menengah, switchgear, sistem pentanahan, dan proteksi petir.",
+    summary:
+      "Instalasi gardu distribusi tegangan menengah, switchgear, sistem pentanahan, dan proteksi petir.",
     tag: "MV / LV Distribution",
   },
   {
     id: "automation",
     label: "Process Automation",
     icon: Cpu,
-    summary: "Integrasi PLC Siemens/Schneider, SCADA terpusat, telemetry, dan instrumentasi cerdas real-time.",
+    summary:
+      "Integrasi PLC Siemens/Schneider, SCADA terpusat, telemetry, dan instrumentasi cerdas real-time.",
     tag: "SCADA & PLC Control",
   },
   {
     id: "power-plant",
     label: "Power Plant Solutions",
     icon: Flame,
-    summary: "Suplai suku cadang turbin, overhaul generator, laser alignment, dan pemeliharaan pembangkit minihidro.",
+    summary:
+      "Suplai suku cadang turbin, overhaul generator, laser alignment, dan pemeliharaan pembangkit minihidro.",
     tag: "Hydro & Thermal",
   },
 ];
@@ -85,7 +89,10 @@ export default function Hero({ onOpenQuote }) {
             </h1>
 
             <p className="mt-5 max-w-xl text-[14.5px] leading-relaxed text-blue-100/90 sm:text-[15.5px]">
-              Kontraktor spesialis fabrikasi dan instalasi perpipaan industri, sistem kelistrikan gardu &amp; switchgear, serta otomasi SCADA untuk fasilitas manufaktur dan pembangkit energi nasional.
+              Berpengalaman dalam pekerjaan fabrikasi dan instalasi perpipaan
+              skala industri, sistem mekanikal dan elektrikal, serta otomasi
+              untuk mendukung kebutuhan pembangkit listrik dan fasilitas
+              industri.
             </p>
 
             {/* Action Buttons */}
@@ -108,13 +115,16 @@ export default function Hero({ onOpenQuote }) {
             {/* Quick Guarantees */}
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/15 pt-6 text-xs text-blue-100/80">
               <span className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 size={14} className="text-emerald-400" /> Welder Lisensi ASME
+                <CheckCircle2 size={14} className="text-emerald-400" /> Welder
+                Lisensi ASME
               </span>
               <span className="flex items-center gap-1.5 font-medium">
-                <ShieldCheck size={14} className="text-blue-300" /> Standar K3 Zero Accident
+                <ShieldCheck size={14} className="text-blue-300" /> Standar K3
+                Zero Accident
               </span>
               <span className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 size={14} className="text-emerald-400" /> 100% NDT &amp; Hydrotest
+                <CheckCircle2 size={14} className="text-emerald-400" /> 100% NDT
+                &amp; Hydrotest
               </span>
             </div>
           </div>
@@ -146,7 +156,10 @@ export default function Hero({ onOpenQuote }) {
                         : "bg-white/5 text-white/80 hover:bg-white/10 hover:text-white"
                     }`}
                   >
-                    <TabIcon size={15} className={isActive ? "text-white" : "text-sky-300"} />
+                    <TabIcon
+                      size={15}
+                      className={isActive ? "text-white" : "text-sky-300"}
+                    />
                     <span className="truncate">{tab.label.split(" ")[0]}</span>
                   </button>
                 );
@@ -175,7 +188,9 @@ export default function Hero({ onOpenQuote }) {
                   Detail Kapabilitas <ArrowRight size={12} />
                 </Link>
                 <a
-                  href={company.whatsappUrl(`Halo tim Airindo, saya ingin berkonsultasi & minta penawaran untuk layanan: ${currentTab.label}`)}
+                  href={company.whatsappUrl(
+                    `Halo tim Airindo, saya ingin berkonsultasi & minta penawaran untuk layanan: ${currentTab.label}`,
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg bg-white/15 px-3 py-1 font-semibold text-white hover:bg-white/25"
@@ -188,7 +203,8 @@ export default function Hero({ onOpenQuote }) {
             {/* Quick Contact Hotline */}
             <div className="mt-5 flex items-center justify-between rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-3 text-xs text-emerald-200">
               <span className="flex items-center gap-1.5">
-                <MessageCircle size={14} className="text-emerald-400" /> Hotline Proyek / WhatsApp:
+                <MessageCircle size={14} className="text-emerald-400" /> Hotline
+                Proyek / WhatsApp:
               </span>
               <a
                 href={company.whatsappUrl()}
@@ -212,7 +228,9 @@ export default function Hero({ onOpenQuote }) {
               <div className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-sky-100 to-blue-300 font-mono">
                 {stat.value}
               </div>
-              <div className="mt-1 text-xs font-bold text-white tracking-wide">{stat.label}</div>
+              <div className="mt-1 text-xs font-bold text-white tracking-wide">
+                {stat.label}
+              </div>
               <p className="mt-0.5 text-[11px] text-blue-200/70 hidden sm:block leading-snug">
                 {stat.detail}
               </p>
