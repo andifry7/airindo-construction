@@ -24,17 +24,20 @@ import {
 export const company = {
   name: "Airindo Construction",
   fullName: "PT. Airindo Teknologi Perkasa",
-  tagline: "Solusi konstruksi dan engineering terintegrasi untuk kebutuhan industri dan energi.",
+  tagline:
+    "Solusi konstruksi dan engineering terintegrasi untuk kebutuhan industri dan energi.",
   phone: "+62 878 7226 6146",
   phoneRaw: "6287872266146",
   email: "Solution@atpindonesia.com",
-  address: "Rukan Graha Cempaka Mas Blok A No. 10, Jl. Letjen Suprapto Kav. 3, Jakarta Pusat 10640",
+  address:
+    "Rukan Graha Cempaka Mas Blok A No. 10, Jl. Letjen Suprapto Kav. 3, Jakarta Pusat 10640",
   mapQuery: "Rukan Graha Cempaka Mas Blok A No. 10 Jakarta Pusat",
   mapsUrl: "https://maps.google.com/?q=Rukan+Graha+Cempaka+Mas+Jakarta+Pusat",
   establishedYear: 2013,
   whatsappUrl: (message) =>
     `https://wa.me/6287872266146?text=${encodeURIComponent(
-      message || "Halo PT. Airindo Teknologi Perkasa, saya ingin berkonsultasi mengenai proyek konstruksi & engineering."
+      message ||
+        "Halo PT. Airindo Teknologi Perkasa, saya ingin berkonsultasi mengenai proyek konstruksi & engineering.",
     )}`,
 };
 
@@ -64,16 +67,32 @@ export const footerLinks = [
 ];
 
 export const legalLinks = [
-  { label: "Kebijakan Privasi", href: "/about" },
-  { label: "Standar Keselamatan K3", href: "/about" },
-  { label: "Sertifikasi Mutu", href: "/about" },
+  { label: "Beranda", href: "/" },
+  { label: "Tentang kami", href: "/about" },
+  { label: "Proyek", href: "/proyek" },
 ];
 
 export const companyStats = [
-  { value: "13+", label: "Tahun Dedikasi", detail: "Berdiri sejak 2013 melayani industri nasional" },
-  { value: "50+", label: "Proyek Selesai", detail: "Mekanikal, perpipaan & otomasi di seluruh Indonesia" },
-  { value: "2", label: "Fasilitas Workshop", detail: "Sentul Bogor & Kawasan Industri Candi Semarang" },
-  { value: "100%", label: "Kepatuhan K3 (HSE)", detail: "Standar keselamatan kerja & sertifikasi ASME/ISO" },
+  {
+    value: "13+",
+    label: "Tahun Dedikasi",
+    detail: "Berdiri sejak 2013 melayani industri nasional",
+  },
+  {
+    value: "50+",
+    label: "Proyek Selesai",
+    detail: "Mekanikal, perpipaan & otomasi di seluruh Indonesia",
+  },
+  {
+    value: "2",
+    label: "Fasilitas Workshop",
+    detail: "Sentul Bogor & Kawasan Industri Candi Semarang",
+  },
+  {
+    value: "100%",
+    label: "Kepatuhan K3 (HSE)",
+    detail: "Standar keselamatan kerja & sertifikasi ASME/ISO",
+  },
 ];
 
 export const highlights = [
@@ -120,7 +139,12 @@ export const services = [
       "Pengujian Tekanan (Hydrostatic Test & Pneumatic Test) & NDT Inspection",
       "Pengelasan Khusus Carbon Steel, Stainless Steel, dan Paduan Khusus",
     ],
-    standards: ["ASME B31.1 (Power Piping)", "ASME B31.3 (Process Piping)", "API 650", "AWS D1.1"],
+    standards: [
+      "ASME B31.1 (Power Piping)",
+      "ASME B31.3 (Process Piping)",
+      "API 650",
+      "AWS D1.1",
+    ],
     caseHighlight: "Pengerjaan Penstock PLTM Aek Sibundong & Endikat",
   },
   {
@@ -158,7 +182,11 @@ export const services = [
       "Sistem Alarm, Safety Instrumented Systems (SIS), dan Emergency Shutdown",
       "Kalibrasi Instrumentasi & Remote Monitoring Dashboard",
     ],
-    standards: ["ISA-88 / ISA-95", "IEC 61131-3", "Modbus / Profinet / EtherNet/IP"],
+    standards: [
+      "ISA-88 / ISA-95",
+      "IEC 61131-3",
+      "Modbus / Profinet / EtherNet/IP",
+    ],
     caseHighlight: "Sistem Otomasi Kontrol Debit & Pintu Air Pembangkit",
   },
   {
@@ -177,38 +205,142 @@ export const services = [
       "Suplai Katup Utama (Main Inlet Valve - MIV) & Governor Hidrolik",
       "Troubleshooting Getaran (Vibration Analysis) & Predictive Maintenance",
     ],
-    standards: ["ISO 10816 (Vibration)", "ASME Boiler & Pressure Vessel", "IEEE 43"],
+    standards: [
+      "ISO 10816 (Vibration)",
+      "ASME Boiler & Pressure Vessel",
+      "IEEE 43",
+    ],
     caseHighlight: "Pemasangan Turbin Runner & Alignment Generator PLTM",
   },
 ];
 
 export const clientFiles = [
-  { name: "Pertamina", sector: "Migas & Energi", logo: "/images/clients/pertamina.webp" },
-  { name: "PLN", sector: "Pembangkit & Energi", logo: "/images/clients/pln.webp" },
-  { name: "Indonesia Power", sector: "Pembangkit & Energi", logo: "/images/clients/indonesia-power.webp" },
-  { name: "PJB", sector: "Pembangkit & Energi", logo: "/images/clients/pjb.webp" },
-  { name: "DSSP Power", sector: "Pembangkit & Energi", logo: "/images/clients/dssp-power.webp" },
-  { name: "ExxonMobil", sector: "Migas & Petrokimia", logo: "/images/clients/exxonmobil.webp" },
+  {
+    name: "Pertamina",
+    sector: "Migas & Energi",
+    logo: "/images/clients/pertamina.webp",
+  },
+  {
+    name: "PLN",
+    sector: "Pembangkit & Energi",
+    logo: "/images/clients/pln.webp",
+  },
+  {
+    name: "Indonesia Power",
+    sector: "Pembangkit & Energi",
+    logo: "/images/clients/indonesia-power.webp",
+  },
+  {
+    name: "PJB",
+    sector: "Pembangkit & Energi",
+    logo: "/images/clients/pjb.webp",
+  },
+  {
+    name: "DSSP Power",
+    sector: "Pembangkit & Energi",
+    logo: "/images/clients/dssp-power.webp",
+  },
+  {
+    name: "ExxonMobil",
+    sector: "Migas & Petrokimia",
+    logo: "/images/clients/exxonmobil.webp",
+  },
   { name: "BP", sector: "Migas & Petrokimia", logo: "/images/clients/bp.webp" },
-  { name: "Shell", sector: "Migas & Petrokimia", logo: "/images/clients/shell.webp" },
-  { name: "Halliburton", sector: "Migas & Layanan Energi", logo: "/images/clients/halliburton.webp" },
-  { name: "Indocement", sector: "Industri Semen & Material", logo: "/images/clients/indocement.webp" },
-  { name: "SCG", sector: "Industri Semen & Material", logo: "/images/clients/scg.webp" },
-  { name: "AHM (Astra Honda)", sector: "Otomotif & Manufaktur", logo: "/images/clients/ahm.webp" },
-  { name: "GS Battery", sector: "Otomotif & Manufaktur", logo: "/images/clients/gs-battery.webp" },
-  { name: "Goodyear", sector: "Otomotif & Manufaktur", logo: "/images/clients/goodyear.webp" },
-  { name: "Indofood", sector: "Makanan & Minuman", logo: "/images/clients/indofood.webp" },
-  { name: "Mayora", sector: "Makanan & Minuman", logo: "/images/clients/mayora.webp" },
-  { name: "GarudaFood", sector: "Makanan & Minuman", logo: "/images/clients/garudafood.webp" },
-  { name: "Sosro", sector: "Makanan & Minuman", logo: "/images/clients/sosro.webp" },
-  { name: "Diamond", sector: "Makanan & Minuman", logo: "/images/clients/diamond.webp" },
-  { name: "Wilmar", sector: "Agroindustri & Kelapa Sawit", logo: "/images/clients/wilmar.webp" },
-  { name: "Sritex", sector: "Tekstil & Industri", logo: "/images/clients/sritex.webp" },
-  { name: "KAI (Kereta Api)", sector: "Transportasi & Infrastruktur", logo: "/images/clients/kai.webp" },
-  { name: "Bank BRI", sector: "Perbankan & Fasilitas", logo: "/images/clients/bri.webp" },
-  { name: "Westin Hotels", sector: "Komersial & Hospitality", logo: "/images/clients/westin.webp" },
-  { name: "Yuasa Battery", sector: "Otomotif & Manufaktur", logo: "/images/clients/yuasa.webp" },
-  { name: "Picolo", sector: "Makanan & Minuman", logo: "/images/clients/picolo.webp" },
+  {
+    name: "Shell",
+    sector: "Migas & Petrokimia",
+    logo: "/images/clients/shell.webp",
+  },
+  {
+    name: "Halliburton",
+    sector: "Migas & Layanan Energi",
+    logo: "/images/clients/halliburton.webp",
+  },
+  {
+    name: "Indocement",
+    sector: "Industri Semen & Material",
+    logo: "/images/clients/indocement.webp",
+  },
+  {
+    name: "SCG",
+    sector: "Industri Semen & Material",
+    logo: "/images/clients/scg.webp",
+  },
+  {
+    name: "AHM (Astra Honda)",
+    sector: "Otomotif & Manufaktur",
+    logo: "/images/clients/ahm.webp",
+  },
+  {
+    name: "GS Battery",
+    sector: "Otomotif & Manufaktur",
+    logo: "/images/clients/gs-battery.webp",
+  },
+  {
+    name: "Goodyear",
+    sector: "Otomotif & Manufaktur",
+    logo: "/images/clients/goodyear.webp",
+  },
+  {
+    name: "Indofood",
+    sector: "Makanan & Minuman",
+    logo: "/images/clients/indofood.webp",
+  },
+  {
+    name: "Mayora",
+    sector: "Makanan & Minuman",
+    logo: "/images/clients/mayora.webp",
+  },
+  {
+    name: "GarudaFood",
+    sector: "Makanan & Minuman",
+    logo: "/images/clients/garudafood.webp",
+  },
+  {
+    name: "Sosro",
+    sector: "Makanan & Minuman",
+    logo: "/images/clients/sosro.webp",
+  },
+  {
+    name: "Diamond",
+    sector: "Makanan & Minuman",
+    logo: "/images/clients/diamond.webp",
+  },
+  {
+    name: "Wilmar",
+    sector: "Agroindustri & Kelapa Sawit",
+    logo: "/images/clients/wilmar.webp",
+  },
+  {
+    name: "Sritex",
+    sector: "Tekstil & Industri",
+    logo: "/images/clients/sritex.webp",
+  },
+  {
+    name: "KAI (Kereta Api)",
+    sector: "Transportasi & Infrastruktur",
+    logo: "/images/clients/kai.webp",
+  },
+  {
+    name: "Bank BRI",
+    sector: "Perbankan & Fasilitas",
+    logo: "/images/clients/bri.webp",
+  },
+  {
+    name: "Westin Hotels",
+    sector: "Komersial & Hospitality",
+    logo: "/images/clients/westin.webp",
+  },
+  {
+    name: "Yuasa Battery",
+    sector: "Otomotif & Manufaktur",
+    logo: "/images/clients/yuasa.webp",
+  },
+  {
+    name: "Picolo",
+    sector: "Makanan & Minuman",
+    logo: "/images/clients/picolo.webp",
+  },
 ];
 
 export const clientSectors = [
@@ -236,7 +368,8 @@ export const projects = [
     year: "2021 - 2022",
     capacity: "2 x 5 MW",
     specs: "Pipa Baja Tekanan Tinggi Ø 1.800 mm, Panjang 650 m",
-    scope: "Fabrikasi spools, transportasi jalur terjal, pengelasan ASME, NDT Radiography 100%, Hydrotest, Sandblasting & Epoxy Coating.",
+    scope:
+      "Fabrikasi spools, transportasi jalur terjal, pengelasan ASME, NDT Radiography 100%, Hydrotest, Sandblasting & Epoxy Coating.",
     description:
       "Pekerjaan fabrikasi dan erection pipa penstock bertekanan tinggi di medan pegunungan curam. Proyek diselesaikan dengan zero incident dan uji tekan sempurna tanpa kebocoran.",
     tags: ["Hydro Power", "Penstock", "ASME Welder", "NDT Tested"],
@@ -251,7 +384,8 @@ export const projects = [
     year: "2022 - 2023",
     capacity: "3 x 2.8 MW",
     specs: "Penstock Ø 1.600 mm & Bifurcation Unit, Head 85 m",
-    scope: "Fabrikasi cabang bifurcation, ekspansi joint, pemasangan saddle support, anchor block, serta pengelasan posisi medan ekstrem.",
+    scope:
+      "Fabrikasi cabang bifurcation, ekspansi joint, pemasangan saddle support, anchor block, serta pengelasan posisi medan ekstrem.",
     description:
       "Instalasi pipa penstock dan percabangan (bifurcation) yang mengalirkan air bertekanan menuju turbin air. Ketelitian perakitan memastikan aliran hidrolik optimal dengan getaran minimal.",
     tags: ["Penstock", "Bifurcation", "Erection", "Hydro Energy"],
@@ -266,7 +400,8 @@ export const projects = [
     year: "2023",
     capacity: "Sistem Sirkulasi Pendingin 150 MW",
     specs: "Pipa Baja Karbon Ø 2.200 mm dengan Internal Lining Anti-Karat",
-    scope: "Fabrikasi segmen pipa intake berdimensi besar, penyambungan flange besar, pengujian dimensi, dan instalasi di area pesisir.",
+    scope:
+      "Fabrikasi segmen pipa intake berdimensi besar, penyambungan flange besar, pengujian dimensi, dan instalasi di area pesisir.",
     description:
       "Penyediaan jalur pipa intake utama untuk pasokan air pendingin turbin uap. Diberikan perlindungan coating ganda tahan korosi air laut untuk keandalan operasional jangka panjang.",
     tags: ["Water Intake", "Piping Besar", "Anti-Corrosion", "PLTU"],
@@ -281,7 +416,8 @@ export const projects = [
     year: "2023 - 2024",
     capacity: "Tekanan 42 Bar, Temperatur 380°C",
     specs: "Seamless Alloy Steel A335 P11/P22 Schedule 80",
-    scope: "Perhitungan tegangan pipa (stress analysis), fabrikasi spool berinsulasi tinggi, stress relief (PWHT), dan pengujian radiografi 100%.",
+    scope:
+      "Perhitungan tegangan pipa (stress analysis), fabrikasi spool berinsulasi tinggi, stress relief (PWHT), dan pengujian radiografi 100%.",
     description:
       "Instalasi perpipaan uap bersuhu dan bertekanan ekstrem untuk jalur distribusi boiler utama, memenuhi standar ketat keselamatan ASME B31.1.",
     tags: ["High Pressure", "Steam Piping", "PWHT", "Petrochemical"],
@@ -296,7 +432,8 @@ export const projects = [
     year: "2024",
     capacity: "2 x 4.5 MW Synchronous Generator",
     specs: "PLC Siemens S7-1500, HMI WinCC, Modbus TCP/IP ke PLN Dispatcher",
-    scope: "Desain sistem kendali terintegrasi, sinkronisasi otomatis generator ke jaringan PLN 20 kV, perlindungan relai numerik, dan remote telemetry.",
+    scope:
+      "Desain sistem kendali terintegrasi, sinkronisasi otomatis generator ke jaringan PLN 20 kV, perlindungan relai numerik, dan remote telemetry.",
     description:
       "Pembangunan otomasi menyeluruh dari pintu air, governor turbin, sinkronisasi beban, hingga pelaporan data real-time ke ruang kendali utama.",
     tags: ["SCADA", "PLC Siemens", "Substation", "Remote Telemetry"],
@@ -311,7 +448,8 @@ export const projects = [
     year: "2024 - 2025",
     capacity: "4.000 TR Chiller System",
     specs: "Jalur Pipa Sirkulasi Air Dingin 14-inch Insulasi Polyurethane",
-    scope: "Pemasangan instalasi pipa header, pompa sirkulasi berkapasitas tinggi, katup kontrol modulating, dan sistem penyeimbang aliran hidronik.",
+    scope:
+      "Pemasangan instalasi pipa header, pompa sirkulasi berkapasitas tinggi, katup kontrol modulating, dan sistem penyeimbang aliran hidronik.",
     description:
       "Pekerjaan instalasi pendingin terpusat untuk menjaga temperatur presisi pada ruang produksi komponen otomotif dengan efisiensi energi terdepan.",
     tags: ["Chilled Water", "Industrial HVAC", "Hydronic Balancing"],
@@ -326,10 +464,26 @@ export const projectCategories = [
 ];
 
 export const ctaPoints = [
-  { icon: MessagesSquare, title: "Konsultasi Teknis Gratis", text: "Diskusikan gambar teknik (isometric) & rancangan anggaran biaya (RAB)." },
-  { icon: BadgeCheck, title: "Jaminan Mutu & Garansi", text: "Didukung sertifikat material (MTC), laporan uji NDT, dan garansi pekerjaan." },
-  { icon: Headset, title: "Respon Cepat Tim Ahli", text: "Tim estimasi teknis siap memberikan proposal penawaran terperinci." },
-  { icon: Handshake, title: "Kemitraan Jangka Panjang", text: "Layanan purna jual, inspeksi berkala, dan dukungan emergency maintenance." },
+  {
+    icon: MessagesSquare,
+    title: "Konsultasi Teknis Gratis",
+    text: "Diskusikan gambar teknik (isometric) & rancangan anggaran biaya (RAB).",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Jaminan Mutu & Garansi",
+    text: "Didukung sertifikat material (MTC), laporan uji NDT, dan garansi pekerjaan.",
+  },
+  {
+    icon: Headset,
+    title: "Respon Cepat Tim Ahli",
+    text: "Tim estimasi teknis siap memberikan proposal penawaran terperinci.",
+  },
+  {
+    icon: Handshake,
+    title: "Kemitraan Jangka Panjang",
+    text: "Layanan purna jual, inspeksi berkala, dan dukungan emergency maintenance.",
+  },
 ];
 
 export const aboutValues = [
@@ -357,7 +511,8 @@ export const workshops = [
     location: "Kawasan Sirkuit Sentul, Bogor, Jawa Barat",
     mapQuery: "Sirkuit Sentul Bogor",
     mapsUrl: "https://maps.google.com/?q=Sentul+International+Circuit+Bogor",
-    features: "Fasilitas Fabrikasi Pipa Besar, Bending, Sandblasting, dan Area Assembly Spool",
+    features:
+      "Fasilitas Fabrikasi Pipa Besar, Bending, Sandblasting, dan Area Assembly Spool",
   },
   {
     id: "candi",
@@ -365,7 +520,8 @@ export const workshops = [
     location: "Kawasan Industri Candi, Semarang, Jawa Tengah",
     mapQuery: "Kawasan Industri Candi Semarang",
     mapsUrl: "https://maps.google.com/?q=Kawasan+Industri+Candi+Semarang",
-    features: "Fasilitas Machining Presisi, Fabrikasi Panel Listrik, dan Perakitan Sistem Otomasi",
+    features:
+      "Fasilitas Machining Presisi, Fabrikasi Panel Listrik, dan Perakitan Sistem Otomasi",
   },
 ];
 
@@ -394,20 +550,69 @@ export const faqs = [
 
 export const estimatorData = {
   services: [
-    { id: "piping", label: "Fabrikasi & Instalasi Pipa (Piping)", multiplier: 1.2, unit: "Jalur Pipa" },
-    { id: "tank", label: "Fabrikasi Tangki & Storage Vessel", multiplier: 1.35, unit: "Unit Tangki" },
-    { id: "electrical", label: "Kelistrikan & Panel Switchgear", multiplier: 1.15, unit: "Sistem Kelistrikan" },
-    { id: "automation", label: "Otomasi PLC & SCADA Pembangkit", multiplier: 1.25, unit: "Node Kontrol" },
-    { id: "overhaul", label: "Overhaul Turbin & Maintenance", multiplier: 1.1, unit: "Unit Pembangkit" },
+    {
+      id: "piping",
+      label: "Fabrikasi & Instalasi Pipa (Piping)",
+      multiplier: 1.2,
+      unit: "Jalur Pipa",
+    },
+    {
+      id: "tank",
+      label: "Fabrikasi Tangki & Storage Vessel",
+      multiplier: 1.35,
+      unit: "Unit Tangki",
+    },
+    {
+      id: "electrical",
+      label: "Kelistrikan & Panel Switchgear",
+      multiplier: 1.15,
+      unit: "Sistem Kelistrikan",
+    },
+    {
+      id: "automation",
+      label: "Otomasi PLC & SCADA Pembangkit",
+      multiplier: 1.25,
+      unit: "Node Kontrol",
+    },
+    {
+      id: "overhaul",
+      label: "Overhaul Turbin & Maintenance",
+      multiplier: 1.1,
+      unit: "Unit Pembangkit",
+    },
   ],
   scales: [
-    { id: "small", label: "Skala Perbaikan / Modifikasi Fasilitas", desc: "Pengerjaan cepat pada segmen pipa / panel tertentu" },
-    { id: "medium", label: "Skala Menengah (Pabrik Manufaktur / F&B)", desc: "Pemasangan jalur produksi atau utilitas baru" },
-    { id: "large", label: "Skala Besar (Pembangkit Listrik / Petrokimia)", desc: "Instalasi skala penuh, penstock, atau gardu induk" },
+    {
+      id: "small",
+      label: "Skala Perbaikan / Modifikasi Fasilitas",
+      desc: "Pengerjaan cepat pada segmen pipa / panel tertentu",
+    },
+    {
+      id: "medium",
+      label: "Skala Menengah (Pabrik Manufaktur / F&B)",
+      desc: "Pemasangan jalur produksi atau utilitas baru",
+    },
+    {
+      id: "large",
+      label: "Skala Besar (Pembangkit Listrik / Petrokimia)",
+      desc: "Instalasi skala penuh, penstock, atau gardu induk",
+    },
   ],
   schedules: [
-    { id: "urgent", label: "Mendesak (< 1 Bulan)", note: "Mobilisasi tim cepat & shift lembur" },
-    { id: "standard", label: "Reguler (1 - 3 Bulan)", note: "Jadwal pengerjaan standar proyek" },
-    { id: "planning", label: "Perencanaan Masa Depan (> 3 Bulan)", note: "Tahap tender atau studi kelayakan" },
+    {
+      id: "urgent",
+      label: "Mendesak (< 1 Bulan)",
+      note: "Mobilisasi tim cepat & shift lembur",
+    },
+    {
+      id: "standard",
+      label: "Reguler (1 - 3 Bulan)",
+      note: "Jadwal pengerjaan standar proyek",
+    },
+    {
+      id: "planning",
+      label: "Perencanaan Masa Depan (> 3 Bulan)",
+      note: "Tahap tender atau studi kelayakan",
+    },
   ],
 };
