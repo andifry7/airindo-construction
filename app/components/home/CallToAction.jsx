@@ -33,7 +33,7 @@ export default function CallToAction({ onOpenQuote }) {
           </span>
 
           <h2 className="mt-4 text-[30px] font-extrabold leading-[1.15] sm:text-[38px] tracking-tight">
-            Diskusikan Kebutuhan Fabrikasi &amp; Engineering Proyek Anda
+            Diskusikan Proyek Anda Bersama Tim Profesional Kami
           </h2>
 
           <p className="mt-4 max-w-xl text-[14.5px] leading-relaxed text-blue-100/90">
