@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
+  Send,
   ShieldCheck,
   Wrench,
   Zap,
@@ -240,20 +241,21 @@ export default function Hero({ onOpenQuote }) {
             </div>
 
             {/* Quick Contact Hotline */}
-            <div className="mt-5 flex items-center justify-between rounded-xl bg-[#064e3b] border border-emerald-500/60 p-3 text-xs text-emerald-100 shadow-md">
-              <span className="flex items-center gap-1.5 font-medium">
-                <MessageCircle size={14} className="text-emerald-400" /> Hotline
-                Proyek / WhatsApp:
+            <a
+              href={company.whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 flex w-full items-center justify-between rounded-xl bg-emerald-600 px-4 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-600/40 transition hover:bg-emerald-700 hover:scale-[1.02]"
+            >
+              <span className="flex items-center gap-2">
+                <Send size={15} />
+                <span>Hotline Proyek / WhatsApp:</span>
+                <span className="underline underline-offset-2">
+                  {company.phone}
+                </span>
               </span>
-              <a
-                href={company.whatsappUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold text-white underline hover:text-emerald-300"
-              >
-                {company.phone}
-              </a>
-            </div>
+              <ArrowRight size={15} className="shrink-0" />
+            </a>
           </div>
         </div>
 
