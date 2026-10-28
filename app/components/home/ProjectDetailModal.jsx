@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { X, MapPin, Calendar, Briefcase, CheckCircle2, ShieldCheck, Send, ArrowRight } from "lucide-react";
 import IndustrialVisual from "@/components/ui/IndustrialVisual";
 import { company } from "@/lib/data";
@@ -41,17 +42,28 @@ export default function ProjectDetailModal({ project, onClose, onConsult }) {
 
       <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-2xl">
         {/* Technical Banner */}
-        <div className="relative h-48 sm:h-56 w-full">
-          <IndustrialVisual
-            type={project.categoryKey || "mechanical"}
-            title={project.title}
-            subtitle={project.location}
-            className="h-full w-full"
-          />
+        <div className="relative h-48 sm:h-56 w-full overflow-hidden bg-slate-900">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 640px) 100vw, 672px"
+            />
+          ) : (
+            <IndustrialVisual
+              type={project.categoryKey || "mechanical"}
+              title={project.title}
+              subtitle={project.location}
+              className="h-full w-full"
+            />
+          )}
           <button
             onClick={onClose}
             aria-label="Tutup detail proyek"
-            className="absolute right-3 top-3 z-20 rounded-full bg-black/50 p-2 text-white backdrop-blur-sm hover:bg-black/70"
+            className="absolute right-3 top-3 z-20 rounded-full bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-black/80 transition-colors"
           >
             <X size={18} />
           </button>

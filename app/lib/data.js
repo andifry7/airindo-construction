@@ -367,6 +367,7 @@ export const projects = [
     title: "Penstock PLTM Aek Sibundong",
     category: "Fabrikasi & Instalasi",
     categoryKey: "fabrikasi",
+    image: "/images/projects/Penstock PLTM Aek Sibundong.jpeg",
     location: "Humbang Hasundutan, Sumatera Utara",
     client: "Pengembang Pembangkit Swasta (IPP)",
     year: "2021 - 2022",
@@ -383,6 +384,7 @@ export const projects = [
     title: "Penstock PLTM Endikat",
     category: "Fabrikasi & Instalasi",
     categoryKey: "fabrikasi",
+    image: "/images/projects/Penstock PLTM Endikat.jpg",
     location: "Lahat, Sumatera Selatan",
     client: "Konsorsium Energi Terbarukan",
     year: "2022 - 2023",
@@ -399,6 +401,7 @@ export const projects = [
     title: "Water Intake Pipe PLTU",
     category: "Fabrikasi Pipa",
     categoryKey: "pipa",
+    image: "/images/projects/project-intake-pasuruan-1.webp",
     location: "Pasuruan, Jawa Timur",
     client: "Fasilitas Pembangkit Industri",
     year: "2023",
@@ -411,26 +414,11 @@ export const projects = [
     tags: ["Water Intake", "Piping Besar", "Anti-Corrosion", "PLTU"],
   },
   {
-    id: "steam-header-pabrik",
-    title: "High Pressure Steam Piping Header",
-    category: "Fabrikasi Pipa",
-    categoryKey: "pipa",
-    location: "Cilegon, Banten",
-    client: "Pabrik Petrokimia Nasional",
-    year: "2023 - 2024",
-    capacity: "Tekanan 42 Bar, Temperatur 380°C",
-    specs: "Seamless Alloy Steel A335 P11/P22 Schedule 80",
-    scope:
-      "Perhitungan tegangan pipa (stress analysis), fabrikasi spool berinsulasi tinggi, stress relief (PWHT), dan pengujian radiografi 100%.",
-    description:
-      "Instalasi perpipaan uap bersuhu dan bertekanan ekstrem untuk jalur distribusi boiler utama, memenuhi standar ketat keselamatan ASME B31.1.",
-    tags: ["High Pressure", "Steam Piping", "PWHT", "Petrochemical"],
-  },
-  {
     id: "scada-substation-pltm",
     title: "SCADA & Otomasi Gardu Induk Minihidro",
     category: "Otomasi & Kelistrikan",
     categoryKey: "otomasi",
+    image: "/images/projects/SCADA & Otomasi Gardu Induk Minihidro.jpg",
     location: "Sumatera Barat",
     client: "Pengelola PLTM",
     year: "2024",
@@ -441,22 +429,6 @@ export const projects = [
     description:
       "Pembangunan otomasi menyeluruh dari pintu air, governor turbin, sinkronisasi beban, hingga pelaporan data real-time ke ruang kendali utama.",
     tags: ["SCADA", "PLC Siemens", "Substation", "Remote Telemetry"],
-  },
-  {
-    id: "chilled-water-piping",
-    title: "Chilled Water & HVAC Distribution",
-    category: "Fabrikasi Pipa",
-    categoryKey: "pipa",
-    location: "Karawang, Jawa Barat",
-    client: "Fasilitas Manufaktur Otomotif",
-    year: "2024 - 2025",
-    capacity: "4.000 TR Chiller System",
-    specs: "Jalur Pipa Sirkulasi Air Dingin 14-inch Insulasi Polyurethane",
-    scope:
-      "Pemasangan instalasi pipa header, pompa sirkulasi berkapasitas tinggi, katup kontrol modulating, dan sistem penyeimbang aliran hidronik.",
-    description:
-      "Pekerjaan instalasi pendingin terpusat untuk menjaga temperatur presisi pada ruang produksi komponen otomotif dengan efisiensi energi terdepan.",
-    tags: ["Chilled Water", "Industrial HVAC", "Hydronic Balancing"],
   },
 ];
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ArrowRight, MapPin, Search, Calendar, Filter, CheckCircle2, ChevronRight, Layers } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import IndustrialVisual from "@/components/ui/IndustrialVisual";
@@ -103,12 +104,22 @@ export default function Projects({ onOpenQuote }) {
                   <div>
                     {/* Visual Card Banner */}
                     <div className="relative h-48 overflow-hidden bg-slate-900">
-                      <IndustrialVisual
-                        type={p.categoryKey}
-                        title={p.title}
-                        subtitle={p.location}
-                        className="h-full w-full"
-                      />
+                      {p.image ? (
+                        <Image
+                          src={p.image}
+                          alt={p.title}
+                          fill
+                          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <IndustrialVisual
+                          type={p.categoryKey}
+                          title={p.title}
+                          subtitle={p.location}
+                          className="h-full w-full"
+                        />
+                      )}
                       <div className="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span className="rounded-full bg-white px-3.5 py-1 text-xs font-bold text-brand-navy shadow-lg">
                           Buka Lembar Teknis Proyek
