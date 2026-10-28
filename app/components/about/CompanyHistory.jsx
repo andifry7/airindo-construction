@@ -170,31 +170,6 @@ export default function CompanyHistory() {
                 height="220px"
               />
             </div>
-
-            {/* Timeline Milestones */}
-            <div className="mt-8 border-t border-slate-200 pt-6">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-brand-navy mb-4">
-                Jejak Langkah Perkembangan
-              </h3>
-              <div className="grid grid-cols-2 gap-3">
-                {milestones.map((m) => (
-                  <div
-                    key={m.year}
-                    className="rounded-lg bg-white p-3 border border-slate-200/80"
-                  >
-                    <span className="text-xs font-mono font-bold text-brand">
-                      {m.year}
-                    </span>
-                    <h4 className="text-xs font-bold text-brand-navy mt-0.5">
-                      {m.title}
-                    </h4>
-                    <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
-                      {m.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>

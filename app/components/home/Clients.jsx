@@ -85,29 +85,8 @@ export default function Clients() {
           <div className="animate-marquee flex items-center gap-4">
             {/* Double the list to loop seamlessly */}
             {[...filteredClients, ...filteredClients].map((client, idx) => (
-              <ClientCard
-                key={`${client.name}-${idx}`}
-                client={client}
-              />
+              <ClientCard key={`${client.name}-${idx}`} client={client} />
             ))}
-          </div>
-        </div>
-
-        {/* Reassurance Trust Metrics */}
-        <div className="mt-12 mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-wrap items-center justify-around gap-6 text-center">
-          <div>
-            <div className="text-xl font-extrabold text-brand font-mono">100%</div>
-            <p className="text-xs font-medium text-slate-600 mt-0.5">Kepatuhan Regulasi K3 (HSE)</p>
-          </div>
-          <div className="h-8 w-px bg-slate-200 hidden sm:block" />
-          <div>
-            <div className="text-xl font-extrabold text-brand font-mono">Zero Leakage</div>
-            <p className="text-xs font-medium text-slate-600 mt-0.5">Uji Hydrostatic Test</p>
-          </div>
-          <div className="h-8 w-px bg-slate-200 hidden sm:block" />
-          <div>
-            <div className="text-xl font-extrabold text-brand font-mono">ASME Sec. IX</div>
-            <p className="text-xs font-medium text-slate-600 mt-0.5">Sertifikasi Juru Las / Welder</p>
           </div>
         </div>
       </div>

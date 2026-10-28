@@ -79,9 +79,7 @@ export default function Hero({ onOpenQuote }) {
           <div
             key={src}
             className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out transform ${
-              idx === currentBg
-                ? "opacity-75 scale-100"
-                : "opacity-0 scale-105"
+              idx === currentBg ? "opacity-75 scale-100" : "opacity-0 scale-105"
             }`}
             style={{
               backgroundImage: `url("${encodeURI(src)}")`,
@@ -99,7 +97,6 @@ export default function Hero({ onOpenQuote }) {
           {/* Left Column: Headlines & CTA */}
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-200 backdrop-blur-sm">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
               <span>PT. Airindo Teknologi Perkasa • Sejak 2013</span>
             </div>
 
@@ -160,7 +157,6 @@ export default function Hero({ onOpenQuote }) {
               </span>
               <span className="flex items-center gap-1.5 font-medium">
                 <ShieldCheck size={14} className="text-blue-300" /> Standar K3
-                Zero Accident
               </span>
               <span className="flex items-center gap-1.5 font-medium">
                 <CheckCircle2 size={14} className="text-emerald-400" /> 100% NDT
@@ -174,9 +170,6 @@ export default function Hero({ onOpenQuote }) {
             <div className="flex items-center justify-between border-b border-white/15 pb-4">
               <span className="text-xs font-bold uppercase tracking-wider text-sky-300 flex items-center gap-1.5">
                 <Sparkles size={13} /> Eksplorasi Cepat Bidang Layanan
-              </span>
-              <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] font-mono text-white/70">
-                AIRINDO-4PILAR
               </span>
             </div>
 
