@@ -128,6 +128,7 @@ export const services = [
     title: "Mechanical & Piping Engineering",
     shortTitle: "Mechanical",
     icon: Wrench,
+    image: "/images/services/mechanical.webp",
     badge: "Fabrikasi & Perpipaan",
     lead: "Desain, fabrikasi, dan instalasi perpipaan, tangki, serta struktur baja untuk mendukung infrastruktur industri dengan standar keamanan tinggi.",
     description:
@@ -152,6 +153,7 @@ export const services = [
     title: "Electrical & Substation Systems",
     shortTitle: "Electrical",
     icon: Zap,
+    image: "/images/services/electrical.avif",
     badge: "Kelistrikan & Distribusi",
     lead: "Pemasangan panel distribusi tegangan rendah hingga menengah, instalasi kabel, dan sistem grounding yang andal untuk fasilitas pembangkit.",
     description:
@@ -171,6 +173,7 @@ export const services = [
     title: "Process Automation & SCADA",
     shortTitle: "Automation",
     icon: Cpu,
+    image: "/images/services/processAutomation.avif",
     badge: "Otomasi & Digitalisasi",
     lead: "Integrasi sistem PLC, SCADA, dan instrumentasi cerdas untuk mengoptimalkan efisiensi, monitoring, dan kontrol proses pabrik secara real-time.",
     description:
@@ -194,6 +197,7 @@ export const services = [
     title: "Power Plant Equipments & Maintenance",
     shortTitle: "Power Plant",
     icon: Flame,
+    image: "/images/services/powerPlantEquipments.jpg",
     badge: "Pembangkit & Energi",
     lead: "Suplai dan perawatan komponen kritis pembangkit listrik seperti turbin, generator, motor listrik, dan sistem transmisi daya berkualitas tinggi.",
     description:

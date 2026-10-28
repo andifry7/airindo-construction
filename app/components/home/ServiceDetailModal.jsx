@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
-import { X, CheckCircle2, ShieldAlert, FileText, Send, ArrowRight, Award } from "lucide-react";
+import Image from "next/image";
+import {
+  X,
+  CheckCircle2,
+  ShieldAlert,
+  FileText,
+  Send,
+  ArrowRight,
+  Award,
+} from "lucide-react";
 import IndustrialVisual from "@/components/ui/IndustrialVisual";
 import { company } from "@/lib/data";
 
@@ -40,17 +49,28 @@ export default function ServiceDetailModal({ service, onClose, onConsult }) {
       />
 
       <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-2xl">
-        <div className="relative h-44 sm:h-52 w-full">
-          <IndustrialVisual
-            type={service.id || "mechanical"}
-            title={service.title}
-            subtitle={service.badge}
-            className="h-full w-full"
-          />
+        <div className="relative h-48 sm:h-56 w-full overflow-hidden bg-slate-900">
+          {service.image ? (
+            <Image
+              src={service.image}
+              alt={service.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 640px) 100vw, 672px"
+            />
+          ) : (
+            <IndustrialVisual
+              type={service.id || "mechanical"}
+              title={service.title}
+              subtitle={service.badge}
+              className="h-full w-full"
+            />
+          )}
           <button
             onClick={onClose}
             aria-label="Tutup detail layanan"
-            className="absolute right-3 top-3 z-20 rounded-full bg-black/50 p-2 text-white backdrop-blur-sm hover:bg-black/70"
+            className="absolute right-3 top-3 z-20 rounded-full bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-black/80 transition-colors"
           >
             <X size={18} />
           </button>
@@ -62,11 +82,15 @@ export default function ServiceDetailModal({ service, onClose, onConsult }) {
               {service.badge}
             </span>
             <span className="text-xs text-brand-muted flex items-center gap-1 font-medium">
-              <Award size={13} className="text-amber-500" /> Sertifikasi K3 &amp; Industri
+              <Award size={13} className="text-amber-500" /> Sertifikasi K3
+              &amp; Industri
             </span>
           </div>
 
-          <h3 id="service-modal-title" className="mt-2 text-2xl font-bold text-brand-navy">
+          <h3
+            id="service-modal-title"
+            className="mt-2 text-2xl font-bold text-brand-navy"
+          >
             {service.title}
           </h3>
 
@@ -86,7 +110,10 @@ export default function ServiceDetailModal({ service, onClose, onConsult }) {
             <ul className="mt-3 space-y-2 text-xs text-slate-700">
               {service.scopePoints?.map((sp, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-brand" />
+                  <CheckCircle2
+                    size={14}
+                    className="mt-0.5 shrink-0 text-brand"
+                  />
                   <span>{sp}</span>
                 </li>
               ))}

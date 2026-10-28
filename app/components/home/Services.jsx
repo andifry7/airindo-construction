@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import IndustrialVisual from "@/components/ui/IndustrialVisual";
@@ -140,15 +141,25 @@ export default function Services({ onOpenQuote }) {
               >
                 <div>
                   {/* Visual Header */}
-                  <div className="relative h-40 overflow-hidden bg-slate-900">
-                    <IndustrialVisual
-                      type={s.id}
-                      title={s.shortTitle}
-                      subtitle={s.badge}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-brand-navy/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-brand-navy shadow">
+                  <div className="relative h-44 overflow-hidden bg-slate-900">
+                    {s.image ? (
+                      <Image
+                        src={s.image}
+                        alt={s.title}
+                        fill
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                    ) : (
+                      <IndustrialVisual
+                        type={s.id}
+                        title={s.shortTitle}
+                        subtitle={s.badge}
+                        className="h-full w-full"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                      <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold text-brand-navy shadow">
                         Klik untuk Spesifikasi
                       </span>
                     </div>
