@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X, Send, CheckCircle2, Phone, Mail, Building, FileText, ArrowRight } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { X, Send, CheckCircle2 } from "lucide-react";
 import { company } from "@/lib/data";
 
 export default function QuickQuoteModal({ isOpen, onClose, initialService = "" }) {
@@ -14,29 +14,33 @@ export default function QuickQuoteModal({ isOpen, onClose, initialService = "" }
     notes: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [prevInitialService, setPrevInitialService] = useState(initialService);
+
+  if (initialService && initialService !== prevInitialService) {
+    setPrevInitialService(initialService);
+    setFormData((prev) => ({ ...prev, service: initialService }));
+  }
+
+  const handleClose = useCallback(() => {
+    setSubmitted(false);
+    onClose();
+  }, [onClose]);
 
   useEffect(() => {
-    if (initialService) {
-      setFormData((prev) => ({ ...prev, service: initialService }));
-    }
-  }, [initialService]);
+    if (!isOpen) return;
 
-  useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") handleClose();
     };
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "auto";
-      setSubmitted(false);
-    }
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.body.style.overflow = "auto";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
   if (!isOpen) return null;
 
@@ -68,7 +72,7 @@ Kebutuhan: ${formData.notes || "Konsultasi teknis & RAB"}`;
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-[#03142e]/75 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* Modal Dialog Card */}
@@ -84,7 +88,7 @@ Kebutuhan: ${formData.notes || "Konsultasi teknis & RAB"}`;
             </h3>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Tutup modal"
             className="rounded-lg p-1.5 text-white/80 transition hover:bg-white/10 hover:text-white"
           >
@@ -113,7 +117,7 @@ Kebutuhan: ${formData.notes || "Konsultasi teknis & RAB"}`;
               </button>
               <button
                 type="button"
-                onClick={onClose}
+                onClick={handleClose}
                 className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
               >
                 Tutup
@@ -217,7 +221,7 @@ Kebutuhan: ${formData.notes || "Konsultasi teknis & RAB"}`;
             <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end">
               <button
                 type="button"
-                onClick={onClose}
+                onClick={handleClose}
                 className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
               >
                 Batal

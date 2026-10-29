@@ -1,0 +1,2579 @@
+{
+  "url": "http://localhost:3000",
+  "at": "2026-10-29T17:28:26.382Z",
+  "allow": [],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "load": "load",
+      "screens": 7,
+      "filled": [0.99, 0.98, 0.94, 0.94, 0.96, 0.98, 0.99],
+      "motion": {
+        "elements": 6,
+        "css": 1,
+        "transitions": 4,
+        "scripted": 1,
+        "videos": 0,
+        "playingVideos": 0
+      },
+      "metrics": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "page": {
+          "height": 6027,
+          "screens": 6.7,
+          "words": 1136,
+          "img": 62,
+          "video": 0,
+          "canvas": 0,
+          "svg": 73,
+          "sections": 7,
+          "horizontalOverflow": 0,
+          "overflowCulprits": [],
+          "uiFragments": 0,
+          "uiAbuse": false,
+          "realPictures": 12,
+          "videoCount": 0,
+          "uiPictures": 0,
+          "pictureSamples": [
+            "image?url=%2Fimages%2Fservices%2Fmechanical.webp",
+            "image?url=%2Fimages%2Fservices%2Felectrical.avif",
+            "image?url=%2Fimages%2Fservices%2FprocessAutomati",
+            "image?url=%2Fimages%2Fservices%2FpowerPlantEquip",
+            "image?url=%2Fimages%2Fprojects%2FPenstock%20PLTM",
+            "image?url=%2Fimages%2Fprojects%2FPenstock%20PLTM",
+            "image?url=%2Fimages%2Fprojects%2Fproject-intake-",
+            "image?url=%2Fimages%2Fprojects%2FSCADA%20%26%20O"
+          ],
+          "blendText": 0,
+          "sideScrollers": 0,
+          "brokenImages": [],
+          "emoji": [],
+          "videosNoPoster": 0
+        },
+        "hero": {
+          "text": "Industrial Piping & Integrated Engineering Solutions",
+          "words": 6,
+          "chars": 52,
+          "lines": 3,
+          "size": 48,
+          "vw": 3.3,
+          "font": "Plus Jakarta Sans",
+          "weight": 800,
+          "tracking": -0.025,
+          "leading": 1.15,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "left",
+          "widthRatio": 0.45,
+          "top": 192,
+          "tag": "h1",
+          "kind": "heading"
+        },
+        "h1": {
+          "text": "Industrial Piping & Integrated Engineering Solutions",
+          "words": 6,
+          "lines": 3,
+          "size": 48,
+          "font": "Plus Jakarta Sans"
+        },
+        "headings": [
+          {
+            "text": "Industrial Piping & Integrated Engineering Solutions",
+            "words": 6,
+            "chars": 52,
+            "lines": 3,
+            "size": 48,
+            "vw": 3.3,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.15,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "left",
+            "widthRatio": 0.45,
+            "top": 192,
+            "tag": "h1",
+            "kind": "heading"
+          },
+          {
+            "text": "13+",
+            "words": 1,
+            "chars": 3,
+            "lines": 1,
+            "size": 30,
+            "vw": 2.1,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.2,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "left",
+            "widthRatio": 0.17,
+            "top": 682,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "50+",
+            "words": 1,
+            "chars": 3,
+            "lines": 1,
+            "size": 30,
+            "vw": 2.1,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.2,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "left",
+            "widthRatio": 0.17,
+            "top": 682,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "1",
+            "words": 1,
+            "chars": 1,
+            "lines": 1,
+            "size": 30,
+            "vw": 2.1,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.2,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "right",
+            "widthRatio": 0.17,
+            "top": 682,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "100%",
+            "words": 1,
+            "chars": 4,
+            "lines": 1,
+            "size": 30,
+            "vw": 2.1,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.2,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "right",
+            "widthRatio": 0.17,
+            "top": 682,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "Layanan Spesialis untuk Kebutuhan Industri & Energi",
+            "words": 7,
+            "chars": 51,
+            "lines": 2,
+            "size": 36,
+            "vw": 2.5,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.47,
+            "top": 1186,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Dipercaya Perusahaan Terkemuka Nasional",
+            "words": 4,
+            "chars": 39,
+            "lines": 2,
+            "size": 36,
+            "vw": 2.5,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.47,
+            "top": 2137,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Pengalaman Teruji di Proyek Nasional",
+            "words": 5,
+            "chars": 36,
+            "lines": 1,
+            "size": 36,
+            "vw": 2.5,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "left",
+            "widthRatio": 0.47,
+            "top": 2737,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Pertanyaan yang Sering Diajukan",
+            "words": 4,
+            "chars": 31,
+            "lines": 1,
+            "size": 36,
+            "vw": 2.5,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.47,
+            "top": 4111,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Diskusikan Proyek Anda Bersama Tim Profesional Kami",
+            "words": 7,
+            "chars": 51,
+            "lines": 2,
+            "size": 36,
+            "vw": 2.5,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "center",
+            "widthRatio": 0.53,
+            "top": 5117,
+            "tag": "h2",
+            "kind": "heading"
+          }
+        ],
+        "headingSummary": {
+          "count": 10,
+          "maxLines": 3,
+          "over2Lines": 1,
+          "statements": 0,
+          "centered": 3,
+          "medianWords": 4,
+          "mixedFontHeadings": 0
+        },
+        "type": {
+          "families": [
+            {
+              "family": "Plus Jakarta Sans",
+              "share": 1,
+              "mono": false
+            }
+          ],
+          "familyCount": 1,
+          "sizes": [10, 11, 12, 13, 14, 16, 18, 20, 30, 36, 48],
+          "sizeCount": 11,
+          "notLoaded": [],
+          "body": {
+            "font": "Plus Jakarta Sans",
+            "size": 12,
+            "leading": 1.63,
+            "weight": 400,
+            "tracking": 0,
+            "contrast": 14
+          },
+          "measureChars": 138,
+          "max": {
+            "size": 48,
+            "vw": 3.3,
+            "font": "Plus Jakarta Sans",
+            "text": "Industrial Piping & Integrated Engineeri"
+          },
+          "monoShare": 0,
+          "monoProseShare": 0,
+          "monoFamilies": [],
+          "monoSamples": [],
+          "microLabels": 0,
+          "microLabelShare": 0,
+          "microSamples": [],
+          "upperShare": 0.02,
+          "centerShare": 0.13,
+          "smallText": 178
+        },
+        "eyebrows": [
+          {
+            "text": "PT. Airindo Teknologi Perkasa • Sejak 2013",
+            "above": "Industrial Piping & Integrated Engineeri",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 160
+          },
+          {
+            "text": "Solusi Engineering Terintegrasi",
+            "above": "Layanan Spesialis untuk Kebutuhan Indust",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 1162
+          },
+          {
+            "text": "Mitra & Klien Industri",
+            "above": "Dipercaya Perusahaan Terkemuka Nasional",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 2113
+          },
+          {
+            "text": "Portofolio Rekayasa Lapangan",
+            "above": "Pengalaman Teruji di Proyek Nasional",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 2713
+          },
+          {
+            "text": "Tanya Jawab Teknis",
+            "above": "Pertanyaan yang Sering Diajukan",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 4087
+          },
+          {
+            "text": "Siap Bekerja Sama?",
+            "above": "Diskusikan Proyek Anda Bersama Tim Profe",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 5087
+          }
+        ],
+        "numbered": [],
+        "color": {
+          "bodyBg": "#f8fafc",
+          "bodyBgHsl": {
+            "h": 210,
+            "s": 0.4,
+            "l": 0.98
+          },
+          "dark": false,
+          "sectionBgs": [
+            {
+              "color": "#051733",
+              "top": 64,
+              "hsl": {
+                "h": 217,
+                "s": 0.82,
+                "l": 0.11
+              }
+            },
+            {
+              "color": "#ffffff",
+              "top": 1044,
+              "hsl": {
+                "h": 0,
+                "s": 0,
+                "l": 1
+              }
+            },
+            {
+              "color": "#f1f5f9",
+              "top": 2011,
+              "hsl": {
+                "h": 210,
+                "s": 0.4,
+                "l": 0.96
+              }
+            },
+            {
+              "color": "#031124",
+              "top": 4985,
+              "hsl": {
+                "h": 215,
+                "s": 0.85,
+                "l": 0.08
+              }
+            },
+            {
+              "color": "#051329",
+              "top": 5679,
+              "hsl": {
+                "h": 217,
+                "s": 0.78,
+                "l": 0.09
+              }
+            }
+          ],
+          "textColors": [
+            {
+              "color": "#081b3a",
+              "share": 0.19
+            },
+            {
+              "color": "#45556c",
+              "share": 0.17
+            },
+            {
+              "color": "#62748e",
+              "share": 0.16
+            },
+            {
+              "color": "#4b5563",
+              "share": 0.14
+            },
+            {
+              "color": "#ffffff",
+              "share": 0.07
+            }
+          ],
+          "button": {
+            "bg": "#ffffff",
+            "hsl": {
+              "h": 0,
+              "s": 0,
+              "l": 1
+            },
+            "fg": "#314158"
+          },
+          "lowContrast": []
+        },
+        "buttons": {
+          "count": 22,
+          "inHero": 4,
+          "radius": 8,
+          "height": 30,
+          "withShadow": 0,
+          "withGradient": 0,
+          "mono": 0,
+          "upper": 0,
+          "heroLabels": [
+            "Lihat Proyek Kami",
+            "Tentang Kami",
+            "Mechanical",
+            "Hotline Proyek / WhatsApp: +62 878 7226 "
+          ]
+        },
+        "surfaces": {
+          "shadowStatic": 0,
+          "shadowOverlay": 0,
+          "shadowSamples": [],
+          "gradients": 0,
+          "scrims": 0,
+          "gradientSamples": [],
+          "gradientText": 0,
+          "hairlines": 0,
+          "hairlineSamples": [],
+          "outlinedBoxes": 24,
+          "dashed": 0,
+          "blurred": 0,
+          "roundedBoxes": 24,
+          "boxRadius": 12,
+          "squareMedia": 4,
+          "roundedMedia": 8,
+          "mediaRadius": 12,
+          "textShadow": 0,
+          "cardRows": [
+            {
+              "count": 4,
+              "iconTopped": false,
+              "rounded": true,
+              "top": 665
+            },
+            {
+              "count": 4,
+              "iconTopped": true,
+              "rounded": true,
+              "top": 843
+            },
+            {
+              "count": 4,
+              "iconTopped": false,
+              "rounded": true,
+              "top": 1442
+            },
+            {
+              "count": 4,
+              "iconTopped": false,
+              "rounded": true,
+              "top": 2956
+            },
+            {
+              "count": 4,
+              "iconTopped": true,
+              "rounded": true,
+              "top": 5307
+            }
+          ]
+        },
+        "heroMedia": [
+          {
+            "type": "bg-image",
+            "ratio": 0.95
+          },
+          {
+            "type": "bg-image",
+            "ratio": 0.95
+          },
+          {
+            "type": "bg-image",
+            "ratio": 0.93
+          }
+        ],
+        "nav": {
+          "links": 9,
+          "fixed": true,
+          "height": 64,
+          "floatingPill": false,
+          "blur": false
+        },
+        "fontsLoaded": ["plus jakarta sans"]
+      },
+      "layout": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "pageH": 6027,
+        "margins": {
+          "left": 132,
+          "right": 149
+        },
+        "sections": [
+          {
+            "sel": "section.relative.isolate",
+            "tag": "section",
+            "top": 64,
+            "height": 835,
+            "words": 133,
+            "media": 1,
+            "middle": 82,
+            "heading": {
+              "text": "Industrial Piping & Integrated Engineering Solutio",
+              "size": 48,
+              "tag": "h1"
+            },
+            "left": 132,
+            "right": 161,
+            "textLeft": 132,
+            "textRight": 186,
+            "fullBleed": true,
+            "footer": false,
+            "hero": true,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.relative.z-10",
+            "tag": "section",
+            "top": 843,
+            "height": 201,
+            "words": 95,
+            "media": 0,
+            "middle": 66,
+            "heading": {
+              "text": "Tenaga Ahli Bersertifikat",
+              "size": 14,
+              "tag": "h3"
+            },
+            "left": 153,
+            "right": 161,
+            "textLeft": 153,
+            "textRight": 161,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section#layanan.scroll-mt-20.py-20",
+            "tag": "section",
+            "top": 1044,
+            "height": 967,
+            "words": 196,
+            "media": 4,
+            "middle": 0,
+            "heading": {
+              "text": "Layanan Spesialis untuk Kebutuhan Industri & Energ",
+              "size": 36,
+              "tag": "h2"
+            },
+            "left": 133,
+            "right": 133,
+            "textLeft": 149,
+            "textRight": 172,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.bg-slate-100.py-20",
+            "tag": "section",
+            "top": 2011,
+            "height": 584,
+            "words": 76,
+            "media": 0,
+            "middle": 8,
+            "heading": {
+              "text": "Dipercaya Perusahaan Terkemuka Nasional",
+              "size": 36,
+              "tag": "h2"
+            },
+            "left": 245,
+            "right": 149,
+            "textLeft": 245,
+            "textRight": 149,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section#proyek.scroll-mt-20.py-20",
+            "tag": "section",
+            "top": 2595,
+            "height": 1374,
+            "words": 182,
+            "media": 4,
+            "middle": 26,
+            "heading": {
+              "text": "Pengalaman Teruji di Proyek Nasional",
+              "size": 36,
+              "tag": "h2"
+            },
+            "left": 132,
+            "right": 132,
+            "textLeft": 132,
+            "textRight": 149,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.py-20.md:py-28",
+            "tag": "section",
+            "top": 3969,
+            "height": 1016,
+            "words": 144,
+            "media": 0,
+            "middle": 0,
+            "heading": {
+              "text": "Pertanyaan yang Sering Diajukan",
+              "size": 36,
+              "tag": "h2"
+            },
+            "left": 305,
+            "right": 305,
+            "textLeft": 325,
+            "textRight": 345,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.relative.isolate",
+            "tag": "section",
+            "top": 4985,
+            "height": 694,
+            "words": 81,
+            "media": 1,
+            "middle": 0,
+            "heading": {
+              "text": "Diskusikan Proyek Anda Bersama Tim Profesional Kam",
+              "size": 36,
+              "tag": "h2"
+            },
+            "left": 250,
+            "right": 450,
+            "textLeft": 250,
+            "textRight": 450,
+            "fullBleed": true,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "footer.bg-[#051329].text-slate-400",
+            "tag": "footer",
+            "top": 5679,
+            "height": 348,
+            "words": 62,
+            "media": 0,
+            "middle": 122,
+            "heading": {
+              "text": "Navigasi",
+              "size": 12,
+              "tag": "h3"
+            },
+            "left": 132,
+            "right": 132,
+            "textLeft": 132,
+            "textRight": 132,
+            "fullBleed": false,
+            "footer": true,
+            "hero": false,
+            "continues": false,
+            "pinned": false
+          }
+        ],
+        "gaps": [],
+        "h1s": [
+          {
+            "text": "Industrial Piping & Integrated Engineering Solutions",
+            "size": 48,
+            "top": 192,
+            "firstScreen": true
+          }
+        ],
+        "edgeText": [],
+        "edges": [
+          {
+            "x": 132,
+            "n": 4
+          },
+          {
+            "x": 153,
+            "n": 3
+          },
+          {
+            "x": 250,
+            "n": 2
+          },
+          {
+            "x": 453,
+            "n": 1
+          },
+          {
+            "x": 553,
+            "n": 1
+          },
+          {
+            "x": 753,
+            "n": 1
+          },
+          {
+            "x": 953,
+            "n": 1
+          },
+          {
+            "x": 1053,
+            "n": 1
+          }
+        ],
+        "leftBlocks": 14,
+        "bodySize": 12,
+        "stage": false,
+        "explains": false,
+        "slivers": [],
+        "voidShare": 0,
+        "voidBox": null
+      },
+      "app": null,
+      "consoleErrors": []
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "load": "load",
+      "screens": 7,
+      "filled": [0.99, 0.89, 0.93, 0.99, 0.94, 0.93, 1],
+      "motion": {
+        "elements": 6,
+        "css": 1,
+        "transitions": 4,
+        "scripted": 1,
+        "videos": 0,
+        "playingVideos": 0
+      },
+      "metrics": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "page": {
+          "height": 7069,
+          "screens": 6.9,
+          "words": 1130,
+          "img": 62,
+          "video": 0,
+          "canvas": 0,
+          "svg": 73,
+          "sections": 7,
+          "horizontalOverflow": 0,
+          "overflowCulprits": [],
+          "uiFragments": 0,
+          "uiAbuse": false,
+          "realPictures": 12,
+          "videoCount": 0,
+          "uiPictures": 0,
+          "pictureSamples": [
+            "image?url=%2Fimages%2Fservices%2Fmechanical.webp",
+            "image?url=%2Fimages%2Fservices%2Felectrical.avif",
+            "image?url=%2Fimages%2Fservices%2FprocessAutomati",
+            "image?url=%2Fimages%2Fservices%2FpowerPlantEquip",
+            "image?url=%2Fimages%2Fprojects%2FPenstock%20PLTM",
+            "image?url=%2Fimages%2Fprojects%2FPenstock%20PLTM",
+            "image?url=%2Fimages%2Fprojects%2Fproject-intake-",
+            "image?url=%2Fimages%2Fprojects%2FSCADA%20%26%20O"
+          ],
+          "blendText": 0,
+          "sideScrollers": 0,
+          "brokenImages": [],
+          "emoji": [],
+          "videosNoPoster": 0
+        },
+        "hero": {
+          "text": "Industrial Piping & Integrated Engineering Solutions",
+          "words": 6,
+          "chars": 52,
+          "lines": 2,
+          "size": 36,
+          "vw": 4.7,
+          "font": "Plus Jakarta Sans",
+          "weight": 800,
+          "tracking": -0.025,
+          "leading": 1.15,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.94,
+          "top": 192,
+          "tag": "h1",
+          "kind": "heading"
+        },
+        "h1": {
+          "text": "Industrial Piping & Integrated Engineering Solutions",
+          "words": 6,
+          "lines": 2,
+          "size": 36,
+          "font": "Plus Jakarta Sans"
+        },
+        "headings": [
+          {
+            "text": "Industrial Piping & Integrated Engineering Solutions",
+            "words": 6,
+            "chars": 52,
+            "lines": 2,
+            "size": 36,
+            "vw": 4.7,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.15,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "center",
+            "widthRatio": 0.94,
+            "top": 192,
+            "tag": "h1",
+            "kind": "heading"
+          },
+          {
+            "text": "13+",
+            "words": 1,
+            "chars": 3,
+            "lines": 1,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.2,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "left",
+            "widthRatio": 0.17,
+            "top": 1039,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "50+",
+            "words": 1,
+            "chars": 3,
+            "lines": 1,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.2,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "left",
+            "widthRatio": 0.17,
+            "top": 1039,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "1",
+            "words": 1,
+            "chars": 1,
+            "lines": 1,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.2,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "right",
+            "widthRatio": 0.17,
+            "top": 1039,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "100%",
+            "words": 1,
+            "chars": 4,
+            "lines": 1,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.2,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "right",
+            "widthRatio": 0.17,
+            "top": 1039,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "Layanan Spesialis untuk Kebutuhan Industri & Energi",
+            "words": 7,
+            "chars": 51,
+            "lines": 2,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.88,
+            "top": 1756,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Dipercaya Perusahaan Terkemuka Nasional",
+            "words": 4,
+            "chars": 39,
+            "lines": 1,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.88,
+            "top": 3081,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Pengalaman Teruji di Proyek Nasional",
+            "words": 5,
+            "chars": 36,
+            "lines": 2,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "left",
+            "widthRatio": 0.66,
+            "top": 3666,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Pertanyaan yang Sering Diajukan",
+            "words": 4,
+            "chars": 31,
+            "lines": 1,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.88,
+            "top": 5092,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Diskusikan Proyek Anda Bersama Tim Profesional Kami",
+            "words": 7,
+            "chars": 51,
+            "lines": 2,
+            "size": 30,
+            "vw": 3.9,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "center",
+            "widthRatio": 0.94,
+            "top": 6110,
+            "tag": "h2",
+            "kind": "heading"
+          }
+        ],
+        "headingSummary": {
+          "count": 10,
+          "maxLines": 2,
+          "over2Lines": 0,
+          "statements": 0,
+          "centered": 3,
+          "medianWords": 4,
+          "mixedFontHeadings": 0
+        },
+        "type": {
+          "families": [
+            {
+              "family": "Plus Jakarta Sans",
+              "share": 1,
+              "mono": false
+            }
+          ],
+          "familyCount": 1,
+          "sizes": [10, 11, 12, 14, 16, 18, 20, 30, 36],
+          "sizeCount": 9,
+          "notLoaded": [],
+          "body": {
+            "font": "Plus Jakarta Sans",
+            "size": 12,
+            "leading": 1.63,
+            "weight": 400,
+            "tracking": 0,
+            "contrast": 14
+          },
+          "measureChars": 120,
+          "max": {
+            "size": 36,
+            "vw": 4.7,
+            "font": "Plus Jakarta Sans",
+            "text": "Industrial Piping & Integrated Engineeri"
+          },
+          "monoShare": 0,
+          "monoProseShare": 0,
+          "monoFamilies": [],
+          "monoSamples": [],
+          "microLabels": 0,
+          "microLabelShare": 0,
+          "microSamples": [],
+          "upperShare": 0.02,
+          "centerShare": 0.13,
+          "smallText": 178
+        },
+        "eyebrows": [
+          {
+            "text": "PT. Airindo Teknologi Perkasa • Sejak 2013",
+            "above": "Industrial Piping & Integrated Engineeri",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 160
+          },
+          {
+            "text": "Solusi Engineering Terintegrasi",
+            "above": "Layanan Spesialis untuk Kebutuhan Indust",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 1732
+          },
+          {
+            "text": "Mitra & Klien Industri",
+            "above": "Dipercaya Perusahaan Terkemuka Nasional",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 3057
+          },
+          {
+            "text": "Portofolio Rekayasa Lapangan",
+            "above": "Pengalaman Teruji di Proyek Nasional",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 3642
+          },
+          {
+            "text": "Tanya Jawab Teknis",
+            "above": "Pertanyaan yang Sering Diajukan",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 5068
+          },
+          {
+            "text": "Siap Bekerja Sama?",
+            "above": "Diskusikan Proyek Anda Bersama Tim Profe",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 6080
+          }
+        ],
+        "numbered": [],
+        "color": {
+          "bodyBg": "#f8fafc",
+          "bodyBgHsl": {
+            "h": 210,
+            "s": 0.4,
+            "l": 0.98
+          },
+          "dark": false,
+          "sectionBgs": [
+            {
+              "color": "#051733",
+              "top": 64,
+              "hsl": {
+                "h": 217,
+                "s": 0.82,
+                "l": 0.11
+              }
+            },
+            {
+              "color": "#091b38",
+              "top": 574,
+              "hsl": {
+                "h": 217,
+                "s": 0.72,
+                "l": 0.13
+              }
+            },
+            {
+              "color": "#ffffff",
+              "top": 1614,
+              "hsl": {
+                "h": 0,
+                "s": 0,
+                "l": 1
+              }
+            },
+            {
+              "color": "#f1f5f9",
+              "top": 2955,
+              "hsl": {
+                "h": 210,
+                "s": 0.4,
+                "l": 0.96
+              }
+            },
+            {
+              "color": "#031124",
+              "top": 5978,
+              "hsl": {
+                "h": 215,
+                "s": 0.85,
+                "l": 0.08
+              }
+            },
+            {
+              "color": "#051329",
+              "top": 6657,
+              "hsl": {
+                "h": 217,
+                "s": 0.78,
+                "l": 0.09
+              }
+            }
+          ],
+          "textColors": [
+            {
+              "color": "#081b3a",
+              "share": 0.19
+            },
+            {
+              "color": "#45556c",
+              "share": 0.17
+            },
+            {
+              "color": "#62748e",
+              "share": 0.16
+            },
+            {
+              "color": "#4b5563",
+              "share": 0.14
+            },
+            {
+              "color": "#ffffff",
+              "share": 0.07
+            }
+          ],
+          "button": {
+            "bg": "#ffffff",
+            "hsl": {
+              "h": 0,
+              "s": 0,
+              "l": 1
+            },
+            "fg": "#314158"
+          },
+          "lowContrast": []
+        },
+        "buttons": {
+          "count": 22,
+          "inHero": 4,
+          "radius": 8,
+          "height": 30,
+          "withShadow": 0,
+          "withGradient": 0,
+          "mono": 0,
+          "upper": 0,
+          "heroLabels": [
+            "Lihat Proyek Kami",
+            "Tentang Kami",
+            "Mechanical",
+            "Hotline Proyek / WhatsApp: +62 878 7226 "
+          ]
+        },
+        "surfaces": {
+          "shadowStatic": 0,
+          "shadowOverlay": 0,
+          "shadowSamples": [],
+          "gradients": 0,
+          "scrims": 0,
+          "gradientSamples": [],
+          "gradientText": 0,
+          "hairlines": 0,
+          "hairlineSamples": [],
+          "outlinedBoxes": 24,
+          "dashed": 0,
+          "blurred": 0,
+          "roundedBoxes": 24,
+          "boxRadius": 12,
+          "squareMedia": 4,
+          "roundedMedia": 8,
+          "mediaRadius": 12,
+          "textShadow": 0,
+          "cardRows": [
+            {
+              "count": 4,
+              "iconTopped": false,
+              "rounded": true,
+              "top": 1022
+            },
+            {
+              "count": 4,
+              "iconTopped": true,
+              "rounded": true,
+              "top": 1216
+            },
+            {
+              "count": 4,
+              "iconTopped": false,
+              "rounded": true,
+              "top": 1997
+            },
+            {
+              "count": 4,
+              "iconTopped": false,
+              "rounded": true,
+              "top": 3941
+            },
+            {
+              "count": 4,
+              "iconTopped": true,
+              "rounded": true,
+              "top": 6285
+            }
+          ]
+        },
+        "heroMedia": [
+          {
+            "type": "bg-image",
+            "ratio": 0.97
+          },
+          {
+            "type": "bg-image",
+            "ratio": 0.97
+          },
+          {
+            "type": "bg-image",
+            "ratio": 0.94
+          }
+        ],
+        "nav": {
+          "links": 1,
+          "fixed": true,
+          "height": 64,
+          "floatingPill": false,
+          "blur": false
+        },
+        "fontsLoaded": ["plus jakarta sans"]
+      },
+      "layout": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "pageH": 7069,
+        "margins": {
+          "left": 24,
+          "right": 25
+        },
+        "sections": [
+          {
+            "sel": "section.relative.isolate",
+            "tag": "section",
+            "top": 64,
+            "height": 1208,
+            "words": 133,
+            "media": 1,
+            "middle": 0,
+            "heading": {
+              "text": "Industrial Piping & Integrated Engineering Solutio",
+              "size": 36,
+              "tag": "h1"
+            },
+            "left": 24,
+            "right": 53,
+            "textLeft": 24,
+            "textRight": 53,
+            "fullBleed": true,
+            "footer": false,
+            "hero": true,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.relative.z-10",
+            "tag": "section",
+            "top": 1216,
+            "height": 399,
+            "words": 95,
+            "media": 0,
+            "middle": 66,
+            "heading": {
+              "text": "Tenaga Ahli Bersertifikat",
+              "size": 14,
+              "tag": "h3"
+            },
+            "left": 45,
+            "right": 53,
+            "textLeft": 45,
+            "textRight": 53,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section#layanan.scroll-mt-20.py-20",
+            "tag": "section",
+            "top": 1614,
+            "height": 1341,
+            "words": 196,
+            "media": 4,
+            "middle": 0,
+            "heading": {
+              "text": "Layanan Spesialis untuk Kebutuhan Industri & Energ",
+              "size": 30,
+              "tag": "h2"
+            },
+            "left": 25,
+            "right": 25,
+            "textLeft": 41,
+            "textRight": 48,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.bg-slate-100.py-20",
+            "tag": "section",
+            "top": 2955,
+            "height": 570,
+            "words": 66,
+            "media": 0,
+            "middle": 0,
+            "heading": {
+              "text": "Dipercaya Perusahaan Terkemuka Nasional",
+              "size": 30,
+              "tag": "h2"
+            },
+            "left": 59,
+            "right": 59,
+            "textLeft": 59,
+            "textRight": 59,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section#proyek.scroll-mt-20.py-20",
+            "tag": "section",
+            "top": 3524,
+            "height": 1426,
+            "words": 182,
+            "media": 4,
+            "middle": 0,
+            "heading": {
+              "text": "Pengalaman Teruji di Proyek Nasional",
+              "size": 30,
+              "tag": "h2"
+            },
+            "left": 24,
+            "right": 24,
+            "textLeft": 24,
+            "textRight": 41,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.py-20.md:py-28",
+            "tag": "section",
+            "top": 4950,
+            "height": 1028,
+            "words": 144,
+            "media": 0,
+            "middle": 0,
+            "heading": {
+              "text": "Pertanyaan yang Sering Diajukan",
+              "size": 30,
+              "tag": "h2"
+            },
+            "left": 25,
+            "right": 25,
+            "textLeft": 45,
+            "textRight": 53,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.relative.isolate",
+            "tag": "section",
+            "top": 5978,
+            "height": 679,
+            "words": 81,
+            "media": 1,
+            "middle": 0,
+            "heading": {
+              "text": "Diskusikan Proyek Anda Bersama Tim Profesional Kam",
+              "size": 30,
+              "tag": "h2"
+            },
+            "left": 24,
+            "right": 55,
+            "textLeft": 24,
+            "textRight": 55,
+            "fullBleed": true,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "footer.bg-[#051329].text-slate-400",
+            "tag": "footer",
+            "top": 6657,
+            "height": 412,
+            "words": 62,
+            "media": 0,
+            "middle": 40,
+            "heading": {
+              "text": "Navigasi",
+              "size": 12,
+              "tag": "h3"
+            },
+            "left": 24,
+            "right": 24,
+            "textLeft": 24,
+            "textRight": 24,
+            "fullBleed": false,
+            "footer": true,
+            "hero": false,
+            "continues": false,
+            "pinned": false
+          }
+        ],
+        "gaps": [],
+        "h1s": [
+          {
+            "text": "Industrial Piping & Integrated Engineering Solutions",
+            "size": 36,
+            "top": 192,
+            "firstScreen": true
+          }
+        ],
+        "edgeText": [],
+        "edges": [
+          {
+            "x": 24,
+            "n": 6
+          },
+          {
+            "x": 45,
+            "n": 4
+          },
+          {
+            "x": 417,
+            "n": 4
+          }
+        ],
+        "leftBlocks": 14,
+        "bodySize": 12,
+        "stage": false,
+        "explains": false,
+        "slivers": [],
+        "voidShare": 0,
+        "voidBox": null
+      },
+      "app": null,
+      "consoleErrors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "load": "load",
+      "screens": 12,
+      "filled": [
+        0.99, 0.95, 0.87, 0.9, 0.93, 0.98, 0.98, 0.92, 0.93, 0.87, 0.98, 0.98
+      ],
+      "motion": {
+        "elements": 8,
+        "css": 1,
+        "transitions": 6,
+        "scripted": 1,
+        "videos": 0,
+        "playingVideos": 0
+      },
+      "metrics": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "page": {
+          "height": 10145,
+          "screens": 12,
+          "words": 1107,
+          "img": 62,
+          "video": 0,
+          "canvas": 0,
+          "svg": 73,
+          "sections": 7,
+          "horizontalOverflow": 0,
+          "overflowCulprits": [],
+          "uiFragments": 0,
+          "uiAbuse": false,
+          "realPictures": 12,
+          "videoCount": 0,
+          "uiPictures": 0,
+          "pictureSamples": [
+            "image?url=%2Fimages%2Fservices%2Fmechanical.webp",
+            "image?url=%2Fimages%2Fservices%2Felectrical.avif",
+            "image?url=%2Fimages%2Fservices%2FprocessAutomati",
+            "image?url=%2Fimages%2Fservices%2FpowerPlantEquip",
+            "image?url=%2Fimages%2Fprojects%2FPenstock%20PLTM",
+            "image?url=%2Fimages%2Fprojects%2FPenstock%20PLTM",
+            "image?url=%2Fimages%2Fprojects%2Fproject-intake-",
+            "image?url=%2Fimages%2Fprojects%2FSCADA%20%26%20O"
+          ],
+          "blendText": 0,
+          "sideScrollers": 0,
+          "brokenImages": [],
+          "emoji": [],
+          "videosNoPoster": 0
+        },
+        "hero": {
+          "text": "Industrial Piping & Integrated Engineering Solutions",
+          "words": 6,
+          "chars": 52,
+          "lines": 3,
+          "size": 30,
+          "vw": 7.7,
+          "font": "Plus Jakarta Sans",
+          "weight": 800,
+          "tracking": -0.025,
+          "leading": 1.15,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.92,
+          "top": 160,
+          "tag": "h1",
+          "kind": "heading"
+        },
+        "h1": {
+          "text": "Industrial Piping & Integrated Engineering Solutions",
+          "words": 6,
+          "lines": 3,
+          "size": 30,
+          "font": "Plus Jakarta Sans"
+        },
+        "headings": [
+          {
+            "text": "Industrial Piping & Integrated Engineering Solutions",
+            "words": 6,
+            "chars": 52,
+            "lines": 3,
+            "size": 30,
+            "vw": 7.7,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.15,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "center",
+            "widthRatio": 0.92,
+            "top": 160,
+            "tag": "h1",
+            "kind": "heading"
+          },
+          {
+            "text": "13+",
+            "words": 1,
+            "chars": 3,
+            "lines": 1,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.33,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "left",
+            "widthRatio": 0.36,
+            "top": 1129,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "50+",
+            "words": 1,
+            "chars": 3,
+            "lines": 1,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.33,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "right",
+            "widthRatio": 0.36,
+            "top": 1129,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "1",
+            "words": 1,
+            "chars": 1,
+            "lines": 1,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.33,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "left",
+            "widthRatio": 0.36,
+            "top": 1227,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "100%",
+            "words": 1,
+            "chars": 4,
+            "lines": 1,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": 0,
+            "leading": 1.33,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "right",
+            "widthRatio": 0.36,
+            "top": 1227,
+            "tag": "div",
+            "kind": "heading"
+          },
+          {
+            "text": "Layanan Spesialis untuk Kebutuhan Industri & Energi",
+            "words": 7,
+            "chars": 51,
+            "lines": 2,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.92,
+            "top": 2236,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Dipercaya Perusahaan Terkemuka Nasional",
+            "words": 4,
+            "chars": 39,
+            "lines": 2,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.92,
+            "top": 4422,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Pengalaman Teruji di Proyek Nasional",
+            "words": 5,
+            "chars": 36,
+            "lines": 2,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "center",
+            "widthRatio": 0.92,
+            "top": 5059,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Pertanyaan yang Sering Diajukan",
+            "words": 4,
+            "chars": 31,
+            "lines": 2,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "center",
+            "position": "center",
+            "widthRatio": 0.92,
+            "top": 7377,
+            "tag": "h2",
+            "kind": "heading"
+          },
+          {
+            "text": "Diskusikan Proyek Anda Bersama Tim Profesional Kami",
+            "words": 7,
+            "chars": 51,
+            "lines": 2,
+            "size": 24,
+            "vw": 6.2,
+            "font": "Plus Jakarta Sans",
+            "weight": 800,
+            "tracking": -0.025,
+            "leading": 1.25,
+            "upper": false,
+            "italic": false,
+            "mono": false,
+            "align": "left",
+            "position": "center",
+            "widthRatio": 0.92,
+            "top": 8615,
+            "tag": "h2",
+            "kind": "heading"
+          }
+        ],
+        "headingSummary": {
+          "count": 10,
+          "maxLines": 3,
+          "over2Lines": 1,
+          "statements": 0,
+          "centered": 7,
+          "medianWords": 4,
+          "mixedFontHeadings": 0
+        },
+        "type": {
+          "families": [
+            {
+              "family": "Plus Jakarta Sans",
+              "share": 1,
+              "mono": false
+            }
+          ],
+          "familyCount": 1,
+          "sizes": [10, 11, 12, 14, 15, 16, 18, 20, 24, 30],
+          "sizeCount": 10,
+          "notLoaded": [],
+          "body": {
+            "font": "Plus Jakarta Sans",
+            "size": 12,
+            "leading": 1.63,
+            "weight": 400,
+            "tracking": 0,
+            "contrast": 14
+          },
+          "measureChars": 59,
+          "max": {
+            "size": 30,
+            "vw": 7.7,
+            "font": "Plus Jakarta Sans",
+            "text": "Industrial Piping & Integrated Engineeri"
+          },
+          "monoShare": 0,
+          "monoProseShare": 0,
+          "monoFamilies": [],
+          "monoSamples": [],
+          "microLabels": 0,
+          "microLabelShare": 0,
+          "microSamples": [],
+          "upperShare": 0.02,
+          "centerShare": 0.16,
+          "smallText": 174
+        },
+        "eyebrows": [
+          {
+            "text": "PT. Airindo Teknologi Perkasa • Sejak 2013",
+            "above": "Industrial Piping & Integrated Engineeri",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 128
+          },
+          {
+            "text": "Solusi Engineering Terintegrasi",
+            "above": "Layanan Spesialis untuk Kebutuhan Indust",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 2212
+          },
+          {
+            "text": "Mitra & Klien Industri",
+            "above": "Dipercaya Perusahaan Terkemuka Nasional",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 4398
+          },
+          {
+            "text": "Portofolio Rekayasa Lapangan",
+            "above": "Pengalaman Teruji di Proyek Nasional",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 5035
+          },
+          {
+            "text": "Tanya Jawab Teknis",
+            "above": "Pertanyaan yang Sering Diajukan",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 7353
+          },
+          {
+            "text": "Siap Bekerja Sama?",
+            "above": "Diskusikan Proyek Anda Bersama Tim Profe",
+            "upper": false,
+            "tracked": false,
+            "mono": false,
+            "pill": false,
+            "size": 12,
+            "top": 8585
+          }
+        ],
+        "numbered": [],
+        "color": {
+          "bodyBg": "#f8fafc",
+          "bodyBgHsl": {
+            "h": 210,
+            "s": 0.4,
+            "l": 0.98
+          },
+          "dark": false,
+          "sectionBgs": [
+            {
+              "color": "#051733",
+              "top": 64,
+              "hsl": {
+                "h": 217,
+                "s": 0.82,
+                "l": 0.11
+              }
+            },
+            {
+              "color": "#091b38",
+              "top": 606,
+              "hsl": {
+                "h": 217,
+                "s": 0.72,
+                "l": 0.13
+              }
+            },
+            {
+              "color": "#ffffff",
+              "top": 2126,
+              "hsl": {
+                "h": 0,
+                "s": 0,
+                "l": 1
+              }
+            },
+            {
+              "color": "#f1f5f9",
+              "top": 4312,
+              "hsl": {
+                "h": 210,
+                "s": 0.4,
+                "l": 0.96
+              }
+            },
+            {
+              "color": "#031124",
+              "top": 8499,
+              "hsl": {
+                "h": 215,
+                "s": 0.85,
+                "l": 0.08
+              }
+            },
+            {
+              "color": "#051329",
+              "top": 9382,
+              "hsl": {
+                "h": 217,
+                "s": 0.78,
+                "l": 0.09
+              }
+            }
+          ],
+          "textColors": [
+            {
+              "color": "#081b3a",
+              "share": 0.2
+            },
+            {
+              "color": "#45556c",
+              "share": 0.18
+            },
+            {
+              "color": "#62748e",
+              "share": 0.16
+            },
+            {
+              "color": "#4b5563",
+              "share": 0.14
+            },
+            {
+              "color": "#ffffff",
+              "share": 0.07
+            }
+          ],
+          "button": {
+            "bg": "#ffffff",
+            "hsl": {
+              "h": 0,
+              "s": 0,
+              "l": 1
+            },
+            "fg": "#314158"
+          },
+          "lowContrast": []
+        },
+        "buttons": {
+          "count": 22,
+          "inHero": 3,
+          "radius": 8,
+          "height": 30,
+          "withShadow": 0,
+          "withGradient": 0,
+          "mono": 0,
+          "upper": 0,
+          "heroLabels": ["Lihat Proyek Kami", "Tentang Kami", "Mechanical"]
+        },
+        "surfaces": {
+          "shadowStatic": 0,
+          "shadowOverlay": 0,
+          "shadowSamples": [],
+          "gradients": 0,
+          "scrims": 0,
+          "gradientSamples": [],
+          "gradientText": 0,
+          "hairlines": 0,
+          "hairlineSamples": [],
+          "outlinedBoxes": 24,
+          "dashed": 0,
+          "blurred": 0,
+          "roundedBoxes": 24,
+          "boxRadius": 12,
+          "squareMedia": 4,
+          "roundedMedia": 8,
+          "mediaRadius": 12,
+          "textShadow": 0,
+          "cardRows": []
+        },
+        "heroMedia": [
+          {
+            "type": "bg-image",
+            "ratio": 0.96
+          },
+          {
+            "type": "bg-image",
+            "ratio": 0.96
+          },
+          {
+            "type": "bg-image",
+            "ratio": 0.92
+          }
+        ],
+        "nav": {
+          "links": 1,
+          "fixed": true,
+          "height": 64,
+          "floatingPill": false,
+          "blur": false
+        },
+        "fontsLoaded": ["plus jakarta sans"]
+      },
+      "layout": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "pageH": 10145,
+        "margins": {
+          "left": 16,
+          "right": 17
+        },
+        "sections": [
+          {
+            "sel": "section.relative.isolate",
+            "tag": "section",
+            "top": 64,
+            "height": 1328,
+            "words": 110,
+            "media": 1,
+            "middle": 0,
+            "heading": {
+              "text": "Industrial Piping & Integrated Engineering Solutio",
+              "size": 30,
+              "tag": "h1"
+            },
+            "left": 16,
+            "right": 31,
+            "textLeft": 16,
+            "textRight": 31,
+            "fullBleed": true,
+            "footer": false,
+            "hero": true,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.relative.z-10",
+            "tag": "section",
+            "top": 1352,
+            "height": 774,
+            "words": 95,
+            "media": 0,
+            "middle": 0,
+            "heading": {
+              "text": "Tenaga Ahli Bersertifikat",
+              "size": 14,
+              "tag": "h3"
+            },
+            "left": 37,
+            "right": 40,
+            "textLeft": 37,
+            "textRight": 40,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section#layanan.scroll-mt-20.py-20",
+            "tag": "section",
+            "top": 2126,
+            "height": 2185,
+            "words": 196,
+            "media": 4,
+            "middle": 0,
+            "heading": {
+              "text": "Layanan Spesialis untuk Kebutuhan Industri & Energ",
+              "size": 24,
+              "tag": "h2"
+            },
+            "left": 17,
+            "right": 17,
+            "textLeft": 17,
+            "textRight": 17,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.bg-slate-100.py-20",
+            "tag": "section",
+            "top": 4312,
+            "height": 637,
+            "words": 62,
+            "media": 0,
+            "middle": 0,
+            "heading": {
+              "text": "Dipercaya Perusahaan Terkemuka Nasional",
+              "size": 24,
+              "tag": "h2"
+            },
+            "left": 16,
+            "right": 23,
+            "textLeft": 16,
+            "textRight": 23,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section#proyek.scroll-mt-20.py-20",
+            "tag": "section",
+            "top": 4949,
+            "height": 2318,
+            "words": 182,
+            "media": 4,
+            "middle": 0,
+            "heading": {
+              "text": "Pengalaman Teruji di Proyek Nasional",
+              "size": 24,
+              "tag": "h2"
+            },
+            "left": 16,
+            "right": 16,
+            "textLeft": 16,
+            "textRight": 17,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.py-20.md:py-28",
+            "tag": "section",
+            "top": 7267,
+            "height": 1233,
+            "words": 144,
+            "media": 0,
+            "middle": 0,
+            "heading": {
+              "text": "Pertanyaan yang Sering Diajukan",
+              "size": 24,
+              "tag": "h2"
+            },
+            "left": 16,
+            "right": 16,
+            "textLeft": 17,
+            "textRight": 17,
+            "fullBleed": false,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "section.relative.isolate",
+            "tag": "section",
+            "top": 8499,
+            "height": 882,
+            "words": 81,
+            "media": 1,
+            "middle": 0,
+            "heading": {
+              "text": "Diskusikan Proyek Anda Bersama Tim Profesional Kam",
+              "size": 24,
+              "tag": "h2"
+            },
+            "left": 16,
+            "right": 31,
+            "textLeft": 16,
+            "textRight": 31,
+            "fullBleed": true,
+            "footer": false,
+            "hero": false,
+            "continues": true,
+            "pinned": false
+          },
+          {
+            "sel": "footer.bg-[#051329].text-slate-400",
+            "tag": "footer",
+            "top": 9382,
+            "height": 763,
+            "words": 62,
+            "media": 0,
+            "middle": 0,
+            "heading": {
+              "text": "Navigasi",
+              "size": 12,
+              "tag": "h3"
+            },
+            "left": 16,
+            "right": 68,
+            "textLeft": 16,
+            "textRight": 68,
+            "fullBleed": false,
+            "footer": true,
+            "hero": false,
+            "continues": false,
+            "pinned": false
+          }
+        ],
+        "gaps": [],
+        "h1s": [
+          {
+            "text": "Industrial Piping & Integrated Engineering Solutions",
+            "size": 30,
+            "top": 160,
+            "firstScreen": true
+          }
+        ],
+        "edgeText": [],
+        "edges": [
+          {
+            "x": 37,
+            "n": 8
+          },
+          {
+            "x": 16,
+            "n": 6
+          }
+        ],
+        "leftBlocks": 14,
+        "bodySize": 12,
+        "stage": false,
+        "explains": false,
+        "slivers": [],
+        "voidShare": 0,
+        "voidBox": null
+      },
+      "app": null,
+      "consoleErrors": []
+    }
+  ],
+  "findings": [
+    {
+      "level": "FAIL",
+      "id": "headline-lines",
+      "width": 1440,
+      "message": "1 headline(s) wrap past two lines at 1440px: \"Industrial Piping & Integrated Engineering Solut\" → 3 lines (6 words, 48px)",
+      "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+    },
+    {
+      "level": "FAIL",
+      "id": "eyebrow",
+      "width": 1440,
+      "message": "6 eyebrow/kicker label(s) above headings: \"PT. Airindo Teknologi Perkasa • Sejak 2013\" above \"Industrial Piping & Integrated Engineeri\"; \"Solusi Engineering Terintegrasi\" above \"Layanan Spesialis untuk Kebutuhan Indust\"; \"Mitra & Klien Industri\" above \"Dipercaya Perusahaan Terkemuka Nasional\"; \"Portofolio Rekayasa Lapangan\" above \"Pengalaman Teruji di Proyek Nasional\"; \"Tanya Jawab Teknis\" above \"Pertanyaan yang Sering Diajukan\"",
+      "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+      "alsoAt": [768, 390]
+    },
+    {
+      "level": "FAIL",
+      "id": "outlined-box",
+      "width": 1440,
+      "message": "24 boxes drawn with a 1px outline.",
+      "fix": "Define a surface by its fill (one tone step from the page) or leave the content unboxed.",
+      "alsoAt": [768, 390]
+    },
+    {
+      "level": "FAIL",
+      "id": "icon-cards",
+      "width": 1440,
+      "message": "2 row(s) of identical cards each topped with a small icon (4, 4 cards).",
+      "fix": "Replace with one composed section from the direction: a narrative split, a list set in large type, or real imagery per item.",
+      "alsoAt": [768]
+    },
+    {
+      "level": "WARN",
+      "id": "size-count",
+      "width": 1440,
+      "message": "11 different font sizes (10, 11, 12, 13, 14, 16, 18, 20, 30, 36, 48).",
+      "fix": "A page needs about five: display, heading, lead, body, small.",
+      "alsoAt": [390]
+    },
+    {
+      "level": "FAIL",
+      "id": "body-size",
+      "width": 1440,
+      "message": "Body text is 12px (the size most of the running text is set in).",
+      "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step.",
+      "alsoAt": [768, 390]
+    },
+    {
+      "level": "WARN",
+      "id": "no-footage",
+      "width": 1440,
+      "message": "No video anywhere on the page.",
+      "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+    },
+    {
+      "level": "WARN",
+      "id": "measure",
+      "width": 1440,
+      "message": "Longest paragraph runs about 138 characters per line.",
+      "fix": "Cap paragraphs at 45–75 characters (max-width: 60ch).",
+      "alsoAt": [768]
+    },
+    {
+      "level": "FAIL",
+      "id": "small-text",
+      "width": 1440,
+      "message": "178 text blocks under 13px.",
+      "fix": "Nothing meant to be read goes below 13px.",
+      "alsoAt": [768, 390]
+    },
+    {
+      "level": "WARN",
+      "id": "font-not-dealt",
+      "width": 1440,
+      "message": "The sheet dealt Switzer and Switzer, but the page renders Plus Jakarta Sans.",
+      "fix": "Load the dealt face (the link on the sheet) and put it first in font-family. A build that falls back to a default face lands on the default look."
+    },
+    {
+      "level": "WARN",
+      "id": "off-centre",
+      "width": 1440,
+      "message": "The margins differ: 132px on the left, 149px on the right, at 1440px.",
+      "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page."
+    },
+    {
+      "level": "FAIL",
+      "id": "still-page",
+      "width": 1440,
+      "message": "Only 6 element(s) moved while the page loaded and scrolled.",
+      "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+    },
+    {
+      "level": "FAIL",
+      "id": "headline-lines",
+      "width": 390,
+      "message": "1 headline(s) wrap past two lines at 390px: \"Industrial Piping & Integrated Engineering Solut\" → 3 lines (6 words, 30px)",
+      "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+    },
+    {
+      "level": "FAIL",
+      "id": "reduced-hidden",
+      "width": 1440,
+      "message": "With reduced motion requested, 4 text block(s) on the first screen stay invisible: \"Mechanical & Piping\", \"Electrical & Substation\", \"Process Automation & SCADA\", \"Power Plant Equipments\"",
+      "fix": "Put every hidden starting state inside @media (prefers-reduced-motion: no-preference); the reduced page is the finished page (references/motion.md §8)."
+    }
+  ],
+  "images": [
+    {
+      "viewport": "desktop",
+      "width": 1440,
+      "fold": "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\desktop-fold.jpg",
+      "pages": [
+        "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\desktop-page-01.jpg",
+        "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\desktop-page-02.jpg"
+      ],
+      "film": []
+    },
+    {
+      "viewport": "tablet",
+      "width": 768,
+      "fold": "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\tablet-fold.jpg",
+      "pages": [
+        "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\tablet-page-01.jpg",
+        "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\tablet-page-02.jpg"
+      ],
+      "film": []
+    },
+    {
+      "viewport": "mobile",
+      "width": 390,
+      "fold": "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\mobile-fold.jpg",
+      "pages": [
+        "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\mobile-page-01.jpg",
+        "D:\\projectCompanyProfile\\airindo-construction\\.taste-skill\\inspect\\mobile-page-02.jpg"
+      ],
+      "film": []
+    }
+  ]
+}
