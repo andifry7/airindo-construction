@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   MapPin,
   ShieldCheck,
@@ -31,13 +30,13 @@ const milestones = [
   },
   {
     year: "2023",
-    title: "Fasilitas Candi Semarang",
-    desc: "Perluasan workshop perakitan panel elektrikal dan machining di Jawa Tengah.",
+    title: "Modernisasi & Otomasi",
+    desc: "Peningkatan kapabilitas fabrikasi presisi, perakitan panel elektrikal, dan sistem otomasi industri.",
   },
 ];
 
 export default function CompanyHistory() {
-  const [selectedWorkshop, setSelectedWorkshop] = useState(0);
+  const workshop = workshops[0];
 
   return (
     <section className="py-16 md:py-24 bg-white">
@@ -99,7 +98,7 @@ export default function CompanyHistory() {
                 Mandiri
               </h2>
               <span className="text-xs font-semibold text-brand bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
-                2 Lokasi Strategis
+                Sentul, Bogor
               </span>
             </div>
 
@@ -108,41 +107,15 @@ export default function CompanyHistory() {
               crane overhead, dan area pengujian tekanan tinggi.
             </p>
 
-            {/* Workshop Switcher Buttons */}
-            <div className="mt-5 grid grid-cols-2 gap-2">
-              {workshops.map((w, idx) => {
-                const active = selectedWorkshop === idx;
-                return (
-                  <button
-                    key={w.name}
-                    type="button"
-                    onClick={() => setSelectedWorkshop(idx)}
-                    className={`rounded-xl p-3 text-left transition-all ${
-                      active
-                        ? "bg-brand text-white shadow-md shadow-brand/20 ring-1 ring-brand"
-                        : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-100"
-                    }`}
-                  >
-                    <span className="text-[10px] font-bold uppercase block opacity-80">
-                      Fasilitas {idx + 1}
-                    </span>
-                    <strong className="text-xs block mt-0.5">
-                      {w.name.split(" ")[0]} {w.name.split(" ")[1]}
-                    </strong>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Active Workshop Card */}
-            <div className="mt-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+            {/* Workshop Detail Card */}
+            <div className="mt-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-start gap-2 text-xs text-brand-navy font-bold">
                   <MapPin size={16} className="text-red-500 shrink-0 mt-0.5" />
-                  <span>{workshops[selectedWorkshop].name}</span>
+                  <span>{workshop.name}</span>
                 </div>
                 <a
-                  href={workshops[selectedWorkshop].mapsUrl}
+                  href={workshop.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 rounded bg-blue-50 px-2 py-0.5 text-[10px] font-bold text-brand hover:bg-blue-100"
@@ -151,14 +124,14 @@ export default function CompanyHistory() {
                 </a>
               </div>
               <p className="mt-1 text-xs text-slate-600 pl-6">
-                {workshops[selectedWorkshop].location}
+                {workshop.location}
               </p>
               <div className="mt-4 border-t border-slate-100 pt-3 pl-6">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-brand block mb-1">
                   Kapabilitas &amp; Alat Utama:
                 </span>
                 <p className="text-xs text-brand-muted leading-relaxed">
-                  {workshops[selectedWorkshop].features}
+                  {workshop.features}
                 </p>
               </div>
             </div>
@@ -166,7 +139,7 @@ export default function CompanyHistory() {
             {/* Google Map Embed for Workshop */}
             <div className="mt-4">
               <LocationMap
-                locations={[workshops[selectedWorkshop]]}
+                locations={[workshop]}
                 height="220px"
               />
             </div>

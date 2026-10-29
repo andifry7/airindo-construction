@@ -56,24 +56,10 @@ Pesan: ${formData.message || "Ingin konsultasi proyek"}`;
       type: "office",
       features: "Administrasi, Manajemen Rekayasa Teknik & Estimasi Komersial",
     },
-    {
-      id: "workshop-sentul",
-      name: workshops[0].name,
-      location: workshops[0].location,
-      mapQuery: workshops[0].mapQuery,
-      mapsUrl: workshops[0].mapsUrl,
+    ...workshops.map((w) => ({
+      ...w,
       type: "workshop",
-      features: workshops[0].features,
-    },
-    {
-      id: "workshop-candi",
-      name: workshops[1].name,
-      location: workshops[1].location,
-      mapQuery: workshops[1].mapQuery,
-      mapsUrl: workshops[1].mapsUrl,
-      type: "workshop",
-      features: workshops[1].features,
-    },
+    })),
   ];
 
   return (
@@ -164,7 +150,7 @@ Pesan: ${formData.message || "Ingin konsultasi proyek"}`;
                     <Building size={16} className="text-brand" /> Fasilitas Workshop Mandiri
                   </h3>
                   <span className="text-[11px] font-semibold text-brand bg-blue-50 px-2 py-0.5 rounded-full">
-                    2 Lokasi
+                    Sentul, Bogor
                   </span>
                 </div>
                 <div className="mt-4 space-y-3.5 text-xs">
@@ -330,7 +316,7 @@ Pesan: ${formData.message || "Ingin konsultasi proyek"}`;
             <SectionHeading
               eyebrow="Peta Lokasi"
               title="Poin Alamat Kantor &amp; Workshop"
-              description="Titik alamat resmi Kantor Pusat di Jakarta Pusat serta fasilitas Workshop di Sentul dan Semarang."
+              description="Titik alamat resmi Kantor Pusat di Jakarta Pusat serta fasilitas Workshop Fabrikasi di Sentul, Bogor."
             />
 
             <div className="mt-8">

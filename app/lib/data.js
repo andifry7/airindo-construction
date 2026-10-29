@@ -84,9 +84,9 @@ export const companyStats = [
     detail: "Mekanikal, perpipaan & otomasi di seluruh Indonesia",
   },
   {
-    value: "2",
+    value: "1",
     label: "Fasilitas Workshop",
-    detail: "Sentul Bogor & Kawasan Industri Candi Semarang",
+    detail: "Sentul Bogor, Jawa Barat",
   },
   {
     value: "100%",
@@ -465,39 +465,30 @@ export const ctaPoints = [
 export const aboutValues = [
   {
     icon: TrendingUp,
-    title: "Pertumbuhan Berkelanjutan",
-    text: "Menjadi mitra rekayasa teknik terdepan yang berkontribusi nyata pada ketahanan energi dan efisiensi industri manufaktur di Indonesia.",
+    title: "Pertumbuhan Unggul",
+    text: "Menjadi perusahaan dengan pertumbuhan berkelanjutan melalui kualitas kerja, pelayanan profesional, dan hubungan jangka panjang dengan pelanggan.",
   },
   {
     icon: Lightbulb,
-    title: "Inovasi & Presisi Teknis",
-    text: "Mengintegrasikan teknologi fabrikasi modern, otomasi digital, serta metodologi engineering berstandar internasional dalam setiap tahapan proyek.",
+    title: "Solusi & Inovasi",
+    text: "Menghadirkan solusi melalui inovasi, teknologi, dan keahlian teknis untuk memenuhi kebutuhan serta tantangan pelanggan.",
   },
   {
     icon: Users,
-    title: "Keselamatan Kerja (K3) Prioritas Utama",
-    text: "Menjamin keselamatan seluruh personel dengan penerapan Zero Accident Policy dan kepatuhan penuh terhadap standar regulasi ketenagakerjaan.",
+    title: "Kesejahteraan Bersama",
+    text: "Mengedepankan kualitas serta kesejahteraan bersama bagi karyawan dan seluruh pihak yang menjadi bagian dari pertumbuhan perusahaan.",
   },
 ];
 
 export const workshops = [
   {
     id: "sentul",
-    name: "Workshop Sentul (Utama)",
+    name: "Workshop Sentul Bogor",
     location: "Kawasan Sirkuit Sentul, Bogor, Jawa Barat",
     mapQuery: "Sirkuit Sentul Bogor",
     mapsUrl: "https://maps.google.com/?q=Sentul+International+Circuit+Bogor",
     features:
-      "Fasilitas Fabrikasi Pipa Besar, Bending, Sandblasting, dan Area Assembly Spool",
-  },
-  {
-    id: "candi",
-    name: "Workshop Candi Semarang",
-    location: "Kawasan Industri Candi, Semarang, Jawa Tengah",
-    mapQuery: "Kawasan Industri Candi Semarang",
-    mapsUrl: "https://maps.google.com/?q=Kawasan+Industri+Candi+Semarang",
-    features:
-      "Fasilitas Machining Presisi, Fabrikasi Panel Listrik, dan Perakitan Sistem Otomasi",
+      "Fasilitas Fabrikasi Pipa Besar, Bending, Sandblasting, Machining Presisi & Area Assembly Spool",
   },
 ];
 

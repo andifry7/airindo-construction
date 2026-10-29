@@ -96,7 +96,7 @@ export default function Services({ onOpenQuote }) {
         <SectionHeading
           eyebrow="Solusi Engineering Terintegrasi"
           title="Layanan Spesialis untuk Kebutuhan Industri & Energi"
-          description="Didukung fasilitas fabrikasi workshop mandiri di Sentul & Semarang, insinyur bersertifikasi, serta kepatuhan standar mutu ASME, API, dan IEC."
+          description="Didukung fasilitas fabrikasi workshop mandiri di Sentul Bogor, insinyur bersertifikasi, serta kepatuhan standar mutu ASME, API, dan IEC."
         />
 
         {/* Category Pills Filter */}
