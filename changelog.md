@@ -13,7 +13,7 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ### Docs — 2 November 2026 (sesi lanjutan)
 - **Changed** `prd.md`: mencatat 5 keputusan client — storage **Cloudinary** dipilih; auth berupa **form login di dalam `/admin-portal`** (tanpa rute `/login`); **layanan cukup edit 4 pilar** (tanpa tambah/hapus); **hosting ditunda**, kerja di localhost; **PostgreSQL lokal via Podman**.
-- **Changed** `prd.md`: fitur F6 dari "CRUD Layanan" → "Edit Layanan"; ADR-04 dan seksi Deployment disesuaikan; pertanyaan terbuka menyusut dari 10 menjadi 5.
+- **Changed** `prd.md`: fitur F6 dari "CRUD Layanan" → "Edit Layanan"; endpoint `/admin/services` disesuaikan (hanya GET + PATCH, tanpa create/delete); ADR-04 dan seksi Deployment disesuaikan; pertanyaan terbuka menyusut dari 10 menjadi 5.
 - **Changed** `plan.md`: Fase 1 diubah dari "halaman `/login`" menjadi "form login di `/admin-portal`"; Fase 0 mencatat status Podman.
 - **Note** terblokir: `podman machine start` membutuhkan `wsl.exe` yang diblokir kebijakan sandbox agent — perlu dijalankan user dari terminal sendiri.
 

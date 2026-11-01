@@ -253,8 +253,8 @@ Prefiks: `/api/v1`
 | PATCH | `/admin/projects/:id/featured` | toggle unggulan |
 | GET/POST | `/admin/clients` | list + create |
 | PATCH/DELETE | `/admin/clients/:id` | update + hapus |
-| GET/POST | `/admin/services` | list + create |
-| PATCH/DELETE | `/admin/services/:id` | update + hapus |
+| GET | `/admin/services` | list (4 pilar) |
+| PATCH | `/admin/services/:id` | update — **tanpa create/delete** (keputusan client) |
 | GET/PUT | `/admin/company` | profil + statistik |
 | GET/PATCH | `/admin/leads`, `/admin/leads/:id` | daftar + ubah status |
 | POST/DELETE | `/admin/media`, `/admin/media/:id` | upload + hapus |
