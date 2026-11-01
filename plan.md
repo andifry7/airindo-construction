@@ -68,29 +68,33 @@ chore: setup eslint backend
 - [x] Tulis `changelog.md`
 - [x] Tulis aturan agent di `AGENTS.md`
 - [x] Push `development` & `backend-zacky` ke origin
-- [ ] Siapkan PostgreSQL lokal
+- [~] Siapkan PostgreSQL lokal — **via Podman** (user memakai Podman CLI, bukan Docker)
+  - [x] Terdeteksi: `podman 6.1.1`, mesin `podman-machine-default` (WSL), socket `127.0.0.1:61127`
+  - [!] **Terblokir:** VM Podman belum menyala, dan `podman machine start` butuh `wsl.exe` yang diblokir sandbox agent. User perlu menjalankan `podman machine start` dari terminal sendiri.
+  - [ ] `podman run` container `postgres:16` (port 5432, volume persisten)
+  - [ ] Buat database `airindo_construction`
+  - [ ] Verifikasi koneksi + catat `DATABASE_URL`
 - [ ] Siapkan akun Cloudinary + kredensial
 
 **DoD:** dua branch ada di origin, dokumen terbaca, PostgreSQL bisa diakses dari mesin lokal.
 
 ---
 
-## Fase 1 — Frontend: halaman login
+## Fase 1 — Frontend: form login di `/admin-portal`
 
 **Branch:** `development`
-**Tujuan:** mengganti PIN gate dengan login username + password, tanpa halaman register.
+**Tujuan:** mengganti PIN gate dengan login username + password, **di dalam `/admin-portal`** (tanpa rute `/login` terpisah, tanpa halaman register).
 
-- [ ] Buat halaman `/login` bergaya konsisten dengan situs (kartu putih, latar gradien navy)
-- [ ] Form: username + password, tombol "Masuk", state loading & error
-- [ ] Hapus/retire `SecurityGate.jsx` (atau ubah jadi form login)
-- [ ] Proteksi `/admin-portal` — redirect ke `/login` bila belum ada sesi
-- [ ] Simpan state auth lewat API (`/auth/me`), bukan state React semata
-- [ ] `CompanySettings`: bagian "Ganti PIN" → "Ganti Password"
-- [ ] Hapus `localStorage` key `airindo_admin_pin` beserta logikanya
-- [ ] Uji: login benar → masuk; login salah → pesan error; logout → kembali ke `/login`
+- [ ] Ubah `SecurityGate.jsx` menjadi form login: field **username** + **password**, tombol "Masuk", state loading & error
+- [ ] Pertahankan gaya visual yang ada (kartu putih, latar gradien navy, ikon kunci)
+- [ ] `/admin-portal` menampilkan form login bila belum ada sesi; menampilkan panel bila sesi valid
+- [ ] State auth dari API (`/auth/me`), bukan state React semata
+- [ ] `CompanySettings`: bagian "Ganti PIN" → "Ganti Password" (current + new + confirm)
+- [ ] Hapus `localStorage` key `airindo_admin_pin` beserta seluruh logikanya
+- [ ] Uji: login benar → panel; login salah → pesan error; logout → kembali ke form
 
 **DoD:** tidak ada lagi referensi PIN di kode; login berfungsi terhadap backend; build & lint bersih.
-**Catatan:** fase ini butuh endpoint auth dari Fase 3, jadi UI bisa dibuat lebih dulu dengan mock, lalu disambungkan.
+**Catatan:** fase ini butuh endpoint auth dari Fase 3, jadi UI dibuat lebih dulu dengan mock, lalu disambungkan.
 
 ---
 

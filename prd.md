@@ -67,7 +67,7 @@ Hasil audit kode + observasi runtime (2 November 2026):
 | F3 | Ganti password | Wajib | Menggantikan "Ganti PIN" di CompanySettings |
 | F4 | CRUD Proyek | Wajib | + toggle `featured` |
 | F5 | CRUD Klien (logo + sektor) | Wajib | Ganti key index → `id` |
-| F6 | CRUD Layanan | Wajib | Naik dari "edit-only" jadi penuh |
+| F6 | Edit Layanan | Wajib | Cukup 4 pilar yang ada — tanpa tambah/hapus (keputusan client) |
 | F7 | Kelola Profil Perusahaan + Statistik | Wajib | Nomor WA, alamat, 4 counter |
 | F8 | Upload media (gambar) | Wajib | Cloudinary, maks 5MB |
 | F9 | Dashboard ringkasan | Wajib | Hitungan dari DB, bukan state lokal |
@@ -165,7 +165,7 @@ backend/
 **Konsekuensi:** `noImplicitAny`, `strictNullChecks` aktif — DTO wajib didefinisikan.
 
 ### ADR-04 — Storage: Cloudinary (rekomendasi), dengan adapter
-**Keputusan:** Cloudinary untuk v1, dibungkus `StorageProvider` interface.
+**Keputusan:** Cloudinary untuk v1 (disetujui client 2 November 2026), dibungkus `StorageProvider` interface.
 **Alasan:**
 1. Client hosting di Hostinger — MinIO butuh VPS + daemon tambahan + disk + backup + TLS. Beban operasional jatuh ke client.
 2. Cloudinary memberi transformasi URL (`f_auto,q_auto,w_800`) → otomatis WebP/AVIF + resize. Ini sekaligus menyelesaikan masalah campur `.jpg/.jpeg/.webp` yang sekarang ada.
@@ -292,7 +292,9 @@ Prefiks: `/api/v1`
 
 ## 13. Deployment
 
-- Client menggunakan **Hostinger**. Perlu dikonfirmasi: VPS atau shared hosting.
+- **Ditunda.** Paket Hostinger belum diketahui client. Pengembangan dilakukan di `localhost`; penyesuaian deploy dilakukan setelah client menjawab.
+- Jika ternyata **shared hosting**: PostgreSQL tidak tersedia (hanya MySQL) → perlu VPS atau Postgres terkelola.
+- Jika **VPS**: semua kebutuhan terpenuhi (Node, PostgreSQL, Nginx, PM2).
 - Kebutuhan minimum: Node.js 22, PostgreSQL 15+, Nginx, PM2 (atau systemd), sertifikat TLS.
 - Env backend: `DATABASE_URL`, `SESSION_SECRET`, `PORT`, `NODE_ENV`, `CORS_ORIGIN`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `REVALIDATE_URL`, `REVALIDATE_SECRET`.
 - Env frontend: `NEXT_PUBLIC_API_BASE_URL` (atau path relatif `/api`), `REVALIDATE_SECRET`.
@@ -314,31 +316,29 @@ Prefiks: `/api/v1`
 
 ---
 
-## 15. Keputusan dari client (2 November 2026)
+## 15. Keputusan dari client
 
-| Topik | Keputusan |
-|---|---|
-| Modal RFQ yang tidak bisa dibuka | **Bukan masalah.** Client/pengunjung memang langsung menghubungi via WhatsApp. Backend RFQ tidak dibangun; WhatsApp tetap kanal utama. |
-| Isolasi data admin → publik | **Disetujui untuk diperbaiki** (ini inti pekerjaan backend). |
-| Gambar/log klien rusak | **Akan dibuat fungsi upload** agar foto bisa diunggah ulang kapan saja. |
-| Auth | PIN dihapus, diganti **halaman login username + password**. Tanpa halaman register. Satu akun admin via **seeder**: `admin-airindo` / `airindo123123`. |
-| Database | **Wajib PostgreSQL**, lokal dulu. Deploy = urusan client. |
-| Backend | **Node.js + Express + TypeScript**, arsitektur **Modular Monolith**. |
-| Git | `master` / `development` / `backend-zacky`. Area kerja backend di `backend-zacky`. |
-| Hosting | Client memakai **Hostinger**. |
+| Topik | Keputusan | Tanggal |
+|---|---|---|
+| Modal RFQ yang tidak bisa dibuka | **Bukan masalah.** Client/pengunjung memang langsung menghubungi via WhatsApp. Backend RFQ tidak dibangun; WhatsApp tetap kanal utama. | 2 Nov 2026 |
+| Isolasi data admin → publik | **Disetujui untuk diperbaiki** (inti pekerjaan backend). | 2 Nov 2026 |
+| Gambar/logo klien rusak | **Dibuat fungsi upload** agar foto bisa diunggah ulang kapan saja. | 2 Nov 2026 |
+| Auth | PIN dihapus, diganti **form login username + password di dalam `/admin-portal`** — tanpa halaman register, tanpa rute `/login` terpisah. Satu akun admin via **seeder**: `admin-airindo` / `airindo123123`. | 2 Nov 2026 |
+| Database | **Wajib PostgreSQL**, lokal dulu. Deploy = urusan client. | 2 Nov 2026 |
+| Backend | **Node.js + Express + TypeScript**, arsitektur **Modular Monolith**. | 2 Nov 2026 |
+| Git | `master` / `development` / `backend-zacky`. Area kerja backend di `backend-zacky`. | 2 Nov 2026 |
+| Storage gambar | **Cloudinary** (dipilih, bukan MinIO). | 2 Nov 2026 |
+| Layanan | **Cukup edit 4 pilar** yang ada — tidak perlu tambah/hapus. Scope usaha client hanya 4 pilar. | 2 Nov 2026 |
+| Hosting | **Ditunda.** Paket Hostinger belum diketahui; kerjakan di localhost dulu, sesuaikan setelah client menjawab. | 2 Nov 2026 |
+| PostgreSQL lokal | **Podman container** (user memakai Podman CLI, bukan Docker). | 2 Nov 2026 |
 
 ## 15b. Pertanyaan yang masih terbuka
 
-1. **Paket Hostinger**: VPS atau shared hosting? — *blocking*, menentukan apakah PostgreSQL & MinIO mungkin.
-2. **Storage final:** Cloudinary (rekomendasi) atau tetap MinIO self-hosted?
-3. **Mekanisme auth:** session cookie (rekomendasi) atau JWT?
-4. **Lead:** tetap disimpan ke DB, atau murni WhatsApp tanpa penyimpanan?
-5. **Section Estimator** yang tidak pernah dirender: dihapus atau dibiarkan?
-6. **Layanan:** perlu CRUD penuh (tambah/hapus) atau cukup edit seperti sekarang?
-7. **Cakupan upload:** proyek, logo klien, gambar layanan — apakah hero slideshow & logo perusahaan juga?
-8. **Rute login:** `/login` terpisah + `/admin` diproteksi, atau tetap `/admin-portal` dengan gate di dalamnya?
-9. **FAQ/Workshop/Highlights** masuk v1 atau v1.1?
-10. **PostgreSQL lokal:** install native di Windows, atau portable binaries?
+1. **Mekanisme auth:** session cookie (rekomendasi) atau JWT? — *belum dijawab; sementara jalan dengan rekomendasi.*
+2. **Lead:** tetap disimpan ke DB, atau murni WhatsApp tanpa penyimpanan?
+3. **Section Estimator** yang tidak pernah dirender: dihapus atau dibiarkan?
+4. **Cakupan upload:** proyek, logo klien, gambar layanan — apakah hero slideshow & logo perusahaan juga?
+5. **FAQ/Workshop/Highlights** masuk v1 atau v1.1?
 
 ---
 
