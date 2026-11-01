@@ -67,7 +67,7 @@ chore: setup eslint backend
 - [x] Tulis `plan.md`
 - [x] Tulis `changelog.md`
 - [x] Tulis aturan agent di `AGENTS.md`
-- [ ] Push `development` & `backend-zacky` ke origin (butuh autentikasi GitHub)
+- [x] Push `development` & `backend-zacky` ke origin
 - [ ] Siapkan PostgreSQL lokal
 - [ ] Siapkan akun Cloudinary + kredensial
 

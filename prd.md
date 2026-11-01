@@ -314,18 +314,31 @@ Prefiks: `/api/v1`
 
 ---
 
-## 15. Pertanyaan terbuka
+## 15. Keputusan dari client (2 November 2026)
 
-1. **Paket Hostinger** yang dipakai client: VPS atau shared hosting? (menentukan PostgreSQL & MinIO)
+| Topik | Keputusan |
+|---|---|
+| Modal RFQ yang tidak bisa dibuka | **Bukan masalah.** Client/pengunjung memang langsung menghubungi via WhatsApp. Backend RFQ tidak dibangun; WhatsApp tetap kanal utama. |
+| Isolasi data admin → publik | **Disetujui untuk diperbaiki** (ini inti pekerjaan backend). |
+| Gambar/log klien rusak | **Akan dibuat fungsi upload** agar foto bisa diunggah ulang kapan saja. |
+| Auth | PIN dihapus, diganti **halaman login username + password**. Tanpa halaman register. Satu akun admin via **seeder**: `admin-airindo` / `airindo123123`. |
+| Database | **Wajib PostgreSQL**, lokal dulu. Deploy = urusan client. |
+| Backend | **Node.js + Express + TypeScript**, arsitektur **Modular Monolith**. |
+| Git | `master` / `development` / `backend-zacky`. Area kerja backend di `backend-zacky`. |
+| Hosting | Client memakai **Hostinger**. |
+
+## 15b. Pertanyaan yang masih terbuka
+
+1. **Paket Hostinger**: VPS atau shared hosting? — *blocking*, menentukan apakah PostgreSQL & MinIO mungkin.
 2. **Storage final:** Cloudinary (rekomendasi) atau tetap MinIO self-hosted?
 3. **Mekanisme auth:** session cookie (rekomendasi) atau JWT?
 4. **Lead:** tetap disimpan ke DB, atau murni WhatsApp tanpa penyimpanan?
-5. **Modal RFQ & section Estimator** yang mati: dihapus, atau dipertahankan sebagai UI saja?
+5. **Section Estimator** yang tidak pernah dirender: dihapus atau dibiarkan?
 6. **Layanan:** perlu CRUD penuh (tambah/hapus) atau cukup edit seperti sekarang?
 7. **Cakupan upload:** proyek, logo klien, gambar layanan — apakah hero slideshow & logo perusahaan juga?
 8. **Rute login:** `/login` terpisah + `/admin` diproteksi, atau tetap `/admin-portal` dengan gate di dalamnya?
 9. **FAQ/Workshop/Highlights** masuk v1 atau v1.1?
-10. **PostgreSQL lokal:** install native di Windows, atau saya siapkan portable/Docker?
+10. **PostgreSQL lokal:** install native di Windows, atau portable binaries?
 
 ---
 

@@ -21,7 +21,7 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 - **Added** branch `development` (integrasi, area kerja frontend).
 - **Added** branch `backend-zacky` (area kerja backend).
 - **Changed** branch aktif dari `master` ke `development`.
-- **Note** push ke `origin` belum dilakukan — mesin ini belum terautentikasi ke GitHub.
+- **Pushed** kedua branch ke `origin` (kredensial GitHub sudah tersedia di mesin ini).
 
 ### Observasi — 1 November 2026
 - **Added** `node_modules` (364 paket) via `npm install`; `package-lock.json` tidak berubah.
