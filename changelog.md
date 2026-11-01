@@ -1,0 +1,47 @@
+# Changelog
+
+Semua perubahan penting pada proyek ini dicatat di sini.
+Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.1.0/), versi mengikuti [Semantic Versioning](https://semver.org/lang/id/).
+
+**Tujuan file ini:** jejak progres agar sesi bisa dilanjutkan oleh siapa pun — termasuk AI agent lain — tanpa kehilangan konteks. Setiap tugas yang selesai **wajib** menambah satu entri.
+
+Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan bug), `Removed` (dihapus), `Security` (keamanan), `Docs` (dokumentasi).
+
+---
+
+## [Unreleased]
+
+### Docs — 2 November 2026
+- **Added** `prd.md`: konteks produk, hasil audit frontend, arsitektur target, tech stack, 8 ADR (PostgreSQL, modular monolith, Express+TS, Cloudinary, session cookie, topologi deploy, cache/revalidasi, git workflow), draft model data, rancangan API, keamanan, risiko, dan 10 pertanyaan terbuka.
+- **Added** `plan.md`: 9 fase kerja (F0–F8), aturan branch & commit, Definition of Done, dan log progres.
+- **Added** `changelog.md`: file ini.
+- **Changed** `AGENTS.md`: menambahkan aturan kerja proyek (commit wajib, changelog wajib, alur branch, larangan menyentuh folder lain) di atas blok aturan Next.js yang sudah ada.
+
+### Repo — 2 November 2026
+- **Added** branch `development` (integrasi, area kerja frontend).
+- **Added** branch `backend-zacky` (area kerja backend).
+- **Changed** branch aktif dari `master` ke `development`.
+- **Note** push ke `origin` belum dilakukan — mesin ini belum terautentikasi ke GitHub.
+
+### Observasi — 1 November 2026
+- **Added** `node_modules` (364 paket) via `npm install`; `package-lock.json` tidak berubah.
+- **Verified** `npm run dev` siap dalam 4,7 detik; 7 rute balas 200, `/admin` 307 → `/admin-portal`.
+- **Verified** `npm run build` sukses (compile 39,3 detik); 8/8 rute `○ Static`.
+- **Verified** `next start` produksi normal.
+- **Fixed** tidak ada — sesi ini murni observasi, tidak mengubah kode produk.
+
+### Temuan audit (belum diperbaiki)
+Dicatat agar tidak hilang; perbaikannya dijadwalkan di `plan.md`.
+
+- **Bug** panel admin menulis ke `localStorage` sementara halaman publik membaca `import` statis → perubahan admin tidak pernah tampil. Terbukti: proyek baru tersimpan (5 item) tetapi `/proyek` tetap 4 kartu, bahkan di konteks browser yang sama.
+- **Bug** 26/26 logo klien di panel admin kosong — kode meminta `.png`, file aslinya `.webp` (404).
+- **Bug** `QuickQuoteModal` tidak bisa dibuka: tiga pemanggil `onOpenQuote` semuanya jalur mati (`onConsult` tidak pernah dipanggil di `ProjectDetailModal`/`ServiceDetailModal`).
+- **Bug** `featured` tidak dibaca `Projects.jsx` → toggle "tampilkan di beranda" tidak berefek.
+- **Security** auth PIN `2013` di-hardcode di client, diverifikasi di browser, disimpan di `localStorage`.
+- **Security** upload gambar via `FileReader` → base64 → `localStorage` (kuota ~5MB).
+- **Removed (usulan)** `ProjectEstimator.jsx` (343 baris) tidak dirender di halaman mana pun; `estimatorData` di `data.js` nol referensi.
+- **Note** `services.icon` adalah komponen React — tidak bisa dikirim lewat JSON; perlu icon registry berbasis string.
+- **Note** `clients` tidak punya `id`; update/hapus memakai index array.
+- **Note** 9 file logo orphan di `public/images/clients/` (typo: `exxon.webp`, `haliburton.webp`, `dssp power.webp`, `indonesia power.webp`, `tiga roda.webp`, dll).
+- **Note** ESLint: 3 error — semuanya di folder tooling `.agents/`, kode aplikasi 0 error / 49 warning.
+- **Note** error dev-only `/admin`: `Could not validate "instant"` (NEXT_REDIRECT + `cacheComponents`); tidak muncul di produksi.

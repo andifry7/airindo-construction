@@ -1,3 +1,103 @@
+# AGENTS.md — Aturan Kerja Proyek Airindo Construction
+
+Dokumen ini adalah **kontrak kerja** untuk semua AI agent dan developer yang menyentuh repo ini.
+
+## 0. Baca dulu, sebelum menulis kode
+
+Urutan wajib:
+
+1. `prd.md` — konteks produk, keputusan teknis (ADR), model data, rancangan API.
+2. `plan.md` — posisi pekerjaan saat ini dan fase berikutnya.
+3. `changelog.md` — apa yang sudah berubah dan mengapa.
+4. Baru buka kode.
+
+Jika `plan.md` dan kode berbeda, **percayai kode**, lalu perbaiki `plan.md`.
+
+## 1. Konteks singkat
+
+- Produk: website company profile PT. Airindo Teknologi Perkasa + panel admin (CMS).
+- Frontend: Next.js 16 App Router, React 19, Tailwind v4 — **JavaScript/JSX** (`app/`).
+- Backend: Node.js + **Express + TypeScript** — **Modular Monolith** (`backend/`).
+- Database: **PostgreSQL** via Prisma.
+- Storage gambar: **Cloudinary** (di balik adapter `StorageProvider`).
+- Pembagian peran: **Alfin** = frontend, **Zacky** = backend.
+
+## 2. Aturan wajib (tidak bisa dinegosiasi)
+
+1. **Wajib commit setiap kali satu tugas selesai.** Jangan menumpuk pekerjaan tanpa commit.
+2. **Wajib mencatat perubahan di `changelog.md`** pada commit yang sama. Format: kategori (`Added`/`Changed`/`Fixed`/`Removed`/`Security`/`Docs`) + satu baris penjelasan.
+3. **Wajib memperbarui checkbox di `plan.md`** saat task selesai atau terblokir.
+4. **Wajib memakai Conventional Commits:** `feat(scope): ...`, `fix(scope): ...`, `docs: ...`, `chore: ...`, `refactor: ...`.
+5. **Wajib mengikuti alur branch:** `backend-zacky` → `development` → `master`. Jangan commit langsung ke `master`.
+6. **Dilarang meng-commit secret.** Tidak ada `.env`, kredensial, API key, atau token di repo. Sediakan `.env.example`.
+7. **Dilarang menyentuh folder di luar repo ini.** Khususnya `D:/project-client/airindo-construction-versiGua` — itu milik pribadi user, bukan bagian proyek.
+8. **Dilarang menghapus atau menimpa `app/lib/data.js`.** File itu dipakai sebagai seed/fallback saat migrasi ke database.
+9. **Dilarang mengubah perilaku halaman publik tanpa memperbarui `prd.md`** bila menyangkut keputusan produk.
+
+## 3. Konvensi kode
+
+**Backend (TypeScript)**
+
+- `strict: true`, tanpa `any` yang tidak beralasan. Tipe eksplisit untuk DTO dan return service.
+- Struktur per modul: `routes` → `controller` → `service` → `repository`. Controller tidak boleh berisi query database.
+- Modul **tidak boleh** mengakses tabel milik modul lain secara langsung; lewat service modul tersebut.
+- Semua input divalidasi **Zod** di lapisan routes/controller.
+- Error dilempar sebagai `AppError` dengan `statusCode` + `code`; ditangani satu error handler global.
+- Format respons seragam: `{ success, data, meta?, error? }`.
+- Penamaan: `camelCase` untuk variabel/fungsi, `PascalCase` untuk tipe/class, `snake_case` untuk kolom database.
+- Nama file: `projects.routes.ts`, `projects.service.ts`, dst.
+
+**Frontend (JavaScript/JSX)**
+
+- Ikuti gaya yang sudah ada: komponen fungsi, `"use client"` hanya bila perlu.
+- Akses data lewat `app/lib/api.ts`; jangan `fetch` tersebar di komponen.
+- Ikon layanan memakai registry string → komponen (bukan objek komponen di data).
+
+**Umum**
+
+- Kode & identifier: **Inggris**. Komentar, dokumen, dan teks UI: **Indonesia**.
+- Tidak meninggalkan `console.log` debug di kode yang di-commit.
+
+## 4. Perintah kerja
+
+```bash
+# frontend
+npm install
+npm run dev          # http://localhost:3000
+npm run build
+npx eslint .
+
+# backend (setelah Fase 2)
+cd backend
+npm run dev
+npm run db:migrate
+npm run db:seed
+npm run build
+```
+
+## 5. Checklist sebelum commit
+
+- [ ] `npm run build` (frontend) atau `tsc --noEmit` (backend) lolos
+- [ ] Tidak ada secret / file `.env`
+- [ ] `changelog.md` diperbarui
+- [ ] `plan.md` diperbarui
+- [ ] Pesan commit sesuai konvensi
+- [ ] Perubahan diuji minimal manual, cara ujinya disebutkan di changelog
+
+## 6. Jika sesi terputus
+
+1. `git branch --show-current` — pastikan berada di branch yang benar.
+2. Baca **Posisi Saat Ini** di `plan.md`.
+3. Baca entri terakhir `changelog.md`.
+4. Lanjutkan dari checkbox `[ ]` pertama. Jangan mengulang pekerjaan yang sudah `[x]`.
+
+---
+
+<!-- ============================================================
+     Blok di bawah ini ditulis otomatis oleh `next dev`.
+     Jangan dihapus — akan dibuat ulang dan membuat working tree kotor.
+     ============================================================ -->
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know
