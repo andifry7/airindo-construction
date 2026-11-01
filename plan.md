@@ -74,7 +74,30 @@ chore: setup eslint backend
   - [ ] `podman run` container `postgres:16` (port 5432, volume persisten)
   - [ ] Buat database `airindo_construction`
   - [ ] Verifikasi koneksi + catat `DATABASE_URL`
-- [ ] Siapkan akun Cloudinary + kredensial
+
+  Perintah acuan (password **jangan** ditulis di repo — simpan di `backend/.env`):
+
+  ```bash
+  # 1) nyalakan VM Podman (dijalankan user, bukan agent)
+  podman machine start
+
+  # 2) jalankan PostgreSQL 16
+  podman run -d --name airindo-postgres \
+    -e POSTGRES_USER=airindo \
+    -e POSTGRES_PASSWORD=<dev-password> \
+    -e POSTGRES_DB=airindo_construction \
+    -p 5432:5432 \
+    -v airindo_pgdata:/var/lib/postgresql/data \
+    docker.io/library/postgres:16-alpine
+
+  # 3) verifikasi
+  podman exec -it airindo-postgres psql -U airindo -d airindo_construction -c "select version();"
+  ```
+
+  `DATABASE_URL` yang diharapkan:
+  `postgresql://airindo:<dev-password>@localhost:5432/airindo_construction?schema=public`
+
+- [ ] Siapkan akun Cloudinary + kredensial (`CLOUD_NAME`, `API_KEY`, `API_SECRET` → simpan di `backend/.env`)
 
 **DoD:** dua branch ada di origin, dokumen terbaca, PostgreSQL bisa diakses dari mesin lokal.
 
