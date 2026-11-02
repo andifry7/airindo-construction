@@ -25,10 +25,10 @@
 
 ## Posisi saat ini
 
-**Fase aktif:** Fase 5 — Integrasi frontend ke API
-**Branch aktif:** `backend-zacky` (backend selesai sampai Fase 4)
+**Fase aktif:** Fase 1 — form login di `/admin-portal` (lalu Fase 5b)
+**Branch aktif:** `development`
 **Terakhir diperbarui:** 2 November 2026
-**Catatan:** Fase 0, 2, 3, 4 **selesai**. Backend berjalan di `http://localhost:4000` dengan 11 tabel konten terisi (4 proyek, 4 layanan, 26 klien, 5 FAQ, 1 workshop, 4 highlight, 3 values, 4 CTA). Upload Cloudinary terverifikasi. Berikutnya: Fase 1 (form login di frontend) lalu Fase 5 (integrasi halaman publik + admin ke API).
+**Catatan:** Fase 0, 2, 3, 4, 5 **selesai**. Halaman publik kini membaca data dari API dan perubahan admin otomatis tampil setelah revalidasi (terverifikasi di mode produksi). Panel admin **masih** memakai `localStorage` + PIN `2013` — itu pekerjaan Fase 1 dan 5b.
 
 ---
 
@@ -196,17 +196,37 @@ chore: setup eslint backend
 
 **Branch:** `development`
 
-- [ ] `app/lib/api.ts` + tipe data bersama
-- [ ] `next.config.ts`: `images.remotePatterns` untuk Cloudinary
-- [ ] Ganti sumber data halaman publik (beranda, tentang, layanan, proyek, kontak) ke API
-- [ ] `iconRegistry` untuk `services.icon`
-- [ ] Sambungkan form login ke `/auth/login`
-- [ ] Sambungkan CRUD admin ke endpoint admin
-- [ ] Hapus penulisan `localStorage` untuk konten
-- [ ] Revalidasi: endpoint `/api/revalidate` + pemanggilan setelah mutasi
-- [ ] Perbaiki bug lama: logo klien `.png` → `logo_url`, `featured` dipakai di beranda
+- [x] `app/lib/api.ts` + tipe data bersama → diimplementasikan sebagai `app/lib/site-content.js` + `ContentProvider`
+- [x] `next.config.ts`: `images.remotePatterns` untuk Cloudinary
+- [x] Ganti sumber data halaman publik (beranda, tentang, layanan, proyek, kontak) ke API
+- [x] `iconRegistry` untuk `services.icon`
+- [ ] Sambungkan form login ke `/auth/login` → **dikerjakan di Fase 1**
+- [ ] Sambungkan CRUD admin ke endpoint admin → **dikerjakan di Fase 5b**
+- [ ] Hapus penulisan `localStorage` untuk konten → **dikerjakan di Fase 5b**
+- [x] Revalidasi: endpoint `/api/revalidate` + pemanggilan otomatis setelah mutasi
+- [x] Perbaiki bug lama: logo klien memakai `logoUrl` dari DB (bukan slug `.png`), dan `featured` kini benar-benar dipakai beranda
 
 **DoD:** ubah proyek di admin → muncul di `/proyek` setelah revalidasi; gambar tampil dari Cloudinary.
+
+---
+
+## Fase 5b — Sambungkan panel admin ke API
+
+**Branch:** `development`
+**Prasyarat:** Fase 1 (form login) selesai.
+
+- [ ] `app/lib/admin-api.js` — klien fetch dengan `credentials: "include"` + penanganan 401
+- [ ] `admin-portal/page.jsx`: hapus seluruh `localStorage`, ambil data dari API
+- [ ] `ProjectsManager`: create/update/delete/toggle featured → endpoint admin; upload foto → `/admin/media`
+- [ ] `ClientsManager`: CRUD berbasis `id` (bukan index) + upload logo
+- [ ] `ServicesManager`: PATCH saja (4 pilar)
+- [ ] `CompanySettings`: PUT profil + statistik; bagian "Ganti PIN" → "Ganti Password"
+- [ ] `DashboardOverview`: angka dari `/admin/dashboard`
+- [ ] Tombol "Cadangkan JSON" → `/admin/export`
+- [ ] Hapus `SecurityGate` lama, ganti form login (lihat Fase 1)
+- [ ] `lib/data.js` tidak lagi diimpor oleh komponen publik maupun admin
+
+**DoD:** tidak ada lagi `localStorage` untuk konten; semua CRUD admin menulis ke database dan memicu revalidasi.
 
 ---
 
@@ -268,3 +288,4 @@ chore: setup eslint backend
 | 2 Nov 2026 | F2 | Scaffold backend Express + TS, error handler, `/health` |
 | 2 Nov 2026 | F3 | Auth JWT 24 jam, seeder admin, rate limit — teruji end-to-end |
 | 2 Nov 2026 | F4 | 11 tabel konten, seed dari frontend, modul projects/services/clients/company/content/media, upload Cloudinary terverifikasi |
+| 2 Nov 2026 | F5 | Halaman publik membaca API via `getSiteContent()` + `ContentProvider`; revalidasi otomatis terbukti di mode produksi |

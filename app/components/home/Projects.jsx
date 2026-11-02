@@ -6,9 +6,13 @@ import { ArrowRight, MapPin, Search, Calendar, Filter, CheckCircle2, ChevronRigh
 import SectionHeading from "@/components/ui/SectionHeading";
 import IndustrialVisual from "@/components/ui/IndustrialVisual";
 import ProjectDetailModal from "@/components/home/ProjectDetailModal";
-import { projects, projectCategories } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { projectCategories } from "@/lib/data";
 
-export default function Projects({ onOpenQuote }) {
+export default function Projects({ onOpenQuote, onlyFeatured = false }) {
+  const { projects: projectData } = useContent();
+  // Beranda hanya menampilkan proyek unggulan; halaman /proyek menampilkan semua.
+  const projects = onlyFeatured ? projectData.featured : projectData.all;
   const [activeCategory, setActiveCategory] = useState("semua");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Building2, ShieldCheck, Sparkles } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { clientFiles, clientSectors } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { clientSectors } from "@/lib/data";
 
 function ClientCard({ client }) {
   const [imageError, setImageError] = useState(false);
@@ -38,12 +39,13 @@ function ClientCard({ client }) {
 }
 
 export default function Clients() {
+  const { clients } = useContent();
   const [activeSector, setActiveSector] = useState("Semua Sektor");
 
   const filteredClients =
     activeSector === "Semua Sektor"
-      ? clientFiles
-      : clientFiles.filter((c) => c.sector === activeSector);
+      ? clients
+      : clients.filter((c) => c.sector === activeSector);
 
   return (
     <section className="bg-gradient-to-b from-[#f4f8ff] via-white to-slate-50 py-20 md:py-24 overflow-hidden">

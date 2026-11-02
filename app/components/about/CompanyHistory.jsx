@@ -9,7 +9,8 @@ import {
   Building,
   Wrench,
 } from "lucide-react";
-import { aboutValues, workshops, company } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { resolveIcon } from "@/lib/icons";
 import LocationMap from "@/components/ui/LocationMap";
 
 const milestones = [
@@ -36,6 +37,7 @@ const milestones = [
 ];
 
 export default function CompanyHistory() {
+  const { company, aboutValues, workshops } = useContent();
   const workshop = workshops[0];
 
   return (
@@ -69,7 +71,10 @@ export default function CompanyHistory() {
               Standar Kerja
             </h2>
             <ul className="space-y-4">
-              {aboutValues.map(({ icon: Icon, title, text }) => (
+              {aboutValues.map(({ icon, title, text }) => {
+                const Icon = resolveIcon(icon);
+
+                return (
                 <li
                   key={title}
                   className="card card-hover flex gap-4 p-5 sm:p-6"
@@ -86,11 +91,13 @@ export default function CompanyHistory() {
                     </p>
                   </div>
                 </li>
-              ))}
+                );
+              })}
             </ul>
           </div>
 
           {/* Interactive Workshop Facilities Tab */}
+          {workshop && (
           <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-6 sm:p-8">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-brand-navy flex items-center gap-2">
@@ -144,6 +151,7 @@ export default function CompanyHistory() {
               />
             </div>
           </div>
+          )}
         </div>
       </div>
     </section>

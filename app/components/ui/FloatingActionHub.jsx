@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
-import { company } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export default function FloatingActionHub() {
+  const { company } = useContent();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function FloatingActionHub() {
 
       {/* Floating Circular WhatsApp Button */}
       <a
-        href={company.whatsappUrl()}
+        href={whatsappUrl(company)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Hubungi kami melalui WhatsApp"

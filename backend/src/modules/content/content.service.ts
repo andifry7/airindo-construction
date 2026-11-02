@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { AppError } from "../../shared/errors/AppError";
+import { revalidateFrontend } from "../../shared/utils/revalidate";
 import type { ContentRecord } from "./content.repository";
 import { contentRepository } from "./content.repository";
 import {
@@ -31,17 +32,29 @@ export const contentService = {
   },
 
   async replace(type: ContentType, rawItems: unknown[]): Promise<ContentRecord[]> {
+    let result: ContentRecord[];
+
     switch (type) {
       case "faqs":
-        return contentRepository.replaceFaqs(parseItems(faqItemSchema, rawItems));
+        result = await contentRepository.replaceFaqs(parseItems(faqItemSchema, rawItems));
+        break;
       case "workshops":
-        return contentRepository.replaceWorkshops(parseItems(workshopItemSchema, rawItems));
+        result = await contentRepository.replaceWorkshops(parseItems(workshopItemSchema, rawItems));
+        break;
       case "highlights":
-        return contentRepository.replaceHighlights(parseItems(highlightItemSchema, rawItems));
+        result = await contentRepository.replaceHighlights(parseItems(highlightItemSchema, rawItems));
+        break;
       case "about-values":
-        return contentRepository.replaceAboutValues(parseItems(aboutValueItemSchema, rawItems));
+        result = await contentRepository.replaceAboutValues(
+          parseItems(aboutValueItemSchema, rawItems)
+        );
+        break;
       case "cta-points":
-        return contentRepository.replaceCtaPoints(parseItems(ctaPointItemSchema, rawItems));
+        result = await contentRepository.replaceCtaPoints(parseItems(ctaPointItemSchema, rawItems));
+        break;
     }
+
+    void revalidateFrontend();
+    return result;
   },
 };

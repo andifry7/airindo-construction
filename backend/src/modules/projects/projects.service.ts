@@ -1,6 +1,7 @@
 import type { Project } from "@prisma/client";
 import { AppError } from "../../shared/errors/AppError";
 import { slugify } from "../../shared/utils/slug";
+import { revalidateFrontend } from "../../shared/utils/revalidate";
 import { projectsRepository } from "./projects.repository";
 import type {
   CreateProjectInput,
@@ -73,7 +74,7 @@ export const projectsService = {
   async create(input: CreateProjectInput): Promise<Project> {
     const slug = await buildUniqueSlug(input.slug ?? input.title);
 
-    return projectsRepository.create({
+    const project = await projectsRepository.create({
       slug,
       title: input.title,
       category: input.category,
@@ -91,6 +92,9 @@ export const projectsService = {
       featured: input.featured,
       sortOrder: input.sortOrder,
     });
+
+    void revalidateFrontend();
+    return project;
   },
 
   async update(id: string, input: UpdateProjectInput): Promise<Project> {
@@ -106,7 +110,7 @@ export const projectsService = {
         ? await buildUniqueSlug(input.slug, existing.id)
         : existing.slug;
 
-    return projectsRepository.update(id, {
+    const project = await projectsRepository.update(id, {
       slug,
       ...(input.title !== undefined ? { title: input.title } : {}),
       ...(input.category !== undefined ? { category: input.category } : {}),
@@ -124,6 +128,9 @@ export const projectsService = {
       ...(input.featured !== undefined ? { featured: input.featured } : {}),
       ...(input.sortOrder !== undefined ? { sortOrder: input.sortOrder } : {}),
     });
+
+    void revalidateFrontend();
+    return project;
   },
 
   async setFeatured(id: string, featured: boolean): Promise<Project> {
@@ -131,7 +138,9 @@ export const projectsService = {
     if (!existing) {
       throw AppError.notFound("Proyek tidak ditemukan.");
     }
-    return projectsRepository.update(id, { featured });
+    const project = await projectsRepository.update(id, { featured });
+    void revalidateFrontend();
+    return project;
   },
 
   async remove(id: string): Promise<void> {
@@ -140,5 +149,6 @@ export const projectsService = {
       throw AppError.notFound("Proyek tidak ditemukan.");
     }
     await projectsRepository.delete(id);
+    void revalidateFrontend();
   },
 };

@@ -6,9 +6,11 @@ import { ChevronRight } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import IndustrialVisual from "@/components/ui/IndustrialVisual";
 import ServiceDetailModal from "@/components/home/ServiceDetailModal";
-import { services } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { resolveIcon } from "@/lib/icons";
 
 export default function Services({ onOpenQuote }) {
+  const { services } = useContent();
   const [selectedService, setSelectedService] = useState(null);
   const [filterCategory, setFilterCategory] = useState("all");
 
@@ -131,7 +133,7 @@ export default function Services({ onOpenQuote }) {
         {/* Grid of Interactive Service Cards */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {filteredServices.map((s) => {
-            const Icon = s.icon;
+            const Icon = resolveIcon(s.icon);
             return (
               <div
                 key={s.id}

@@ -16,9 +16,11 @@ import {
 } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import LocationMap from "@/components/ui/LocationMap";
-import { company, workshops } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export default function KontakPage() {
+  const { company, workshops } = useContent();
   const [formData, setFormData] = useState({
     name: "",
     companyName: "",
@@ -43,7 +45,7 @@ Kontak: ${formData.phone || formData.email || "-"}
 Subjek: ${formData.subject}
 Pesan: ${formData.message || "Ingin konsultasi proyek"}`;
 
-    window.open(company.whatsappUrl(text), "_blank");
+    window.open(whatsappUrl(company, text), "_blank");
   };
 
   const allLocations = [
@@ -118,7 +120,7 @@ Pesan: ${formData.message || "Ingin konsultasi proyek"}`;
                     <div>
                       <strong className="text-brand-navy block">Telepon / WhatsApp:</strong>
                       <a
-                        href={company.whatsappUrl()}
+                        href={whatsappUrl(company)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs font-semibold text-brand hover:underline"

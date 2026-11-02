@@ -11,6 +11,33 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Added — 2 November 2026 (Fase 5 — integrasi halaman publik ke API)
+- **Added** `app/lib/site-content.js` — `getSiteContent()` memakai `'use cache'` + `cacheTag('site-content')` + `cacheLife('hours')`, mengambil `/api/v1/public/bootstrap`. Bila API tidak terjangkau, otomatis memakai data statis `app/lib/data.js` (situs tidak pernah kosong).
+- **Added** `app/components/providers/ContentProvider.jsx` — satu kali fetch di layout, dibagikan ke seluruh komponen lewat context. Tidak ada prop drilling.
+- **Added** `app/lib/icons.js` — registry nama ikon → komponen lucide, karena database hanya menyimpan nama (`"Wrench"`, `"Zap"`, …).
+- **Added** `app/lib/whatsapp.js` — `whatsappUrl(company, message)` menggantikan `company.whatsappUrl()` yang tidak bisa dikirim lewat JSON.
+- **Added** `app/api/revalidate/route.js` — `POST /api/revalidate` dengan header `x-revalidate-secret`; memanggil `revalidateTag('site-content', 'max')`.
+- **Changed** `app/(public)/layout.jsx` menjadi async Server Component yang mengambil konten lalu membungkusnya dengan `ContentProvider`.
+- **Changed** 13 komponen kini membaca data dari `useContent()` (Hero, Highlights, Services, Clients, Projects, Faq, CallToAction, ServiceDetailModal, ProjectDetailModal, QuickStartModal, FloatingActionHub, Footer, CompanyHistory) dan halaman `/kontak`.
+- **Changed** `next.config.ts` — `images.remotePatterns` untuk `res.cloudinary.com`.
+- **Added** `.env.example` untuk frontend (`API_BASE_URL`, `REVALIDATE_SECRET`) dan pengecualian `!.env.example` di `.gitignore`.
+- **Added** backend `shared/utils/revalidate.ts` — setiap mutasi (projects, clients, services, company, content) otomatis memicu revalidasi frontend. Kegagalan revalidasi tidak menggagalkan penyimpanan.
+
+### Verified — uji Fase 5 (2 November 2026, mode produksi `npm start`)
+
+| Uji | Hasil |
+|---|---|
+| Build frontend | sukses; rute publik `Revalidate 1h / Expire 1d`, `/api/revalidate` dinamis |
+| Beranda dari API | 26 logo klien, judul proyek, statistik, layanan — semua muncul di HTML server |
+| Ikon layanan | 4 kartu menampilkan Wrench/Zap/Cpu/Flame dengan benar (registry bekerja) |
+| Halaman lain | `/about`, `/layanan`, `/kontak` → `200`, konten dari DB (workshop "Sentul Bogor" tampil) |
+| Error konsol browser | **0** |
+| Ubah judul proyek di admin → publik | tetap lama (cache bekerja) |
+| Panggil `/api/revalidate` dengan secret | `200` → publik berubah ke judul baru |
+| `/api/revalidate` tanpa secret | `401` |
+| Ubah judul **tanpa** revalidate manual | publik berubah otomatis (backend memicu revalidasi) |
+| Kembalikan judul asli | berhasil, data uji bersih |
+
 ### Added — 2 November 2026 (Fase 4 — modul konten + media)
 - **Added** 11 tabel konten: `projects`, `services`, `clients`, `company_profile`, `company_stats`, `media`, `faqs`, `workshops`, `highlights`, `about_values`, `cta_points`. Migrasi `20261102105149_content_tables`.
 - **Added** seeder konten dari `app/lib/data.js` — 4 proyek, 4 layanan, 26 klien, profil perusahaan, 4 statistik, 5 FAQ, 1 workshop, 4 highlight, 3 nilai perusahaan, 4 poin CTA. Idempoten.

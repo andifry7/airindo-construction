@@ -1,5 +1,6 @@
 import type { Service } from "@prisma/client";
 import { AppError } from "../../shared/errors/AppError";
+import { revalidateFrontend } from "../../shared/utils/revalidate";
 import { servicesRepository } from "./services.repository";
 import type { UpdateServiceInput } from "./services.schema";
 
@@ -22,7 +23,7 @@ export const servicesService = {
       throw AppError.notFound("Layanan tidak ditemukan.");
     }
 
-    return servicesRepository.update(id, {
+    const service = await servicesRepository.update(id, {
       ...(input.title !== undefined ? { title: input.title } : {}),
       ...(input.shortTitle !== undefined ? { shortTitle: input.shortTitle } : {}),
       ...(input.icon !== undefined ? { icon: input.icon } : {}),
@@ -36,5 +37,8 @@ export const servicesService = {
       ...(input.caseHighlight !== undefined ? { caseHighlight: input.caseHighlight } : {}),
       ...(input.sortOrder !== undefined ? { sortOrder: input.sortOrder } : {}),
     });
+
+    void revalidateFrontend();
+    return service;
   },
 };

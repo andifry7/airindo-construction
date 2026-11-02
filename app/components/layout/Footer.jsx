@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   Phone,
@@ -10,7 +12,9 @@ import {
   Share2,
 } from "lucide-react";
 import Logo from "./Logo";
-import { company, footerLinks, legalLinks } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { footerLinks, legalLinks } from "@/lib/data";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 const currentYear = 2026;
 
@@ -23,6 +27,8 @@ const socials = [
 ];
 
 export default function Footer() {
+  const { company } = useContent();
+
   return (
     <footer className="bg-gradient-to-b from-[#052a5e] to-[#021a40] text-white/70">
       <div className="container-x grid gap-10 pb-10 pt-16 md:grid-cols-[1.6fr_1fr_1.6fr_1fr] md:pt-20">
@@ -51,7 +57,7 @@ export default function Footer() {
           <ul className="mt-5 space-y-3 text-[12.5px]">
             <li>
               <a
-                href={company.whatsappUrl()}
+                href={whatsappUrl(company)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5 hover:text-white transition"

@@ -1,5 +1,6 @@
 import type { CompanyProfile, CompanyStat } from "@prisma/client";
 import { AppError } from "../../shared/errors/AppError";
+import { revalidateFrontend } from "../../shared/utils/revalidate";
 import { companyRepository } from "./company.repository";
 import type { UpdateCompanyInput } from "./company.schema";
 
@@ -52,6 +53,7 @@ export const companyService = {
       ? await companyRepository.replaceStats(stats)
       : await companyRepository.listStats();
 
+    void revalidateFrontend();
     return { profile: updatedProfile, stats: updatedStats };
   },
 };

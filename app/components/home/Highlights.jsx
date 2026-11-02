@@ -1,14 +1,20 @@
 "use client";
 
-import { highlights } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { resolveIcon } from "@/lib/icons";
 import { CheckCircle2 } from "lucide-react";
 
 export default function Highlights() {
+  const { highlights } = useContent();
+
   return (
     <section className="relative z-10 -mt-10 md:-mt-14">
       <div className="container-x">
         <ul className="card grid divide-y divide-slate-200/80 overflow-hidden sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x shadow-xl">
-          {highlights.map(({ icon: Icon, title, text, badge }) => (
+          {highlights.map(({ icon, title, text, badge }) => {
+            const Icon = resolveIcon(icon);
+
+            return (
             <li
               key={title}
               className="group p-5 bg-white transition-all duration-300 hover:bg-blue-50/50 cursor-pointer"
@@ -31,7 +37,8 @@ export default function Highlights() {
                 <CheckCircle2 size={12} /> Terverifikasi K3 &amp; QMS
               </div>
             </li>
-          ))}
+            );
+          })}
         </ul>
       </div>
     </section>

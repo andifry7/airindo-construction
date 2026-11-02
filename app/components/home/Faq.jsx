@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { ChevronDown, HelpCircle, MessageSquare, Search } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { faqs, company } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export default function Faq() {
+  const { faqs, company } = useContent();
   const [openIndex, setOpenIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -88,7 +90,7 @@ export default function Faq() {
             <p className="mt-1 text-xs text-brand-muted">Insinyur kami siap berdiskusi langsung mengenai spesifikasi proyek Anda.</p>
           </div>
           <a
-            href={company.whatsappUrl("Halo tim Airindo, saya ingin menanyakan hal teknis seputar layanan engineering.")}
+            href={whatsappUrl(company, "Halo tim Airindo, saya ingin menanyakan hal teknis seputar layanan engineering.")}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2.5 text-xs font-semibold text-white shadow transition hover:bg-brand-navy sm:mt-0"

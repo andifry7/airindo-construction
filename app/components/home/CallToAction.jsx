@@ -9,9 +9,13 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { ctaPoints, company } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { resolveIcon } from "@/lib/icons";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export default function CallToAction({ onOpenQuote }) {
+  const { ctaPoints, company } = useContent();
+
   return (
     <section className="relative isolate overflow-hidden bg-[#031124] py-20 text-white md:py-24">
       {/* Background Photo - strictly covers and fits the section */}
@@ -43,7 +47,10 @@ export default function CallToAction({ onOpenQuote }) {
 
           {/* Interactive Feature Points */}
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-            {ctaPoints.map(({ icon: Icon, title, text }) => (
+            {ctaPoints.map(({ icon, title, text }) => {
+              const Icon = resolveIcon(icon);
+
+              return (
               <li
                 key={title}
                 className="flex gap-3 rounded-xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm transition hover:bg-white/10"
@@ -58,13 +65,15 @@ export default function CallToAction({ onOpenQuote }) {
                   </p>
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ul>
 
           {/* Action CTAs */}
           <div className="mt-9 flex flex-wrap items-center gap-3.5">
             <a
-              href={company.whatsappUrl(
+              href={whatsappUrl(
+                company,
                 "Halo tim Airindo, saya ingin berkonsultasi & mengajukan RFQ penawaran proyek.",
               )}
               target="_blank"

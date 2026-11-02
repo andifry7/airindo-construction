@@ -15,7 +15,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { company, companyStats } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 const heroImages = [
   "/images/hero/hero 1.webp",
@@ -59,6 +60,7 @@ const heroTabs = [
 ];
 
 export default function Hero({ onOpenQuote }) {
+  const { company, stats } = useContent();
   const [activeTab, setActiveTab] = useState(heroTabs[0].id);
   const [currentBg, setCurrentBg] = useState(0);
 
@@ -221,7 +223,8 @@ export default function Hero({ onOpenQuote }) {
                   Detail Kapabilitas <ArrowRight size={12} />
                 </Link>
                 <a
-                  href={company.whatsappUrl(
+                  href={whatsappUrl(
+                    company,
                     `Halo tim Airindo, saya ingin berkonsultasi & minta penawaran untuk layanan: ${currentTab.label}`,
                   )}
                   target="_blank"
@@ -235,7 +238,7 @@ export default function Hero({ onOpenQuote }) {
 
             {/* Quick Contact Hotline */}
             <a
-              href={company.whatsappUrl()}
+              href={whatsappUrl(company)}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 flex w-full items-center justify-between rounded-xl bg-emerald-600 px-4 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-600/40 transition hover:bg-emerald-700 hover:scale-[1.02]"
@@ -254,7 +257,7 @@ export default function Hero({ onOpenQuote }) {
 
         {/* Live Industrial Metrics Counters */}
         <div className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-          {companyStats.map((stat) => (
+          {stats.map((stat) => (
             <div
               key={stat.label}
               className="card-hover rounded-xl border border-white/15 bg-white/5 p-4 backdrop-blur-sm text-center sm:text-left transition"

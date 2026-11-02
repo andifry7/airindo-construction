@@ -25,7 +25,7 @@ export default function HomePage() {
       <Highlights />
       <Services onOpenQuote={handleOpenQuote} />
       <Clients />
-      <Projects onOpenQuote={handleOpenQuote} />
+      <Projects onOpenQuote={handleOpenQuote} onlyFeatured />
       <Faq />
       <CallToAction onOpenQuote={handleOpenQuote} />
 

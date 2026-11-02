@@ -12,9 +12,12 @@ import {
   Award,
 } from "lucide-react";
 import IndustrialVisual from "@/components/ui/IndustrialVisual";
-import { company } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export default function ServiceDetailModal({ service, onClose, onConsult }) {
+  const { company } = useContent();
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") onClose();
@@ -33,7 +36,7 @@ export default function ServiceDetailModal({ service, onClose, onConsult }) {
 
   const handleWhatsapp = () => {
     const message = `Halo Tim Airindo, saya ingin menanyakan lebih lanjut mengenai layanan: *${service.title}*. Mohon informasi ketersediaan tim dan proposal penawaran.`;
-    window.open(company.whatsappUrl(message), "_blank");
+    window.open(whatsappUrl(company, message), "_blank");
   };
 
   return (

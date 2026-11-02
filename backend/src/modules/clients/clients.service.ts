@@ -1,5 +1,6 @@
 import type { Client } from "@prisma/client";
 import { AppError } from "../../shared/errors/AppError";
+import { revalidateFrontend } from "../../shared/utils/revalidate";
 import { clientsRepository } from "./clients.repository";
 import type { CreateClientInput, ListClientsQuery, UpdateClientInput } from "./clients.schema";
 
@@ -9,13 +10,16 @@ export const clientsService = {
   },
 
   async create(input: CreateClientInput): Promise<Client> {
-    return clientsRepository.create({
+    const client = await clientsRepository.create({
       name: input.name,
       sector: input.sector,
       logoUrl: input.logoUrl ?? null,
       logoPublicId: input.logoPublicId ?? null,
       sortOrder: input.sortOrder,
     });
+
+    void revalidateFrontend();
+    return client;
   },
 
   async update(id: string, input: UpdateClientInput): Promise<Client> {
@@ -24,13 +28,16 @@ export const clientsService = {
       throw AppError.notFound("Klien tidak ditemukan.");
     }
 
-    return clientsRepository.update(id, {
+    const client = await clientsRepository.update(id, {
       ...(input.name !== undefined ? { name: input.name } : {}),
       ...(input.sector !== undefined ? { sector: input.sector } : {}),
       ...(input.logoUrl !== undefined ? { logoUrl: input.logoUrl } : {}),
       ...(input.logoPublicId !== undefined ? { logoPublicId: input.logoPublicId } : {}),
       ...(input.sortOrder !== undefined ? { sortOrder: input.sortOrder } : {}),
     });
+
+    void revalidateFrontend();
+    return client;
   },
 
   async remove(id: string): Promise<void> {
@@ -39,5 +46,6 @@ export const clientsService = {
       throw AppError.notFound("Klien tidak ditemukan.");
     }
     await clientsRepository.delete(id);
+    void revalidateFrontend();
   },
 };

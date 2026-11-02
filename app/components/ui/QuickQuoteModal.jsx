@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { X, Send, CheckCircle2 } from "lucide-react";
-import { company } from "@/lib/data";
+import { useContent } from "@/components/providers/ContentProvider";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export default function QuickQuoteModal({ isOpen, onClose, initialService = "" }) {
+  const { company } = useContent();
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -59,7 +61,7 @@ Layanan: ${formData.service}
 Lokasi Proyek: ${formData.location || "-"}
 Kebutuhan: ${formData.notes || "Konsultasi teknis & RAB"}`;
 
-    window.open(company.whatsappUrl(message), "_blank");
+    window.open(whatsappUrl(company, message), "_blank");
   };
 
   return (
