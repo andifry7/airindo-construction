@@ -25,10 +25,10 @@
 
 ## Posisi saat ini
 
-**Fase aktif:** F0 — Fondasi repo & dokumen
-**Branch aktif:** `development`
+**Fase aktif:** Fase 4 — Modul konten + media
+**Branch aktif:** `backend-zacky`
 **Terakhir diperbarui:** 2 November 2026
-**Catatan:** PostgreSQL lokal **siap** (`airindo-postgres`, PG 16.15, port 5432). Belum ada kode backend. Frontend berjalan (`npm run dev`, build sukses).
+**Catatan:** Fase 0, 2, dan 3 **selesai**. Backend berjalan di `http://localhost:4000`, auth JWT 24 jam teruji end-to-end. PostgreSQL `airindo-postgres` aktif (PG 16.15). Berikutnya: tabel konten (projects, services, clients, company, media) + seed dari `app/lib/data.js`.
 
 ---
 
@@ -146,13 +146,13 @@ chore: setup eslint backend
 
 **Branch:** `backend-zacky`
 
-- [ ] `backend/` dengan `package.json`, `tsconfig.json` (strict), `.env.example`, `.gitignore`
-- [ ] Dependensi: express, @prisma/client, prisma, zod, bcrypt, express-session, connect-pg-simple, helmet, cors, express-rate-limit, multer, cloudinary, pino, tsx, typescript
-- [ ] Struktur `src/modules` + `src/shared` + `src/config`
-- [ ] `app.ts` (middleware global) & `server.ts` (bootstrap + graceful shutdown)
-- [ ] Error handler terpusat + `AppError` class + format respons seragam
-- [ ] `GET /health` (cek DB)
-- [ ] Skrip: `dev`, `build`, `start`, `db:migrate`, `db:seed`, `lint`
+- [x] `backend/` dengan `package.json`, `tsconfig.json` (strict), `.env.example`, `.gitignore`
+- [x] Dependensi: express 5, @prisma/client, prisma, zod, bcryptjs, jsonwebtoken, cookie-parser, helmet, cors, express-rate-limit, pino, pino-http, tsx, typescript
+- [x] Struktur `src/modules` + `src/shared` + `src/config`
+- [x] `app.ts` (middleware global) & `server.ts` (bootstrap + graceful shutdown)
+- [x] Error handler terpusat + `AppError` class + format respons seragam
+- [x] `GET /health` (cek DB)
+- [x] Skrip: `dev`, `build`, `start`, `typecheck`, `db:generate`, `db:migrate`, `db:seed`, `db:studio`
 
 **DoD:** `npm run dev` jalan, `/health` balas 200, `tsc --noEmit` bersih.
 
@@ -162,13 +162,13 @@ chore: setup eslint backend
 
 **Branch:** `backend-zacky`
 
-- [ ] Skema Prisma: `admin_users` (termasuk kolom `token_version`)
-- [ ] Migrasi pertama
-- [ ] `seed.ts`: buat admin `admin-airindo` / `airindo123123` (bcrypt), idempoten
-- [ ] Modul `auth`: login (terbitkan JWT **24 jam** di cookie httpOnly), logout (hapus cookie), me, ganti password (naikkan `token_version`)
-- [ ] Middleware `requireAuth` (verifikasi JWT + cek `token_version`)
-- [ ] Rate limit login (5 / 15 menit)
-- [ ] Uji manual: login → cookie ter-set → `/auth/me` → ganti password → token lama ditolak → logout
+- [x] Skema Prisma: `admin_users` (termasuk kolom `token_version`)
+- [x] Migrasi pertama (`20261102104357_init_admin_users`)
+- [x] `seed.ts`: buat admin `admin-airindo` / `airindo123123` (bcrypt), idempoten
+- [x] Modul `auth`: login (terbitkan JWT **24 jam** di cookie httpOnly), logout (hapus cookie), me, ganti password (naikkan `token_version`)
+- [x] Middleware `requireAuth` (verifikasi JWT + cek `token_version`)
+- [x] Rate limit login (5 / 15 menit)
+- [x] Uji manual: login → cookie ter-set → `/auth/me` → ganti password → token lama ditolak → logout
 
 **DoD:** seeder menghasilkan 1 admin; endpoint auth lulus uji; tidak ada password di respons.
 
@@ -264,4 +264,6 @@ chore: setup eslint backend
 | Tanggal | Fase | Catatan |
 |---|---|---|
 | 1 Nov 2026 | — | Clone repo, audit kode, observasi runtime |
-| 2 Nov 2026 | F0 | Dokumen konteks + branch dibuat |
+| 2 Nov 2026 | F0 | Dokumen konteks + branch dibuat; PostgreSQL via Podman siap |
+| 2 Nov 2026 | F2 | Scaffold backend Express + TS, error handler, `/health` |
+| 2 Nov 2026 | F3 | Auth JWT 24 jam, seeder admin, rate limit — teruji end-to-end |

@@ -11,6 +11,45 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Added — 2 November 2026 (Fase 2 — scaffold backend)
+- **Added** folder `backend/` — Express 5 + TypeScript (`strict`, `noUncheckedIndexedAccess`), arsitektur **modular monolith** (`src/modules`, `src/shared`, `src/config`).
+- **Added** validasi environment dengan Zod di `src/config/env.ts` — aplikasi gagal cepat bila `DATABASE_URL` atau `JWT_SECRET` tidak valid.
+- **Added** lapisan `src/shared/`: singleton Prisma, `AppError`, error handler terpusat (menangani `AppError`, `ZodError`, dan error Prisma `P2002`/`P2025`), `notFound`, `validate` (Zod), `requireAuth`, logger pino, dan envelope respons `{ success, data, meta?, error? }`.
+- **Added** `GET /health` — mengecek koneksi database; balas `503` bila database mati.
+- **Added** skrip: `dev`, `build`, `start`, `typecheck`, `db:generate`, `db:migrate`, `db:deploy`, `db:seed`, `db:studio`.
+- **Added** `backend/.env.example` (tanpa nilai rahasia) dan `backend/.gitignore`.
+- **Verified** `npm run typecheck` dan `npm run build` lolos; `dist/app.js` dapat dimuat.
+
+### Added — 2 November 2026 (Fase 3 — auth JWT + seeder)
+- **Added** model Prisma `AdminUser` (`admin_users`) dengan kolom `token_version`; migrasi `20261102104357_init_admin_users`.
+- **Added** seeder idempoten `prisma/seed.ts` — membuat `admin-airindo` dengan bcrypt cost 12; tidak menimpa bila sudah ada.
+- **Added** endpoint auth di `/api/v1/auth`:
+  - `POST /login` — JWT **24 jam** (`expiresInSeconds: 86400`), dikirim lewat cookie `httpOnly` + `sameSite=lax` (+ `secure` di produksi). Token **tidak** dikirim di body.
+  - `POST /logout` — hapus cookie.
+  - `GET /me` — profil admin (butuh sesi).
+  - `PATCH /password` — verifikasi password lama, hash baru, **naikkan `token_version`**, lalu hapus cookie.
+- **Added** middleware `requireAuth` — verifikasi JWT + cocokkan `token_version` dengan database.
+- **Added** rate limit login: 5 percobaan gagal / 15 menit per IP.
+- **Security** pesan error login selalu generik ("Username atau password salah.") dan waktu respons disamakan dengan bcrypt tiruan saat username tidak ditemukan.
+
+### Verified — uji end-to-end Fase 2–3 (2 November 2026)
+
+| Uji | Hasil |
+|---|---|
+| `GET /health` | `200` — `database: connected` |
+| Login password salah | `401` — pesan generik |
+| Login benar | `200` — cookie `airindo_session` (HttpOnly), `expiresInSeconds: 86400` |
+| `GET /me` dengan cookie | `200` |
+| `GET /me` tanpa cookie | `401` |
+| Payload tanpa password | `422` + detail field |
+| Ganti password | `200` — cookie lama langsung ditolak (`401` "Sesi sudah tidak berlaku") |
+| Login dengan password lama setelah ganti | `401` |
+| Login dengan password baru | `200` |
+| Logout | `200` → `/me` jadi `401` |
+| Rate limit (percobaan gagal berulang) | `429` setelah 5 kegagalan |
+
+Password admin dikembalikan ke nilai default `airindo123123` setelah pengujian.
+
 ### Removed — 2 November 2026
 - **Removed** `app/components/home/ProjectEstimator.jsx` (343 baris) — komponen kalkulator estimasi yang tidak pernah dirender di halaman mana pun. Keputusan client: fokus ke WhatsApp.
   - **Arsip:** tersimpan di commit `68fab02` (`feat: initialize Next.js project structure...`).

@@ -1,0 +1,27 @@
+// Prisma schema — Airindo Construction
+// Fase 3: hanya autentikasi admin.
+// Tabel konten (projects, services, clients, company, media, content) ditambahkan di Fase 4.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Akun admin. Hanya satu baris, dibuat oleh seeder. Tidak ada halaman register.
+model AdminUser {
+  id           String    @id @default(uuid()) @db.Uuid
+  username     String    @unique @db.VarChar(64)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  displayName  String    @map("display_name") @db.VarChar(120)
+  /// Dinaikkan setiap ganti password → semua JWT lama otomatis tidak valid.
+  tokenVersion Int       @default(0) @map("token_version")
+  lastLoginAt  DateTime? @map("last_login_at") @db.Timestamptz(3)
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@map("admin_users")
+}

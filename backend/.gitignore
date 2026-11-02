@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+
+# env (root .gitignore juga menangani .env*, ini jaring pengaman)
+.env
+.env.*
+!.env.example
+
+# prisma
+prisma/*.db
+prisma/*.db-journal
+
+# misc
+*.log
+.DS_Store
