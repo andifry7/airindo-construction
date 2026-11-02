@@ -22,6 +22,8 @@ export default function AdminHeader({
         return { title: "Klien & Mitra Industri", subtitle: "Atur daftar logo klien korporasi dan sektor industri" };
       case "services":
         return { title: "Layanan & Standar Teknik", subtitle: "Perbarui lingkup pengerjaan mekanikal, perpipaan, dan otomasi" };
+      case "content":
+        return { title: "Konten Pendukung", subtitle: "Kelola FAQ, workshop, highlight, nilai perusahaan, dan poin CTA" };
       case "settings":
         return { title: "Profil & Informasi Perusahaan", subtitle: "Pengaturan nomor WhatsApp, hotline, alamat, dan counter statistik" };
       default:

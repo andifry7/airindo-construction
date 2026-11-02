@@ -9,6 +9,10 @@ import ProjectsManager from "@/components/admin/ProjectsManager";
 import ClientsManager from "@/components/admin/ClientsManager";
 import ServicesManager from "@/components/admin/ServicesManager";
 import CompanySettings from "@/components/admin/CompanySettings";
+import ContentManager, {
+  CONTENT_DEFINITIONS,
+  CONTENT_TYPES,
+} from "@/components/admin/ContentManager";
 import LoginForm from "@/components/admin/LoginForm";
 import { adminApi, authApi } from "@/lib/admin-api";
 import {
@@ -38,6 +42,8 @@ function AdminPortalContent() {
   const [services, setServices] = useState([]);
   const [companyData, setCompanyData] = useState(null);
   const [statsData, setStatsData] = useState([]);
+  const [contentLists, setContentLists] = useState({});
+  const [contentType, setContentType] = useState("faqs");
   const [counts, setCounts] = useState(null);
   const [isContentLoading, setIsContentLoading] = useState(true);
 
@@ -71,12 +77,28 @@ function AdminPortalContent() {
 
   /** Ambil seluruh konten dari API. */
   const loadContent = useCallback(async () => {
-    const [projectsRes, clientsRes, servicesRes, companyRes, dashboardRes] = await Promise.all([
+    const [
+      projectsRes,
+      clientsRes,
+      servicesRes,
+      companyRes,
+      dashboardRes,
+      faqs,
+      workshops,
+      highlights,
+      aboutValues,
+      ctaPoints,
+    ] = await Promise.all([
       adminApi.projects.list({ limit: 100 }),
       adminApi.clients.list(),
       adminApi.services.list(),
       adminApi.company.get(),
       adminApi.dashboard(),
+      adminApi.content.list("faqs"),
+      adminApi.content.list("workshops"),
+      adminApi.content.list("highlights"),
+      adminApi.content.list("about-values"),
+      adminApi.content.list("cta-points"),
     ]);
 
     setProjects(projectsRes.map(projectFromApi));
@@ -84,6 +106,13 @@ function AdminPortalContent() {
     setServices(servicesRes.map(serviceFromApi));
     setCompanyData(companyFromApi(companyRes));
     setStatsData(companyRes.stats ?? []);
+    setContentLists({
+      faqs,
+      workshops,
+      highlights,
+      "about-values": aboutValues,
+      "cta-points": ctaPoints,
+    });
     setCounts(dashboardRes);
   }, []);
 
@@ -251,6 +280,19 @@ function AdminPortalContent() {
     }
   };
 
+  // --- Konten pendukung (FAQ, workshop, highlight, nilai, CTA) ---
+  const handleSaveContent = async (type, items) => {
+    try {
+      await adminApi.content.replace(type, items);
+      await refreshAfterMutation();
+      showToast(`Konten ${CONTENT_DEFINITIONS[type]?.label ?? type} berhasil disimpan.`);
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal menyimpan konten.", "error");
+      return false;
+    }
+  };
+
   // --- Company Settings ---
   const handleSaveCompanySettings = async (formData) => {
     try {
@@ -391,6 +433,39 @@ function AdminPortalContent() {
                   services={services}
                   onUpdateService={handleUpdateService}
                 />
+              )}
+
+              {activeTab === "content" && (
+                <div className="space-y-5">
+                  {/* Pemilih jenis konten */}
+                  <div className="flex flex-wrap gap-2 bg-white p-3 rounded-2xl border border-slate-200/80 shadow-xs">
+                    {CONTENT_TYPES.map((type) => {
+                      const isActive = contentType === type;
+
+                      return (
+                        <button
+                          key={type}
+                          type="button"
+                          onClick={() => setContentType(type)}
+                          className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                            isActive
+                              ? "bg-brand text-white shadow-sm"
+                              : "border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                          }`}
+                        >
+                          {CONTENT_DEFINITIONS[type].label}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <ContentManager
+                    key={contentType}
+                    type={contentType}
+                    items={contentLists[contentType] ?? []}
+                    onSave={handleSaveContent}
+                  />
+                </div>
               )}
 
               {activeTab === "settings" && (

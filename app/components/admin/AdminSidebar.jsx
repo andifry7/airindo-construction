@@ -5,6 +5,7 @@ import {
   Briefcase,
   Building2,
   Wrench,
+  FileText,
   Settings,
   ExternalLink,
   Lock,
@@ -50,6 +51,13 @@ export default function AdminSidebar({
       icon: Wrench,
       badge: "4",
       desc: "Scope & sertifikasi ASME/ISO",
+    },
+    {
+      id: "content",
+      label: "Konten Pendukung",
+      icon: FileText,
+      badge: null,
+      desc: "FAQ, workshop & highlight",
     },
     {
       id: "settings",

@@ -25,10 +25,10 @@
 
 ## Posisi saat ini
 
-**Fase aktif:** Fase 6 — Konten pendukung (FAQ, Workshop, Highlights)
+**Fase aktif:** Fase 7 — Hardening & QA
 **Branch aktif:** `development`
 **Terakhir diperbarui:** 2 November 2026
-**Catatan:** Fase 0, 1, 2, 3, 4, 5, 5b **selesai**. Panel admin kini sepenuhnya membaca & menulis ke database (tidak ada `localStorage`), upload foto ke Cloudinary, dan setiap perubahan memicu revalidasi halaman publik. Sisa: Fase 6 (UI konten pendukung), 7 (hardening), 8 (persiapan deploy).
+**Catatan:** Fase 0–6 **selesai**. Publik & admin sepenuhnya berbasis database, upload Cloudinary, revalidasi otomatis, konten pendukung bisa diedit dari panel. Sisa: Fase 7 (hardening & QA) lalu Fase 8 (persiapan deploy).
 
 ---
 
@@ -235,10 +235,10 @@ chore: setup eslint backend
 **Branch:** `backend-zacky`
 **Catatan:** lead/RFQ **tidak dibuat** — murni WhatsApp sesuai keputusan client.
 
-- [ ] Modul `content` menangani 5 daftar sederhana: `faqs`, `workshops`, `highlights`, `about-values`, `cta-points`
-- [ ] Endpoint publik `GET /public/content/:type` + admin `GET/PUT /admin/content/:type`
-- [ ] Seed dari `app/lib/data.js`
-- [ ] UI admin: 3 layar sederhana (FAQ, Workshop, Highlights) — pola serupa `ServicesManager`
+- [x] Modul `content` menangani 5 daftar sederhana: `faqs`, `workshops`, `highlights`, `about-values`, `cta-points`
+- [x] Endpoint publik `GET /public/content/:type` + admin `GET/PUT /admin/content/:type`
+- [x] Seed dari `app/lib/data.js`
+- [x] UI admin: satu tab "Konten Pendukung" dengan 5 sub-tab (FAQ, Workshop, Highlight, Nilai Perusahaan, Poin CTA)
 
 **DoD:** admin bisa mengubah FAQ/workshop/highlights, dan tampil di halaman publik setelah revalidasi.
 
@@ -291,3 +291,4 @@ chore: setup eslint backend
 | 2 Nov 2026 | F5 | Halaman publik membaca API via `getSiteContent()` + `ContentProvider`; revalidasi otomatis terbukti di mode produksi |
 | 2 Nov 2026 | F1 | PIN dihapus, form login username + password, ganti password via API — teruji |
 | 2 Nov 2026 | F5b | Panel admin baca/tulis database, upload Cloudinary, revalidasi otomatis — teruji end-to-end |
+| 2 Nov 2026 | F6 | Tab "Konten Pendukung": 5 daftar (FAQ, workshop, highlight, nilai, CTA) bisa diedit dari panel |

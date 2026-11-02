@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  // Bisa diarahkan ke folder lain lewat env (mis. saat folder .next terkunci).
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   experimental: {
     agentFeedback: true,
   },

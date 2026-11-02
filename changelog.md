@@ -11,6 +11,27 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Added — 2 November 2026 (Fase 6 — konten pendukung di panel admin)
+- **Added** `app/components/admin/ContentManager.jsx` — editor generik untuk 5 daftar konten: FAQ, Workshop, Highlight, Nilai Perusahaan, Poin CTA. Mendukung tambah, hapus, ubah urutan (naik/turun), dan simpan sekaligus.
+- **Added** field ikon dengan saran nama dari registry (`Wrench`, `ShieldCheck`, …) agar tidak salah tulis.
+- **Changed** `AdminSidebar` — menu baru **"Konten Pendukung"**.
+- **Changed** `AdminHeader` — judul & subjudul untuk tab konten.
+- **Changed** `admin-portal/page.jsx` — memuat 5 daftar konten dari API, tab internal untuk memilih jenis, dan `PUT /admin/content/:type` saat menyimpan (otomatis memicu revalidasi).
+- **Changed** `next.config.ts` — `distDir` bisa diarahkan lewat env `NEXT_DIST_DIR` (workaround bila folder `.next` terkunci di mesin ini); `.next-run/` masuk `.gitignore`.
+
+### Verified — uji Fase 6 (2 November 2026)
+
+| Uji | Hasil |
+|---|---|
+| Tab Konten Pendukung | 5 tab: FAQ · Workshop · Highlight · Nilai Perusahaan · Poin CTA |
+| FAQ | 5 item, 10 textarea (pertanyaan + jawaban) |
+| **Ubah pertanyaan dari UI → simpan** | tersimpan di **database** (dicek via API publik) |
+| Kembalikan pertanyaan | berhasil |
+| Highlight | 4 item, 12 input teks |
+| Workshop | 1 item — field nama, lokasi, query maps, URL maps, kapabilitas |
+| Tambah lalu hapus item (CTA) | 4 → 5 → 4 |
+| Error halaman | **0** |
+
 ### Changed — 2 November 2026 (Fase 5b — panel admin memakai API)
 - **Added** `app/lib/admin-mappers.js` — pemetaan `imageUrl`→`image`, `logoUrl`→`logo`, `question/answer`→`q/a`, dan sebaliknya.
 - **Changed** `app/lib/admin-api.js` — ditambah `adminApi` (projects, clients, services, company, content, media, dashboard, export) + helper `buildQuery` dan upload multipart.
