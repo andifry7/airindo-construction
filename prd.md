@@ -352,12 +352,14 @@ Prefiks: `/api/v1`
 | Cakupan upload | **Hanya gambar proyek & logo klien.** Tidak untuk hero/layanan (hindari over-engineering). | 2 Nov 2026 |
 | FAQ / Workshop / Highlights | **Masuk v1** (bukan v1.1). | 2 Nov 2026 |
 | Struktur repo | **Monorepo**: frontend di root, backend di `backend/` (ADR-09). | 2 Nov 2026 |
+| Section Estimator | **Dihapus** dari kode (konsisten dengan "client suka langsung WA"). Tetap dapat dipulihkan dari commit `68fab02`. | 2 Nov 2026 |
+| Cloudinary | Cloud name `odo7lnkt`; kredensial terverifikasi (`/ping` → 200). Disimpan di `backend/.env`, tidak di-commit. | 2 Nov 2026 |
 
 ## 15b. Pertanyaan yang masih terbuka
 
-1. **Section Estimator** — client belum tahu komponen ini; penjelasan dikirim, menunggu keputusan (hapus / pertahankan / jadikan fitur).
+**Tidak ada.** Semua keputusan produk dan teknis untuk v1 sudah terjawab.
 
-**Sudah terjawab:** mekanisme auth (JWT 24 jam), lead (murni WhatsApp), cakupan upload (proyek & logo klien), FAQ/Workshop/Highlights (v1).
+Ringkasan yang sudah diputuskan: auth JWT 24 jam · lead murni WhatsApp · upload hanya proyek & logo klien · FAQ/Workshop/Highlights masuk v1 · layanan edit-only 4 pilar · Estimator dihapus · Cloudinary sebagai storage · monorepo.
 
 ---
 

@@ -11,6 +11,12 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Removed — 2 November 2026
+- **Removed** `app/components/home/ProjectEstimator.jsx` (343 baris) — komponen kalkulator estimasi yang tidak pernah dirender di halaman mana pun. Keputusan client: fokus ke WhatsApp.
+  - **Arsip:** tersimpan di commit `68fab02` (`feat: initialize Next.js project structure...`).
+  - **Pulihkan:** `git show 68fab02:app/components/home/ProjectEstimator.jsx > app/components/home/ProjectEstimator.jsx`
+  - Tidak ada referensi lain yang tersisa (`grep` bersih), sehingga build tidak terpengaruh.
+
 ### Docs — 2 November 2026 (keputusan putaran kedua)
 - **Changed** `prd.md`: **ADR-05 diganti** — auth memakai **JWT 24 jam** di cookie httpOnly (bukan session), ditambah mitigasi `token_version` untuk logout paksa saat ganti password.
 - **Added** `prd.md` **ADR-09**: struktur repo **monorepo** — frontend di root, backend di `backend/`; alasan, konsekuensi, dan kapan sebaiknya dipecah.
@@ -23,6 +29,8 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 - **Added** container `airindo-postgres` (`postgres:16-alpine`, **PostgreSQL 16.15**) via Podman; port `5432` → host, volume persisten `airindo_pgdata`.
 - **Added** database `airindo_construction` (owner `airindo`).
 - **Verified** koneksi: port 5432 terbuka dari Windows host; `select version()` berhasil.
+- **Added** `backend/.env` (di-ignore git) berisi `DATABASE_URL`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `JWT_SECRET`.
+- **Verified** kredensial Cloudinary: `GET /v1_1/odo7lnkt/ping` → `200 {"status":"ok"}`. Catatan: cloud name sempat salah baca (`odo7inkt`), yang benar `odo7lnkt`.
 
 ### Docs — 2 November 2026 (sesi lanjutan)
 - **Changed** `prd.md`: mencatat 5 keputusan client — storage **Cloudinary** dipilih; auth berupa **form login di dalam `/admin-portal`** (tanpa rute `/login`); **layanan cukup edit 4 pilar** (tanpa tambah/hapus); **hosting ditunda**, kerja di localhost; **PostgreSQL lokal via Podman**.

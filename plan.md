@@ -131,6 +131,15 @@ chore: setup eslint backend
 **DoD:** tidak ada lagi referensi PIN di kode; login berfungsi terhadap backend; build & lint bersih.
 **Catatan:** fase ini butuh endpoint auth dari Fase 3, jadi UI dibuat lebih dulu dengan mock, lalu disambungkan.
 
+### Cleanup frontend (sudah dikerjakan, 2 Nov 2026)
+
+- [x] Hapus `app/components/home/ProjectEstimator.jsx` — tidak pernah dirender di halaman mana pun, dan client memilih fokus ke WhatsApp.
+  - **Cara memulihkan bila client berubah pikiran:**
+    ```bash
+    git show 68fab02:app/components/home/ProjectEstimator.jsx > app/components/home/ProjectEstimator.jsx
+    ```
+- [ ] Putuskan nasib `estimatorData` di `app/lib/data.js` — masih ada, tidak terpakai. Sengaja belum disentuh karena `data.js` dipakai sebagai sumber seed (aturan AGENTS §2.8).
+
 ---
 
 ## Fase 2 — Backend: scaffold
