@@ -11,6 +11,34 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Changed — 2 November 2026 (Fase 1 — form login menggantikan PIN)
+- **Added** `app/lib/admin-api.js` — klien API admin (`credentials: "include"`), kelas `ApiError` dengan properti `isUnauthorized`, penanganan error jaringan.
+- **Added** `app/components/admin/LoginForm.jsx` — form **username + password** bergaya sama dengan situs (kartu putih, latar navy, ikon kunci), toggle lihat password, state loading & error.
+- **Removed** `app/components/admin/SecurityGate.jsx` — PIN gate lama dihapus total.
+- **Changed** `app/admin-portal/page.jsx` — sesi diverifikasi ke `GET /auth/me` saat panel dibuka; belum punya sesi → form login, sudah punya → panel. Logout memanggil `POST /auth/logout`.
+- **Changed** `CompanySettings` — bagian "Ganti PIN" menjadi **"Keamanan & Ganti Password"** (password saat ini / baru / konfirmasi) yang memanggil `PATCH /auth/password`; setelah sukses otomatis keluar ke form login karena `token_version` naik.
+- **Changed** `DashboardOverview` — teks "Perlindungan PIN (default 2013)" diganti keterangan JWT 24 jam di cookie httpOnly.
+- **Removed** seluruh logika `localStorage` untuk `airindo_admin_pin`.
+- **Added** `NEXT_PUBLIC_API_BASE_URL` di `.env.example` (dipakai browser); boleh dikosongkan bila frontend & backend satu domain.
+
+### Verified — uji Fase 1 (2 November 2026)
+
+| Uji | Hasil |
+|---|---|
+| Buka `/admin-portal` tanpa sesi | form login tampil (username + password), **tidak ada** teks "PIN" |
+| Login password salah | pesan "Username atau password salah." |
+| Login benar | masuk panel |
+| Reload halaman | sesi bertahan (cookie) |
+| Cookie `airindo_session` | `httpOnly=true`, `SameSite=Lax`, kedaluwarsa ±24 jam |
+| Tombol "Kunci & Keluar Panel" | kembali ke form login |
+| Buka ulang `/admin-portal` setelah logout | form login |
+| Ganti password lewat Settings | pesan sukses, otomatis logout |
+| Password lama setelah diganti | ditolak (`401`) — terverifikasi via API |
+| Password baru | diterima (`200`) |
+| Password dikembalikan ke default | `airindo123123` aktif kembali |
+
+Catatan: browser mencatat 401 di konsol saat pengecekan sesi — itu normal untuk pemeriksaan autentikasi, bukan error aplikasi.
+
 ### Added — 2 November 2026 (Fase 5 — integrasi halaman publik ke API)
 - **Added** `app/lib/site-content.js` — `getSiteContent()` memakai `'use cache'` + `cacheTag('site-content')` + `cacheLife('hours')`, mengambil `/api/v1/public/bootstrap`. Bila API tidak terjangkau, otomatis memakai data statis `app/lib/data.js` (situs tidak pernah kosong).
 - **Added** `app/components/providers/ContentProvider.jsx` — satu kali fetch di layout, dibagikan ke seluruh komponen lewat context. Tidak ada prop drilling.

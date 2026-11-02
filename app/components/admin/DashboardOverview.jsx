@@ -268,8 +268,8 @@ export default function DashboardOverview({
               <div className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                 <span>
-                  <strong>Perlindungan PIN:</strong> Dilengkapi proteksi PIN
-                  kunci akses (default: <code>2013</code>).
+                  <strong>Login Terverifikasi Server:</strong> Sesi memakai JWT 24 jam
+                  pada cookie httpOnly — tidak bisa dibaca JavaScript.
                 </span>
               </div>
               <div className="flex items-start gap-2">

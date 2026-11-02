@@ -16,12 +16,13 @@ import ProjectsManager from "@/components/admin/ProjectsManager";
 import ClientsManager from "@/components/admin/ClientsManager";
 import ServicesManager from "@/components/admin/ServicesManager";
 import CompanySettings from "@/components/admin/CompanySettings";
-import SecurityGate from "@/components/admin/SecurityGate";
+import LoginForm from "@/components/admin/LoginForm";
+import { authApi } from "@/lib/admin-api";
 import { CheckCircle2, AlertCircle, X } from "lucide-react";
 
 function AdminPortalContent() {
-  // Authentication State
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Sesi admin — diverifikasi ke backend, bukan disimpan di browser
+  const [authUser, setAuthUser] = useState(null);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
 
   // Active Tab
@@ -45,7 +46,28 @@ function AdminPortalContent() {
     }, 3500);
   };
 
-  // Initialization: check local storage & seed data
+  // Verifikasi sesi ke backend saat panel dibuka
+  useEffect(() => {
+    let active = true;
+
+    (async () => {
+      try {
+        const { user } = await authApi.me();
+        if (active) setAuthUser(user);
+      } catch {
+        if (active) setAuthUser(null);
+      } finally {
+        if (active) setIsAuthChecking(false);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  // Muat data konten dari localStorage.
+  // Sementara — diganti pengambilan dari API pada Fase 5b.
   useEffect(() => {
     const timer = setTimeout(() => {
       try {
@@ -91,8 +113,6 @@ function AdminPortalContent() {
         }
       } catch (err) {
         console.error("Failed to load local admin data:", err);
-      } finally {
-        setIsAuthChecking(false);
       }
     }, 0);
 
@@ -108,15 +128,20 @@ function AdminPortalContent() {
     }
   };
 
-  // Authentication Handlers - session only, always re-authenticates when link is reopened
-  const handleUnlock = () => {
-    setIsAuthenticated(true);
-    showToast("Akses panel admin berhasil dibuka!", "success");
+  // Handler autentikasi — sesi dikelola server lewat cookie httpOnly
+  const handleLoginSuccess = (user) => {
+    setAuthUser(user);
+    showToast(`Selamat datang, ${user?.displayName || user?.username || "Admin"}.`, "success");
   };
 
-  const handleLock = () => {
-    setIsAuthenticated(false);
-    showToast("Panel admin berhasil dikunci.", "info");
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+    } catch {
+      // Walau permintaan gagal, panel tetap dikunci di sisi klien.
+    }
+    setAuthUser(null);
+    showToast("Anda telah keluar dari panel admin.", "info");
   };
 
   // --- CRUD Projects ---
@@ -270,9 +295,9 @@ function AdminPortalContent() {
     );
   }
 
-  // If not authenticated, show Security PIN Gate
-  if (!isAuthenticated) {
-    return <SecurityGate onUnlock={handleUnlock} />;
+  // Belum punya sesi valid → tampilkan form login
+  if (!authUser) {
+    return <LoginForm onSuccess={handleLoginSuccess} />;
   }
 
   return (
@@ -301,7 +326,7 @@ function AdminPortalContent() {
         setActiveTab={setActiveTab}
         isOpenMobile={isMobileSidebarOpen}
         setIsOpenMobile={setIsMobileSidebarOpen}
-        onLock={handleLock}
+        onLock={handleLogout}
         statsCount={{
           projects: projects.length,
           clients: clients.length,
@@ -362,6 +387,7 @@ function AdminPortalContent() {
               companyData={companyData}
               companyStats={statsData}
               onSaveSettings={handleSaveCompanySettings}
+              onPasswordChanged={handleLogout}
             />
           )}
         </main>

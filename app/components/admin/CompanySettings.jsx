@@ -9,14 +9,16 @@ import {
   ExternalLink,
   KeyRound,
   AlertCircle,
-  RotateCcw,
-  Lock
+  Lock,
+  Loader2,
 } from "lucide-react";
+import { authApi } from "@/lib/admin-api";
 
 export default function CompanySettings({
   companyData,
   companyStats,
-  onSaveSettings
+  onSaveSettings,
+  onPasswordChanged,
 }) {
   const [formData, setFormData] = useState({
     name: companyData?.name || "Airindo Construction",
@@ -38,58 +40,51 @@ export default function CompanySettings({
 
   const [savedSuccess, setSavedSuccess] = useState(false);
 
-  // Change PIN State
-  const [pinForm, setPinForm] = useState({
-    oldPin: "",
-    newPin: "",
-    confirmPin: "",
+  // Ganti password — diverifikasi & disimpan di server
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
-  const [pinError, setPinError] = useState("");
-  const [pinSuccess, setPinSuccess] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+  const [passwordSaving, setPasswordSaving] = useState(false);
 
-  const handleUpdatePin = (e) => {
+  const handleChangePassword = async (e) => {
     e.preventDefault();
-    setPinError("");
-    setPinSuccess("");
+    setPasswordError("");
+    setPasswordSuccess("");
 
-    const currentSavedPin =
-      typeof window !== "undefined"
-        ? localStorage.getItem("airindo_admin_pin") || "2013"
-        : "2013";
-
-    if (pinForm.oldPin !== currentSavedPin) {
-      setPinError("PIN lama yang Anda masukkan salah.");
+    if (!passwordForm.currentPassword) {
+      setPasswordError("Password saat ini wajib diisi.");
+      return;
+    }
+    if (passwordForm.newPassword.length < 8) {
+      setPasswordError("Password baru minimal 8 karakter.");
+      return;
+    }
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordError("Konfirmasi password baru tidak sesuai.");
       return;
     }
 
-    if (pinForm.newPin.length < 4) {
-      setPinError("PIN baru harus minimal 4 karakter/digit.");
-      return;
-    }
+    setPasswordSaving(true);
+    try {
+      const result = await authApi.changePassword(
+        passwordForm.currentPassword,
+        passwordForm.newPassword
+      );
 
-    if (pinForm.newPin !== pinForm.confirmPin) {
-      setPinError("Konfirmasi PIN baru tidak sesuai.");
-      return;
-    }
+      setPasswordSuccess(result?.message || "Password berhasil diubah.");
+      setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
 
-    localStorage.setItem("airindo_admin_pin", pinForm.newPin);
-    setPinSuccess("PIN akses admin berhasil diganti!");
-    setPinForm({ oldPin: "", newPin: "", confirmPin: "" });
-
-    setTimeout(() => {
-      setPinSuccess("");
-    }, 4000);
-  };
-
-  const handleResetPinDefault = () => {
-    if (window.confirm("Kembalikan PIN akses admin ke PIN bawaan (2013)?")) {
-      localStorage.removeItem("airindo_admin_pin");
-      setPinSuccess("PIN berhasil dikembalikan ke bawaan: 2013");
-      setPinError("");
-      setPinForm({ oldPin: "", newPin: "", confirmPin: "" });
-      setTimeout(() => {
-        setPinSuccess("");
-      }, 4000);
+      // Backend menghapus cookie dan menaikkan token_version, jadi sesi
+      // berakhir. Arahkan kembali ke form login.
+      setTimeout(() => onPasswordChanged?.(), 1800);
+    } catch (err) {
+      setPasswordError(err?.message || "Gagal mengubah password.");
+    } finally {
+      setPasswordSaving(false);
     }
   };
 
@@ -322,96 +317,85 @@ export default function CompanySettings({
         </div>
       </div>
 
-      {/* Section 3: Keamanan & Ganti PIN Admin */}
+      {/* Section 3: Keamanan & Ganti Password */}
       <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-5">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
-              <KeyRound className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="font-bold text-slate-900 text-sm">
-                Keamanan & Ganti PIN Admin
-              </h3>
-              <p className="text-xs text-slate-500">
-                Ubah PIN kunci akses yang diminta setiap kali tautan panel admin dibuka
-              </p>
-            </div>
+        <div className="flex items-center gap-2.5 border-b border-slate-100 pb-4">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+            <KeyRound className="w-5 h-5" />
           </div>
-
-          <button
-            type="button"
-            onClick={handleResetPinDefault}
-            className="text-[11px] font-semibold text-slate-500 hover:text-purple-600 flex items-center gap-1 cursor-pointer"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            Reset ke PIN Default (2013)
-          </button>
+          <div>
+            <h3 className="font-bold text-slate-900 text-sm">
+              Keamanan &amp; Ganti Password
+            </h3>
+            <p className="text-xs text-slate-500">
+              Password disimpan terenkripsi di server. Setelah diganti, Anda diminta login ulang.
+            </p>
+          </div>
         </div>
 
-        {pinSuccess && (
+        {passwordSuccess && (
           <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs flex items-center gap-2 animate-in fade-in">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span>{pinSuccess}</span>
+            <span>{passwordSuccess}</span>
           </div>
         )}
 
-        {pinError && (
+        {passwordError && (
           <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-xs flex items-center gap-2 animate-in fade-in">
             <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-            <span>{pinError}</span>
+            <span>{passwordError}</span>
           </div>
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              PIN Saat Ini
+              Password Saat Ini
             </label>
             <input
               type="password"
-              placeholder="Masukkan PIN lama..."
-              maxLength={10}
-              value={pinForm.oldPin}
+              autoComplete="current-password"
+              placeholder="Masukkan password lama..."
+              value={passwordForm.currentPassword}
               onChange={(e) => {
-                setPinForm({ ...pinForm, oldPin: e.target.value });
-                setPinError("");
+                setPasswordForm({ ...passwordForm, currentPassword: e.target.value });
+                setPasswordError("");
               }}
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-medium focus:outline-none focus:ring-2 focus:ring-brand"
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand"
             />
           </div>
 
           <div>
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              PIN Baru (Min. 4 Digit)
+              Password Baru (Min. 8 Karakter)
             </label>
             <input
               type="password"
-              placeholder="PIN baru..."
-              maxLength={10}
-              value={pinForm.newPin}
+              autoComplete="new-password"
+              placeholder="Password baru..."
+              value={passwordForm.newPassword}
               onChange={(e) => {
-                setPinForm({ ...pinForm, newPin: e.target.value });
-                setPinError("");
+                setPasswordForm({ ...passwordForm, newPassword: e.target.value });
+                setPasswordError("");
               }}
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-medium focus:outline-none focus:ring-2 focus:ring-brand"
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand"
             />
           </div>
 
           <div>
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Konfirmasi PIN Baru
+              Konfirmasi Password Baru
             </label>
             <input
               type="password"
-              placeholder="Ulangi PIN baru..."
-              maxLength={10}
-              value={pinForm.confirmPin}
+              autoComplete="new-password"
+              placeholder="Ulangi password baru..."
+              value={passwordForm.confirmPassword}
               onChange={(e) => {
-                setPinForm({ ...pinForm, confirmPin: e.target.value });
-                setPinError("");
+                setPasswordForm({ ...passwordForm, confirmPassword: e.target.value });
+                setPasswordError("");
               }}
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-medium focus:outline-none focus:ring-2 focus:ring-brand"
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand"
             />
           </div>
         </div>
@@ -419,11 +403,16 @@ export default function CompanySettings({
         <div className="pt-2 flex justify-end">
           <button
             type="button"
-            onClick={handleUpdatePin}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0b2557] hover:bg-brand text-white font-semibold text-xs shadow-xs transition cursor-pointer"
+            onClick={handleChangePassword}
+            disabled={passwordSaving}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0b2557] hover:bg-brand text-white font-semibold text-xs shadow-xs transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <Lock className="w-3.5 h-3.5" />
-            Simpan PIN Baru
+            {passwordSaving ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            ) : (
+              <Lock className="w-3.5 h-3.5" />
+            )}
+            {passwordSaving ? "Menyimpan..." : "Simpan Password Baru"}
           </button>
         </div>
       </div>

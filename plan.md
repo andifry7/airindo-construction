@@ -25,10 +25,10 @@
 
 ## Posisi saat ini
 
-**Fase aktif:** Fase 1 — form login di `/admin-portal` (lalu Fase 5b)
+**Fase aktif:** Fase 5b — Sambungkan panel admin ke API
 **Branch aktif:** `development`
 **Terakhir diperbarui:** 2 November 2026
-**Catatan:** Fase 0, 2, 3, 4, 5 **selesai**. Halaman publik kini membaca data dari API dan perubahan admin otomatis tampil setelah revalidasi (terverifikasi di mode produksi). Panel admin **masih** memakai `localStorage` + PIN `2013` — itu pekerjaan Fase 1 dan 5b.
+**Catatan:** Fase 0, 1, 2, 3, 4, 5 **selesai**. Login admin kini username + password lewat API (PIN dihapus). Panel admin masih menyimpan **konten** di `localStorage` — itu sisa pekerjaan Fase 5b. Setelah itu Fase 6 (konten pendukung), 7 (hardening), 8 (persiapan deploy).
 
 ---
 
@@ -120,13 +120,13 @@ chore: setup eslint backend
 **Branch:** `development`
 **Tujuan:** mengganti PIN gate dengan login username + password, **di dalam `/admin-portal`** (tanpa rute `/login` terpisah, tanpa halaman register).
 
-- [ ] Ubah `SecurityGate.jsx` menjadi form login: field **username** + **password**, tombol "Masuk", state loading & error
-- [ ] Pertahankan gaya visual yang ada (kartu putih, latar gradien navy, ikon kunci)
-- [ ] `/admin-portal` menampilkan form login bila belum ada sesi; menampilkan panel bila sesi valid
-- [ ] State auth dari API (`/auth/me`), bukan state React semata
-- [ ] `CompanySettings`: bagian "Ganti PIN" → "Ganti Password" (current + new + confirm)
-- [ ] Hapus `localStorage` key `airindo_admin_pin` beserta seluruh logikanya
-- [ ] Uji: login benar → panel; login salah → pesan error; logout → kembali ke form
+- [x] Ubah `SecurityGate.jsx` menjadi form login: field **username** + **password**, tombol "Masuk", state loading & error
+- [x] Pertahankan gaya visual yang ada (kartu putih, latar gradien navy, ikon kunci)
+- [x] `/admin-portal` menampilkan form login bila belum ada sesi; menampilkan panel bila sesi valid
+- [x] State auth dari API (`/auth/me`), bukan state React semata
+- [x] `CompanySettings`: bagian "Ganti PIN" → "Ganti Password" (current + new + confirm)
+- [x] Hapus `localStorage` key `airindo_admin_pin` beserta seluruh logikanya
+- [x] Uji: login benar → panel; login salah → pesan error; logout → kembali ke form
 
 **DoD:** tidak ada lagi referensi PIN di kode; login berfungsi terhadap backend; build & lint bersih.
 **Catatan:** fase ini butuh endpoint auth dari Fase 3, jadi UI dibuat lebih dulu dengan mock, lalu disambungkan.
@@ -289,3 +289,4 @@ chore: setup eslint backend
 | 2 Nov 2026 | F3 | Auth JWT 24 jam, seeder admin, rate limit — teruji end-to-end |
 | 2 Nov 2026 | F4 | 11 tabel konten, seed dari frontend, modul projects/services/clients/company/content/media, upload Cloudinary terverifikasi |
 | 2 Nov 2026 | F5 | Halaman publik membaca API via `getSiteContent()` + `ContentProvider`; revalidasi otomatis terbukti di mode produksi |
+| 2 Nov 2026 | F1 | PIN dihapus, form login username + password, ganti password via API — teruji |
