@@ -10,11 +10,13 @@ import {
   CheckCircle2,
   X,
   Plus,
+  Loader2,
 } from "lucide-react";
 
 export default function ServicesManager({ services, onUpdateService }) {
   const [editingService, setEditingService] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     shortTitle: "",
@@ -26,8 +28,8 @@ export default function ServicesManager({ services, onUpdateService }) {
     caseHighlight: "",
   });
 
-  const getServiceIcon = (id) => {
-    switch (id) {
+  const getServiceIcon = (slug) => {
+    switch (slug) {
       case "mechanical":
         return <Wrench className="w-5 h-5 text-blue-600" />;
       case "electrical":
@@ -71,13 +73,20 @@ export default function ServicesManager({ services, onUpdateService }) {
     });
   };
 
-  const handleSaveSubmit = (e) => {
+  const handleSaveSubmit = async (e) => {
     e.preventDefault();
-    onUpdateService({
+    if (isSaving) return;
+
+    setIsSaving(true);
+    const success = await onUpdateService({
       ...editingService,
       ...formData,
     });
-    setIsModalOpen(false);
+    setIsSaving(false);
+
+    if (success !== false) {
+      setIsModalOpen(false);
+    }
   };
 
   return (
@@ -107,7 +116,7 @@ export default function ServicesManager({ services, onUpdateService }) {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center">
-                  {getServiceIcon(service.id)}
+                  {getServiceIcon(service.slug)}
                 </div>
                 <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-brand text-[11px] font-semibold border border-blue-100">
                   {service.badge || "Spesialis"}
@@ -296,9 +305,11 @@ export default function ServicesManager({ services, onUpdateService }) {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-brand hover:bg-[#0b2557] text-white font-semibold text-xs shadow-md transition cursor-pointer"
+                  disabled={isSaving}
+                  className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-brand hover:bg-[#0b2557] text-white font-semibold text-xs shadow-md transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Simpan Perubahan Layanan
+                  {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                  {isSaving ? "Menyimpan..." : "Simpan Perubahan Layanan"}
                 </button>
               </div>
             </form>

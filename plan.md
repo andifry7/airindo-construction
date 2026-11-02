@@ -25,10 +25,10 @@
 
 ## Posisi saat ini
 
-**Fase aktif:** Fase 5b — Sambungkan panel admin ke API
+**Fase aktif:** Fase 6 — Konten pendukung (FAQ, Workshop, Highlights)
 **Branch aktif:** `development`
 **Terakhir diperbarui:** 2 November 2026
-**Catatan:** Fase 0, 1, 2, 3, 4, 5 **selesai**. Login admin kini username + password lewat API (PIN dihapus). Panel admin masih menyimpan **konten** di `localStorage` — itu sisa pekerjaan Fase 5b. Setelah itu Fase 6 (konten pendukung), 7 (hardening), 8 (persiapan deploy).
+**Catatan:** Fase 0, 1, 2, 3, 4, 5, 5b **selesai**. Panel admin kini sepenuhnya membaca & menulis ke database (tidak ada `localStorage`), upload foto ke Cloudinary, dan setiap perubahan memicu revalidasi halaman publik. Sisa: Fase 6 (UI konten pendukung), 7 (hardening), 8 (persiapan deploy).
 
 ---
 
@@ -215,16 +215,16 @@ chore: setup eslint backend
 **Branch:** `development`
 **Prasyarat:** Fase 1 (form login) selesai.
 
-- [ ] `app/lib/admin-api.js` — klien fetch dengan `credentials: "include"` + penanganan 401
-- [ ] `admin-portal/page.jsx`: hapus seluruh `localStorage`, ambil data dari API
-- [ ] `ProjectsManager`: create/update/delete/toggle featured → endpoint admin; upload foto → `/admin/media`
-- [ ] `ClientsManager`: CRUD berbasis `id` (bukan index) + upload logo
-- [ ] `ServicesManager`: PATCH saja (4 pilar)
-- [ ] `CompanySettings`: PUT profil + statistik; bagian "Ganti PIN" → "Ganti Password"
-- [ ] `DashboardOverview`: angka dari `/admin/dashboard`
-- [ ] Tombol "Cadangkan JSON" → `/admin/export`
-- [ ] Hapus `SecurityGate` lama, ganti form login (lihat Fase 1)
-- [ ] `lib/data.js` tidak lagi diimpor oleh komponen publik maupun admin
+- [x] `app/lib/admin-api.js` — klien fetch dengan `credentials: "include"` + penanganan 401
+- [x] `admin-portal/page.jsx`: hapus seluruh `localStorage`, ambil data dari API
+- [x] `ProjectsManager`: create/update/delete/toggle featured → endpoint admin; upload foto → `/admin/media`
+- [x] `ClientsManager`: CRUD berbasis `id` (bukan index) + upload logo
+- [x] `ServicesManager`: PATCH saja (4 pilar)
+- [x] `CompanySettings`: PUT profil + statistik; bagian "Ganti PIN" → "Ganti Password"
+- [x] `DashboardOverview`: angka dari `/admin/dashboard`
+- [x] Tombol "Cadangkan JSON" → `/admin/export`
+- [x] Hapus `SecurityGate` lama, ganti form login (lihat Fase 1)
+- [x] `lib/data.js` tidak lagi diimpor oleh komponen publik maupun admin
 
 **DoD:** tidak ada lagi `localStorage` untuk konten; semua CRUD admin menulis ke database dan memicu revalidasi.
 
@@ -290,3 +290,4 @@ chore: setup eslint backend
 | 2 Nov 2026 | F4 | 11 tabel konten, seed dari frontend, modul projects/services/clients/company/content/media, upload Cloudinary terverifikasi |
 | 2 Nov 2026 | F5 | Halaman publik membaca API via `getSiteContent()` + `ContentProvider`; revalidasi otomatis terbukti di mode produksi |
 | 2 Nov 2026 | F1 | PIN dihapus, form login username + password, ganti password via API — teruji |
+| 2 Nov 2026 | F5b | Panel admin baca/tulis database, upload Cloudinary, revalidasi otomatis — teruji end-to-end |

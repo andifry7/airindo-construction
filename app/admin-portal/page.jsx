@@ -1,13 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
-import {
-  company,
-  companyStats,
-  services as initialServices,
-  clients as initialClients,
-  projects as initialProjects,
-} from "@/lib/data";
+import { useCallback, useEffect, useState, Suspense } from "react";
 
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminHeader from "@/components/admin/AdminHeader";
@@ -17,7 +10,17 @@ import ClientsManager from "@/components/admin/ClientsManager";
 import ServicesManager from "@/components/admin/ServicesManager";
 import CompanySettings from "@/components/admin/CompanySettings";
 import LoginForm from "@/components/admin/LoginForm";
-import { authApi } from "@/lib/admin-api";
+import { adminApi, authApi } from "@/lib/admin-api";
+import {
+  clientFromApi,
+  clientToApi,
+  companyFromApi,
+  companyToApi,
+  projectFromApi,
+  projectToApi,
+  serviceFromApi,
+  serviceToApi,
+} from "@/lib/admin-mappers";
 import { CheckCircle2, AlertCircle, X } from "lucide-react";
 
 function AdminPortalContent() {
@@ -29,22 +32,22 @@ function AdminPortalContent() {
   const [activeTab, setActiveTab] = useState("overview");
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-  // Local editable data state
+  // Konten — seluruhnya berasal dari database
   const [projects, setProjects] = useState([]);
   const [clients, setClients] = useState([]);
   const [services, setServices] = useState([]);
-  const [companyData, setCompanyData] = useState(company);
-  const [statsData, setStatsData] = useState(companyStats);
+  const [companyData, setCompanyData] = useState(null);
+  const [statsData, setStatsData] = useState([]);
+  const [counts, setCounts] = useState(null);
+  const [isContentLoading, setIsContentLoading] = useState(true);
 
   // Toast notification
   const [toast, setToast] = useState(null);
 
-  const showToast = (message, type = "success") => {
+  const showToast = useCallback((message, type = "success") => {
     setToast({ message, type });
-    setTimeout(() => {
-      setToast(null);
-    }, 3500);
-  };
+    setTimeout(() => setToast(null), 4000);
+  }, []);
 
   // Verifikasi sesi ke backend saat panel dibuka
   useEffect(() => {
@@ -66,70 +69,66 @@ function AdminPortalContent() {
     };
   }, []);
 
-  // Muat data konten dari localStorage.
-  // Sementara — diganti pengambilan dari API pada Fase 5b.
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      try {
-        // Load Projects
-        const savedProjects = localStorage.getItem("airindo_projects");
-        if (savedProjects) {
-          setProjects(JSON.parse(savedProjects));
-        } else {
-          // Add featured flag to first 2 items by default
-          const seeded = initialProjects.map((p, idx) => ({
-            ...p,
-            featured: idx < 2,
-          }));
-          setProjects(seeded);
-        }
+  /** Ambil seluruh konten dari API. */
+  const loadContent = useCallback(async () => {
+    const [projectsRes, clientsRes, servicesRes, companyRes, dashboardRes] = await Promise.all([
+      adminApi.projects.list({ limit: 100 }),
+      adminApi.clients.list(),
+      adminApi.services.list(),
+      adminApi.company.get(),
+      adminApi.dashboard(),
+    ]);
 
-        // Load Clients
-        const savedClients = localStorage.getItem("airindo_clients");
-        if (savedClients) {
-          setClients(JSON.parse(savedClients));
-        } else {
-          setClients(initialClients);
-        }
-
-        // Load Services
-        const savedServices = localStorage.getItem("airindo_services");
-        if (savedServices) {
-          setServices(JSON.parse(savedServices));
-        } else {
-          setServices(initialServices);
-        }
-
-        // Load Company Info
-        const savedCompany = localStorage.getItem("airindo_company");
-        if (savedCompany) {
-          setCompanyData(JSON.parse(savedCompany));
-        }
-
-        // Load Stats
-        const savedStats = localStorage.getItem("airindo_stats");
-        if (savedStats) {
-          setStatsData(JSON.parse(savedStats));
-        }
-      } catch (err) {
-        console.error("Failed to load local admin data:", err);
-      }
-    }, 0);
-
-    return () => clearTimeout(timer);
+    setProjects(projectsRes.map(projectFromApi));
+    setClients(clientsRes.map(clientFromApi));
+    setServices(servicesRes.map(serviceFromApi));
+    setCompanyData(companyFromApi(companyRes));
+    setStatsData(companyRes.stats ?? []);
+    setCounts(dashboardRes);
   }, []);
 
-  // Save changes to localStorage helper
-  const persistState = (key, data) => {
-    try {
-      localStorage.setItem(key, JSON.stringify(data));
-    } catch (err) {
-      console.error("Storage error:", err);
-    }
-  };
+  // Muat konten setelah sesi diketahui valid.
+  // Status loading sudah `true` sejak awal (dan di-set saat login),
+  // jadi tidak perlu setState sinkron di dalam effect.
+  useEffect(() => {
+    if (!authUser) return undefined;
 
-  // Handler autentikasi — sesi dikelola server lewat cookie httpOnly
+    let active = true;
+
+    const run = async () => {
+      try {
+        await loadContent();
+      } catch (error) {
+        if (!active) return;
+        if (error?.isUnauthorized) {
+          setAuthUser(null);
+          return;
+        }
+        showToast(error?.message || "Gagal memuat konten dari server.", "error");
+      } finally {
+        if (active) setIsContentLoading(false);
+      }
+    };
+
+    run();
+
+    return () => {
+      active = false;
+    };
+  }, [authUser, loadContent, showToast]);
+
+  /** Setelah setiap mutasi, ambil ulang data agar tampilan = isi database. */
+  const refreshAfterMutation = useCallback(async () => {
+    try {
+      await loadContent();
+    } catch {
+      // Toast utama sudah memberi tahu pengguna; kegagalan refresh tidak fatal.
+    }
+  }, [loadContent]);
+
+  // Handler autentikasi
   const handleLoginSuccess = (user) => {
+    setIsContentLoading(true);
     setAuthUser(user);
     showToast(`Selamat datang, ${user?.displayName || user?.username || "Admin"}.`, "success");
   };
@@ -145,142 +144,145 @@ function AdminPortalContent() {
   };
 
   // --- CRUD Projects ---
-  const handleAddProject = (newProject) => {
-    const updated = [newProject, ...projects];
-    setProjects(updated);
-    persistState("airindo_projects", updated);
-    showToast(`Proyek "${newProject.title}" berhasil ditambahkan.`);
+  const handleAddProject = async (project) => {
+    try {
+      await adminApi.projects.create(projectToApi(project));
+      await refreshAfterMutation();
+      showToast(`Proyek "${project.title}" berhasil ditambahkan.`);
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal menambahkan proyek.", "error");
+      return false;
+    }
   };
 
-  const handleUpdateProject = (updatedProject) => {
-    const updated = projects.map((p) =>
-      p.id === updatedProject.id ? updatedProject : p
-    );
-    setProjects(updated);
-    persistState("airindo_projects", updated);
-    showToast(`Proyek "${updatedProject.title}" berhasil diperbarui.`);
+  const handleUpdateProject = async (project) => {
+    try {
+      await adminApi.projects.update(project.id, projectToApi(project));
+      await refreshAfterMutation();
+      showToast(`Proyek "${project.title}" berhasil diperbarui.`);
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal memperbarui proyek.", "error");
+      return false;
+    }
   };
 
-  const handleDeleteProject = (projectId) => {
-    const target = projects.find((p) => p.id === projectId);
-    const updated = projects.filter((p) => p.id !== projectId);
-    setProjects(updated);
-    persistState("airindo_projects", updated);
-    showToast(`Proyek "${target?.title || "Terpilih"}" telah dihapus.`, "info");
+  const handleDeleteProject = async (projectId) => {
+    const target = projects.find((item) => item.id === projectId);
+    try {
+      await adminApi.projects.remove(projectId);
+      await refreshAfterMutation();
+      showToast(`Proyek "${target?.title || "Terpilih"}" telah dihapus.`, "info");
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal menghapus proyek.", "error");
+      return false;
+    }
   };
 
-  const handleToggleFeatured = (projectId) => {
-    const updated = projects.map((p) => {
-      if (p.id === projectId) {
-        const nextFeatured = !p.featured;
-        showToast(
-          nextFeatured
-            ? `"${p.title}" ditampilkan di beranda.`
-            : `"${p.title}" dihapus dari beranda.`
-        );
-        return { ...p, featured: nextFeatured };
-      }
-      return p;
-    });
-    setProjects(updated);
-    persistState("airindo_projects", updated);
+  const handleToggleFeatured = async (projectId) => {
+    const target = projects.find((item) => item.id === projectId);
+    if (!target) return false;
+
+    try {
+      await adminApi.projects.setFeatured(projectId, !target.featured);
+      await refreshAfterMutation();
+      showToast(
+        !target.featured
+          ? `"${target.title}" ditampilkan di beranda.`
+          : `"${target.title}" dihapus dari beranda.`
+      );
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal mengubah status unggulan.", "error");
+      return false;
+    }
   };
 
   // --- CRUD Clients ---
-  const handleAddClient = (newClient) => {
-    const updated = [newClient, ...clients];
-    setClients(updated);
-    persistState("airindo_clients", updated);
-    showToast(`Klien "${newClient.name}" berhasil ditambahkan.`);
+  const handleAddClient = async (client) => {
+    try {
+      await adminApi.clients.create(clientToApi(client));
+      await refreshAfterMutation();
+      showToast(`Klien "${client.name}" berhasil ditambahkan.`);
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal menambahkan klien.", "error");
+      return false;
+    }
   };
 
-  const handleUpdateClient = (index, updatedClient) => {
-    const updated = [...clients];
-    updated[index] = updatedClient;
-    setClients(updated);
-    persistState("airindo_clients", updated);
-    showToast(`Data klien "${updatedClient.name}" diperbarui.`);
+  const handleUpdateClient = async (clientId, client) => {
+    try {
+      await adminApi.clients.update(clientId, clientToApi(client));
+      await refreshAfterMutation();
+      showToast(`Data klien "${client.name}" diperbarui.`);
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal memperbarui klien.", "error");
+      return false;
+    }
   };
 
-  const handleDeleteClient = (index) => {
-    const target = clients[index];
-    const updated = clients.filter((_, i) => i !== index);
-    setClients(updated);
-    persistState("airindo_clients", updated);
-    showToast(`Klien "${target?.name || "Terpilih"}" dihapus.`, "info");
+  const handleDeleteClient = async (clientId) => {
+    const target = clients.find((item) => item.id === clientId);
+    try {
+      await adminApi.clients.remove(clientId);
+      await refreshAfterMutation();
+      showToast(`Klien "${target?.name || "Terpilih"}" dihapus.`, "info");
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal menghapus klien.", "error");
+      return false;
+    }
   };
 
-  // --- Services ---
-  const handleUpdateService = (updatedService) => {
-    const updated = services.map((s) =>
-      s.id === updatedService.id ? updatedService : s
-    );
-    setServices(updated);
-    persistState("airindo_services", updated);
-    showToast(`Layanan "${updatedService.title}" berhasil diperbarui.`);
+  // --- Services (edit-only, 4 pilar) ---
+  const handleUpdateService = async (service) => {
+    try {
+      await adminApi.services.update(service.id, serviceToApi(service));
+      await refreshAfterMutation();
+      showToast(`Layanan "${service.title}" berhasil diperbarui.`);
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal memperbarui layanan.", "error");
+      return false;
+    }
   };
 
   // --- Company Settings ---
-  const handleSaveCompanySettings = (formData) => {
-    setCompanyData(formData);
-    persistState("airindo_company", formData);
-
-    if (formData.stats) {
-      setStatsData(formData.stats);
-      persistState("airindo_stats", formData.stats);
+  const handleSaveCompanySettings = async (formData) => {
+    try {
+      const result = await adminApi.company.update(companyToApi(formData));
+      setCompanyData(companyFromApi(result));
+      setStatsData(result.stats ?? []);
+      showToast("Informasi perusahaan & kontak berhasil disimpan.");
+      return true;
+    } catch (error) {
+      showToast(error?.message || "Gagal menyimpan pengaturan.", "error");
+      return false;
     }
-
-    showToast("Informasi perusahaan & kontak berhasil disimpan.");
   };
 
-  // --- Backup & Reset ---
-  const handleExportJson = () => {
-    const exportBundle = {
-      exportedAt: new Date().toISOString(),
-      company: companyData,
-      companyStats: statsData,
-      projects,
-      clients,
-      services,
-    };
+  // --- Backup JSON (dari server) ---
+  const handleExportJson = async () => {
+    try {
+      const bundle = await adminApi.exportAll();
+      const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
 
-    const dataStr =
-      "data:text/json;charset=utf-8," +
-      encodeURIComponent(JSON.stringify(exportBundle, null, 2));
-    const downloadAnchor = document.createElement("a");
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute(
-      "download",
-      `airindo-content-backup-${new Date().toISOString().slice(0, 10)}.json`
-    );
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
+      link.href = url;
+      link.download = `airindo-content-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
 
-    showToast("File cadangan JSON berhasil diunduh.");
-  };
-
-  const handleResetDefault = () => {
-    if (
-      window.confirm(
-        "Apakah Anda yakin ingin mengembalikan semua data proyek, klien, dan pengaturan ke data awal bawaan kode?"
-      )
-    ) {
-      localStorage.removeItem("airindo_projects");
-      localStorage.removeItem("airindo_clients");
-      localStorage.removeItem("airindo_services");
-      localStorage.removeItem("airindo_company");
-      localStorage.removeItem("airindo_stats");
-
-      setProjects(
-        initialProjects.map((p, idx) => ({ ...p, featured: idx < 2 }))
-      );
-      setClients(initialClients);
-      setServices(initialServices);
-      setCompanyData(company);
-      setStatsData(companyStats);
-
-      showToast("Seluruh data dikembalikan ke default bawaan.", "info");
+      showToast("File cadangan JSON berhasil diunduh.");
+    } catch (error) {
+      showToast(error?.message || "Gagal membuat cadangan.", "error");
     }
   };
 
@@ -305,7 +307,9 @@ function AdminPortalContent() {
       {/* Toast Notification */}
       {toast && (
         <div className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900 text-white text-xs font-semibold shadow-2xl border border-slate-700 animate-in slide-in-from-bottom-5 duration-200">
-          {toast.type === "info" ? (
+          {toast.type === "error" ? (
+            <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+          ) : toast.type === "info" ? (
             <AlertCircle className="w-4 h-4 text-blue-400 shrink-0" />
           ) : (
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -328,8 +332,8 @@ function AdminPortalContent() {
         setIsOpenMobile={setIsMobileSidebarOpen}
         onLock={handleLogout}
         statsCount={{
-          projects: projects.length,
-          clients: clients.length,
+          projects: counts?.projects ?? projects.length,
+          clients: counts?.clients ?? clients.length,
         }}
       />
 
@@ -340,55 +344,64 @@ function AdminPortalContent() {
           activeTab={activeTab}
           onOpenMobile={() => setIsMobileSidebarOpen(true)}
           onExportJson={handleExportJson}
-          onResetDefault={handleResetDefault}
         />
 
         {/* Tab View Container */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
-          {activeTab === "overview" && (
-            <DashboardOverview
-              projects={projects}
-              clients={clients}
-              companyData={companyData}
-              onNavigateTab={setActiveTab}
-              onOpenNewProject={() => setActiveTab("projects")}
-              onOpenNewClient={() => setActiveTab("clients")}
-            />
-          )}
+          {isContentLoading ? (
+            <div className="flex items-center justify-center py-28 text-slate-500 text-xs font-medium">
+              <span className="inline-block w-4 h-4 border-2 border-brand border-t-transparent rounded-full animate-spin mr-2.5" />
+              Memuat konten dari server...
+            </div>
+          ) : (
+            <>
+              {activeTab === "overview" && (
+                <DashboardOverview
+                  projects={projects}
+                  clients={clients}
+                  companyData={companyData}
+                  counts={counts}
+                  onNavigateTab={setActiveTab}
+                  onOpenNewProject={() => setActiveTab("projects")}
+                  onOpenNewClient={() => setActiveTab("clients")}
+                />
+              )}
 
-          {activeTab === "projects" && (
-            <ProjectsManager
-              projects={projects}
-              onAddProject={handleAddProject}
-              onUpdateProject={handleUpdateProject}
-              onDeleteProject={handleDeleteProject}
-              onToggleFeatured={handleToggleFeatured}
-            />
-          )}
+              {activeTab === "projects" && (
+                <ProjectsManager
+                  projects={projects}
+                  onAddProject={handleAddProject}
+                  onUpdateProject={handleUpdateProject}
+                  onDeleteProject={handleDeleteProject}
+                  onToggleFeatured={handleToggleFeatured}
+                />
+              )}
 
-          {activeTab === "clients" && (
-            <ClientsManager
-              clients={clients}
-              onAddClient={handleAddClient}
-              onUpdateClient={handleUpdateClient}
-              onDeleteClient={handleDeleteClient}
-            />
-          )}
+              {activeTab === "clients" && (
+                <ClientsManager
+                  clients={clients}
+                  onAddClient={handleAddClient}
+                  onUpdateClient={handleUpdateClient}
+                  onDeleteClient={handleDeleteClient}
+                />
+              )}
 
-          {activeTab === "services" && (
-            <ServicesManager
-              services={services}
-              onUpdateService={handleUpdateService}
-            />
-          )}
+              {activeTab === "services" && (
+                <ServicesManager
+                  services={services}
+                  onUpdateService={handleUpdateService}
+                />
+              )}
 
-          {activeTab === "settings" && (
-            <CompanySettings
-              companyData={companyData}
-              companyStats={statsData}
-              onSaveSettings={handleSaveCompanySettings}
-              onPasswordChanged={handleLogout}
-            />
+              {activeTab === "settings" && (
+                <CompanySettings
+                  companyData={companyData}
+                  companyStats={statsData}
+                  onSaveSettings={handleSaveCompanySettings}
+                  onPasswordChanged={handleLogout}
+                />
+              )}
+            </>
           )}
         </main>
       </div>

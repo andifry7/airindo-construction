@@ -3,7 +3,6 @@
 import {
   Menu,
   Download,
-  RotateCcw,
   ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
@@ -12,7 +11,6 @@ export default function AdminHeader({
   activeTab,
   onOpenMobile,
   onExportJson,
-  onResetDefault,
 }) {
   const getTabTitle = () => {
     switch (activeTab) {
@@ -72,16 +70,6 @@ export default function AdminHeader({
           >
             <Download className="w-3.5 h-3.5 text-slate-600" />
             <span className="hidden md:inline">Cadangkan JSON</span>
-          </button>
-
-          {/* Reset button */}
-          <button
-            onClick={onResetDefault}
-            title="Kembalikan semua data ke bawaan awal"
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline">Reset Default</span>
           </button>
 
           <div className="h-5 w-px bg-slate-200 hidden sm:block" />

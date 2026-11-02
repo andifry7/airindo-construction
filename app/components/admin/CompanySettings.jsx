@@ -21,24 +21,22 @@ export default function CompanySettings({
   onPasswordChanged,
 }) {
   const [formData, setFormData] = useState({
-    name: companyData?.name || "Airindo Construction",
-    fullName: companyData?.fullName || "PT. Airindo Teknologi Perkasa",
-    tagline: companyData?.tagline || "Solusi konstruksi dan engineering terintegrasi untuk kebutuhan industri dan energi.",
-    phone: companyData?.phone || "+62 878 7226 6146",
-    phoneRaw: companyData?.phoneRaw || "6287872266146",
-    email: companyData?.email || "Solution@atpindonesia.com",
-    address: companyData?.address || "Rukan Graha Cempaka Mas Blok A No. 10, Jl. Letjen Suprapto Kav. 3, Jakarta Pusat 10640",
-    workshopAddress: "Sentul Bogor, Jawa Barat",
-    mapsUrl: companyData?.mapsUrl || "https://maps.google.com/?q=Rukan+Graha+Cempaka+Mas+Jakarta+Pusat",
-    stats: companyStats || [
-      { value: "13+", label: "Tahun Dedikasi", detail: "Berdiri sejak 2013 melayani industri nasional" },
-      { value: "50+", label: "Proyek Selesai", detail: "Mekanikal, perpipaan & otomasi di seluruh Indonesia" },
-      { value: "1", label: "Fasilitas Workshop", detail: "Sentul Bogor, Jawa Barat" },
-      { value: "100%", label: "Kepatuhan K3 (HSE)", detail: "Standar keselamatan kerja & sertifikasi ASME/ISO" },
-    ],
+    name: companyData?.name || "",
+    fullName: companyData?.fullName || "",
+    tagline: companyData?.tagline || "",
+    phone: companyData?.phone || "",
+    phoneRaw: companyData?.phoneRaw || "",
+    email: companyData?.email || "",
+    address: companyData?.address || "",
+    mapQuery: companyData?.mapQuery || "",
+    workshopAddress: companyData?.workshopAddress || "",
+    mapsUrl: companyData?.mapsUrl || "",
+    establishedYear: companyData?.establishedYear ?? 2013,
+    stats: companyStats || [],
   });
 
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [isSavingCompany, setIsSavingCompany] = useState(false);
 
   // Ganti password — diverifikasi & disimpan di server
   const [passwordForm, setPasswordForm] = useState({
@@ -97,13 +95,18 @@ export default function CompanySettings({
     setFormData({ ...formData, stats: updatedStats });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSaveSettings(formData);
-    setSavedSuccess(true);
-    setTimeout(() => {
-      setSavedSuccess(false);
-    }, 3000);
+    if (isSavingCompany) return;
+
+    setIsSavingCompany(true);
+    const success = await onSaveSettings(formData);
+    setIsSavingCompany(false);
+
+    if (success !== false) {
+      setSavedSuccess(true);
+      setTimeout(() => setSavedSuccess(false), 3000);
+    }
   };
 
   const testWaUrl = `https://wa.me/${formData.phoneRaw}?text=${encodeURIComponent(
@@ -125,9 +128,15 @@ export default function CompanySettings({
 
         <button
           type="submit"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand hover:bg-[#0b2557] text-white font-semibold text-xs shadow-md transition cursor-pointer shrink-0"
+          disabled={isSavingCompany}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand hover:bg-[#0b2557] text-white font-semibold text-xs shadow-md transition cursor-pointer shrink-0 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {savedSuccess ? (
+          {isSavingCompany ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Menyimpan...
+            </>
+          ) : savedSuccess ? (
             <>
               <CheckCircle2 className="w-4 h-4 text-emerald-300" />
               Tersimpan!
@@ -144,7 +153,7 @@ export default function CompanySettings({
       {savedSuccess && (
         <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>Pengaturan profil perusahaan berhasil diperbarui dan disimpan secara lokal.</span>
+          <span>Pengaturan profil perusahaan berhasil diperbarui dan disimpan ke server.</span>
         </div>
       )}
 

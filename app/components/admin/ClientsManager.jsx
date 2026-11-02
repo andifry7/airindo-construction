@@ -10,7 +10,9 @@ import {
   X,
   AlertTriangle,
   Upload,
+  Loader2,
 } from "lucide-react";
+import { adminApi } from "@/lib/admin-api";
 
 export default function ClientsManager({
   clients,
@@ -22,13 +24,16 @@ export default function ClientsManager({
   const [selectedSector, setSelectedSector] = useState("all");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingClient, setEditingClient] = useState(null);
-  const [deleteConfirmIndex, setDeleteConfirmIndex] = useState(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const logoInputRef = useRef(null);
 
   const initialForm = {
     name: "",
     sector: "Pembangkit & Energi",
     logo: "",
+    logoPublicId: "",
   };
 
   const [formData, setFormData] = useState(initialForm);
@@ -57,13 +62,13 @@ export default function ClientsManager({
     setIsModalOpen(true);
   };
 
-  const handleOpenEdit = (client, index) => {
-    setEditingClient({ ...client, _index: index });
+  const handleOpenEdit = (client) => {
+    setEditingClient(client);
     setFormData({ ...client });
     setIsModalOpen(true);
   };
 
-  const handleLogoUpload = (e) => {
+  const handleLogoUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -72,32 +77,46 @@ export default function ClientsManager({
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      setFormData((prev) => ({
-        ...prev,
-        logo: event.target.result,
-      }));
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name.trim()) return;
-
-    if (editingClient !== null) {
-      onUpdateClient(editingClient._index, formData);
-    } else {
-      onAddClient(formData);
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Ukuran file logo maksimal 5 MB.");
+      return;
     }
 
-    setIsModalOpen(false);
+    setIsUploading(true);
+    try {
+      // Logo diunggah ke Cloudinary lewat backend.
+      const media = await adminApi.media.upload(file, "clients");
+      setFormData((prev) => ({
+        ...prev,
+        logo: media.url,
+        logoPublicId: media.publicId,
+      }));
+    } catch (error) {
+      alert(error?.message || "Gagal mengunggah logo.");
+    } finally {
+      setIsUploading(false);
+      if (logoInputRef.current) logoInputRef.current.value = "";
+    }
   };
 
-  const handleDelete = (index) => {
-    onDeleteClient(index);
-    setDeleteConfirmIndex(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name.trim() || isSaving || isUploading) return;
+
+    setIsSaving(true);
+    const success = editingClient
+      ? await onUpdateClient(editingClient.id, formData)
+      : await onAddClient(formData);
+    setIsSaving(false);
+
+    if (success !== false) {
+      setIsModalOpen(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    await onDeleteClient(id);
+    setDeleteConfirmId(null);
   };
 
   return (
@@ -165,9 +184,9 @@ export default function ClientsManager({
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {filteredClients.map((client, idx) => (
+          {filteredClients.map((client) => (
             <div
-              key={idx}
+              key={client.id}
               className="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-xs hover:shadow-md hover:border-brand/40 transition flex flex-col justify-between group relative"
             >
               {/* Logo Area */}
@@ -195,14 +214,14 @@ export default function ClientsManager({
               {/* Actions */}
               <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-center gap-1.5 opacity-90 group-hover:opacity-100">
                 <button
-                  onClick={() => handleOpenEdit(client, idx)}
+                  onClick={() => handleOpenEdit(client)}
                   className="p-1 rounded-md text-slate-400 hover:text-brand hover:bg-slate-100 transition cursor-pointer"
                   title="Edit Klien"
                 >
                   <Pencil className="w-3.5 h-3.5" />
                 </button>
                 <button
-                  onClick={() => setDeleteConfirmIndex(idx)}
+                  onClick={() => setDeleteConfirmId(client.id)}
                   className="p-1 rounded-md text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition cursor-pointer"
                   title="Hapus Klien"
                 >
@@ -302,7 +321,7 @@ export default function ClientsManager({
                         <span className="text-slate-300">•</span>
                         <button
                           type="button"
-                          onClick={() => setFormData({ ...formData, logo: "" })}
+                          onClick={() => setFormData({ ...formData, logo: "", logoPublicId: "" })}
                           className="text-xs font-semibold text-rose-600 hover:underline cursor-pointer"
                         >
                           Hapus
@@ -340,9 +359,15 @@ export default function ClientsManager({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-brand hover:bg-[#0b2557] text-white font-semibold text-xs shadow-md transition cursor-pointer"
+                  disabled={isSaving || isUploading}
+                  className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-brand hover:bg-[#0b2557] text-white font-semibold text-xs shadow-md transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {editingClient ? "Simpan Perubahan" : "Tambahkan Klien"}
+                  {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                  {isSaving
+                    ? "Menyimpan..."
+                    : editingClient
+                      ? "Simpan Perubahan"
+                      : "Tambahkan Klien"}
                 </button>
               </div>
             </form>
@@ -351,7 +376,7 @@ export default function ClientsManager({
       )}
 
       {/* DELETE CONFIRM */}
-      {deleteConfirmIndex !== null && (
+      {deleteConfirmId !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 max-w-sm w-full text-center">
             <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-3">
@@ -369,7 +394,7 @@ export default function ClientsManager({
                 Batal
               </button>
               <button
-                onClick={() => handleDelete(deleteConfirmIndex)}
+                onClick={() => handleDelete(deleteConfirmId)}
                 className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-semibold text-xs shadow-sm cursor-pointer"
               >
                 Ya, Hapus

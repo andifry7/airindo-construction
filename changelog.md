@@ -11,6 +11,37 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Changed — 2 November 2026 (Fase 5b — panel admin memakai API)
+- **Added** `app/lib/admin-mappers.js` — pemetaan `imageUrl`→`image`, `logoUrl`→`logo`, `question/answer`→`q/a`, dan sebaliknya.
+- **Changed** `app/lib/admin-api.js` — ditambah `adminApi` (projects, clients, services, company, content, media, dashboard, export) + helper `buildQuery` dan upload multipart.
+- **Changed** `app/admin-portal/page.jsx` — **seluruh `localStorage` dihapus**. Konten dimuat dari API setelah sesi valid; setiap mutasi memanggil endpoint lalu memuat ulang data agar tampilan = isi database.
+- **Changed** `ProjectsManager` — create/update/delete/toggle featured lewat API; foto diunggah ke Cloudinary (`/admin/media`) menggantikan `FileReader` base64; tombol simpan menampilkan status & menolak submit ganda.
+- **Changed** `ClientsManager` — CRUD berbasis **`id`** (bukan index array); logo diunggah ke Cloudinary.
+- **Changed** `ServicesManager` — PATCH ke API, ikon dipilih berdasarkan `slug`.
+- **Changed** `CompanySettings` — `PUT /admin/company` (profil + statistik); field `mapQuery`, `establishedYear`, dan `workshopAddress` kini diambil dari database (sebelumnya `workshopAddress` hardcoded).
+- **Changed** `DashboardOverview` — angka memakai `/admin/dashboard`, dengan fallback ke data yang dimuat.
+- **Changed** `AdminHeader` — tombol "Reset Default" dihapus (tidak relevan lagi karena data di database).
+- **Changed** "Cadangkan JSON" — mengunduh hasil `GET /admin/export` dari server, bukan menyusun dari state browser.
+
+### Verified — uji Fase 5b (2 November 2026)
+
+| Uji | Hasil |
+|---|---|
+| Login → panel | terbuka, konten dimuat dari API |
+| Dashboard | 26 klien · 4 proyek (angka dari server) |
+| Daftar proyek | 4 kartu dari database |
+| **Edit judul proyek dari UI** | tersimpan di **database** (diverifikasi lewat API publik) |
+| Kembalikan judul | berhasil, data uji bersih |
+| Logo klien di admin | **26/26 termuat** (sebelumnya 0/26 karena slug `.png`) |
+| Nomor WhatsApp | terisi dari database |
+| **Upload foto via UI** | masuk ke Cloudinary (`airindo/projects/...`), `imagePublicId` tersimpan |
+| Buat proyek baru | tersimpan, muncul di daftar |
+| Hapus proyek | hilang dari database |
+| Export JSON | berhasil diunduh dari server |
+| Error konsol (selain 401 sesi) | **0** |
+
+Catatan lingkungan: `next dev` dan `next build` sempat gagal `EPERM` pada `.next/dev/types/*.d.ts` karena lapisan *file system shim* di mesin ini. Server tetap bisa berjalan setelah percobaan ulang; ini bukan masalah kode.
+
 ### Changed — 2 November 2026 (Fase 1 — form login menggantikan PIN)
 - **Added** `app/lib/admin-api.js` — klien API admin (`credentials: "include"`), kelas `ApiError` dengan properti `isUnauthorized`, penanganan error jaringan.
 - **Added** `app/components/admin/LoginForm.jsx` — form **username + password** bergaya sama dengan situs (kartu putih, latar navy, ikon kunci), toggle lihat password, state loading & error.

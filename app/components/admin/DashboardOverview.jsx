@@ -16,13 +16,17 @@ export default function DashboardOverview({
   projects,
   clients,
   companyData,
+  counts,
   onNavigateTab,
   onOpenNewProject,
 }) {
-  const featuredCount = projects.filter((p) => p.featured).length;
-  const uniqueSectors = Array.from(
-    new Set(clients.map((c) => c.sector)),
-  ).length;
+  // Angka utama memakai hitungan server; fallback ke data yang sudah dimuat.
+  const totalProjects = counts?.projects ?? projects.length;
+  const totalClients = counts?.clients ?? clients.length;
+  const totalServices = counts?.services ?? 4;
+  const featuredCount = counts?.featuredProjects ?? projects.filter((p) => p.featured).length;
+  const uniqueSectors =
+    counts?.sectors ?? Array.from(new Set(clients.map((c) => c.sector))).length;
 
   return (
     <div className="space-y-8">
@@ -78,7 +82,7 @@ export default function DashboardOverview({
             </span>
           </div>
           <div className="text-2xl font-bold text-slate-900 tracking-tight">
-            {projects.length}
+            {totalProjects}
           </div>
           <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-0.5">
             Total Proyek Konstruksi
@@ -105,7 +109,7 @@ export default function DashboardOverview({
             </span>
           </div>
           <div className="text-2xl font-bold text-slate-900 tracking-tight">
-            {clients.length}
+            {totalClients}
           </div>
           <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-0.5">
             Klien & Mitra Industri
@@ -132,7 +136,7 @@ export default function DashboardOverview({
             </span>
           </div>
           <div className="text-2xl font-bold text-slate-900 tracking-tight">
-            4 Pilar
+            {totalServices} Pilar
           </div>
           <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-0.5">
             Layanan Spesialis
@@ -190,7 +194,7 @@ export default function DashboardOverview({
               onClick={() => onNavigateTab("projects")}
               className="text-xs font-semibold text-brand hover:underline inline-flex items-center gap-1 cursor-pointer"
             >
-              Lihat Semua ({projects.length})
+              Lihat Semua ({totalProjects})
               <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>

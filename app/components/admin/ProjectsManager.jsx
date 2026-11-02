@@ -13,7 +13,9 @@ import {
   AlertTriangle,
   Upload,
   CheckCircle2,
+  Loader2,
 } from "lucide-react";
+import { adminApi } from "@/lib/admin-api";
 
 export default function ProjectsManager({
   projects,
@@ -28,6 +30,8 @@ export default function ProjectsManager({
   const [editingProject, setEditingProject] = useState(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const fileInputRef = useRef(null);
 
   // Default empty project form
@@ -89,12 +93,12 @@ export default function ProjectsManager({
     setIsModalOpen(true);
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("Pilih file foto/gambar yang valid (JPG, PNG, atau WEBP)");
+      alert("Pilih file foto/gambar yang valid (JPG, PNG, WEBP, atau AVIF)");
       return;
     }
 
@@ -103,20 +107,27 @@ export default function ProjectsManager({
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
+    setIsUploading(true);
+    try {
+      // Foto diunggah ke Cloudinary lewat backend, bukan disimpan sebagai base64.
+      const media = await adminApi.media.upload(file, "projects");
       setFormData((prev) => ({
         ...prev,
-        image: event.target.result,
+        image: media.url,
+        imagePublicId: media.publicId,
       }));
       setUploadedFileName(file.name);
-    };
-    reader.readAsDataURL(file);
+    } catch (error) {
+      alert(error?.message || "Gagal mengunggah foto.");
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   };
 
-  const handleSaveSubmit = (e) => {
+  const handleSaveSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.title.trim()) return;
+    if (!formData.title.trim() || isSaving || isUploading) return;
 
     const tagsArray = typeof formData.tags === "string"
       ? formData.tags.split(",").map((t) => t.trim()).filter(Boolean)
@@ -124,21 +135,23 @@ export default function ProjectsManager({
 
     const projectPayload = {
       ...formData,
-      id: editingProject ? editingProject.id : `proj-${Date.now()}`,
       tags: tagsArray,
     };
 
-    if (editingProject) {
-      onUpdateProject(projectPayload);
-    } else {
-      onAddProject(projectPayload);
-    }
+    setIsSaving(true);
+    const success = editingProject
+      ? await onUpdateProject({ ...projectPayload, id: editingProject.id })
+      : await onAddProject(projectPayload);
+    setIsSaving(false);
 
-    setIsModalOpen(false);
+    // Modal hanya ditutup bila penyimpanan benar-benar berhasil.
+    if (success !== false) {
+      setIsModalOpen(false);
+    }
   };
 
-  const handleDelete = (id) => {
-    onDeleteProject(id);
+  const handleDelete = async (id) => {
+    await onDeleteProject(id);
     setDeleteConfirmId(null);
   };
 
@@ -526,7 +539,7 @@ export default function ProjectsManager({
                         <button
                           type="button"
                           onClick={() => {
-                            setFormData({ ...formData, image: "" });
+                            setFormData({ ...formData, image: "", imagePublicId: "" });
                             setUploadedFileName("");
                           }}
                           className="px-3.5 py-2 rounded-lg bg-rose-600 text-white font-semibold text-xs shadow-md hover:bg-rose-700 flex items-center gap-1.5 cursor-pointer"
@@ -553,18 +566,24 @@ export default function ProjectsManager({
                   </div>
                 ) : (
                   <div
-                    onClick={() => fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-slate-300 hover:border-brand/60 hover:bg-blue-50/20 rounded-2xl p-7 text-center cursor-pointer transition flex flex-col items-center justify-center gap-2.5 group"
+                    onClick={() => !isUploading && fileInputRef.current?.click()}
+                    className={`border-2 border-dashed border-slate-300 hover:border-brand/60 hover:bg-blue-50/20 rounded-2xl p-7 text-center transition flex flex-col items-center justify-center gap-2.5 group ${
+                      isUploading ? "opacity-70 cursor-wait" : "cursor-pointer"
+                    }`}
                   >
                     <div className="w-12 h-12 rounded-2xl bg-blue-50 text-brand flex items-center justify-center group-hover:scale-105 transition">
-                      <Upload className="w-6 h-6" />
+                      {isUploading ? (
+                        <Loader2 className="w-6 h-6 animate-spin" />
+                      ) : (
+                        <Upload className="w-6 h-6" />
+                      )}
                     </div>
                     <div>
                       <div className="text-xs font-bold text-slate-800">
-                        Klik untuk memilih foto dari komputer
+                        {isUploading ? "Mengunggah foto..." : "Klik untuk memilih foto dari komputer"}
                       </div>
                       <div className="text-[11px] text-slate-400 mt-0.5">
-                        Mendukung format JPG, PNG, atau WEBP (Maksimal 5MB)
+                        Mendukung format JPG, PNG, WEBP, atau AVIF (Maksimal 5MB)
                       </div>
                     </div>
                     <span className="mt-1 px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 font-semibold text-xs shadow-2xs group-hover:bg-brand group-hover:text-white group-hover:border-transparent transition">
@@ -648,9 +667,15 @@ export default function ProjectsManager({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-brand hover:bg-[#0b2557] text-white font-semibold text-xs shadow-md transition cursor-pointer"
+                  disabled={isSaving || isUploading}
+                  className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-brand hover:bg-[#0b2557] text-white font-semibold text-xs shadow-md transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {editingProject ? "Simpan Perubahan" : "Tambahkan ke Portofolio"}
+                  {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                  {isSaving
+                    ? "Menyimpan..."
+                    : editingProject
+                      ? "Simpan Perubahan"
+                      : "Tambahkan ke Portofolio"}
                 </button>
               </div>
             </form>
