@@ -69,11 +69,11 @@ Hasil audit kode + observasi runtime (2 November 2026):
 | F5 | CRUD Klien (logo + sektor) | Wajib | Ganti key index → `id` |
 | F6 | Edit Layanan | Wajib | Cukup 4 pilar yang ada — tanpa tambah/hapus (keputusan client) |
 | F7 | Kelola Profil Perusahaan + Statistik | Wajib | Nomor WA, alamat, 4 counter |
-| F8 | Upload media (gambar) | Wajib | Cloudinary, maks 5MB |
+| F8 | Upload media (gambar) | Wajib | Cloudinary, maks 5MB — **hanya proyek & logo klien** |
 | F9 | Dashboard ringkasan | Wajib | Hitungan dari DB, bukan state lokal |
 | F10 | Export JSON (backup) | Opsional | Sudah ada di frontend |
-| F11 | Simpan lead RFQ/Kontak | Opsional | Client utamakan WhatsApp |
-| F12 | Kelola FAQ / Workshop / Highlights | v1.1 | Belum ada UI admin-nya |
+| F11 | Simpan lead RFQ/Kontak | — | **Tidak dibuat.** Murni WhatsApp (keputusan client) |
+| F12 | Kelola FAQ / Workshop / Highlights | Wajib | Masuk **v1** — 3 layar admin sederhana |
 | F13 | Media library | v1.1 | Cukup upload per-entitas dulu |
 
 ---
@@ -130,7 +130,7 @@ Alasan: cookie session menjadi *first-party* (tidak perlu `SameSite=None`), tida
 | ORM | Prisma | Migrasi + type-safe + seeder mudah |
 | Database | **PostgreSQL** | Wajib dari client; array & JSONB cocok untuk `tags`, `scope_points` |
 | Validasi | Zod | Satu skema untuk validasi & tipe |
-| Auth | Session cookie + bcrypt | Satu admin, logout instan, tanpa kompleksitas refresh token |
+| Auth | JWT (24 jam) + bcrypt | Keputusan client; expiry eksplisit |
 | Storage | Cloudinary (+ adapter) | Lihat ADR-04 |
 | Upload | Multer (memory) → Cloudinary stream | Tanpa menulis file ke disk VPS |
 | Logging | pino | Ringan, JSON, siap produksi |
@@ -176,10 +176,10 @@ backend/
 **Konsekuensi:** butuh akun Cloudinary + 3 environment variable; URL gambar menunjuk domain `res.cloudinary.com` (perlu `remotePatterns` di `next.config.ts`).
 **Alternatif yang dipertimbangkan:** MinIO (self-hosted), Cloudflare R2 (S3-compatible, tanpa biaya egress).
 
-### ADR-05 — Auth: session cookie, bukan JWT
-**Keputusan:** `express-session` + `connect-pg-simple` (session disimpan di PostgreSQL), cookie `httpOnly`, `sameSite=lax`, `secure` di produksi. Password di-hash bcrypt (cost 12).
-**Alasan:** hanya satu admin; logout harus benar-benar mematikan sesi (JWT stateless butuh blacklist); tidak perlu refresh token.
-**Konsekuensi:** butuh tabel `session`. Jika nanti ada aplikasi mobile, tambahkan endpoint token terpisah.
+### ADR-05 — Auth: JWT 24 jam di cookie httpOnly
+**Keputusan:** JWT (HS256) dengan masa berlaku **24 jam**, dikirim lewat cookie `httpOnly`, `sameSite=lax`, `secure` di produksi. Password di-hash bcrypt (cost 12). (Dipilih client 2 November 2026.)
+**Alasan:** token punya masa kedaluwarsa eksplisit; tidak perlu tabel session; sederhana untuk satu admin.
+**Konsekuensi:** logout hanya menghapus cookie — token tetap sah sampai `exp` (maksimal 24 jam). Mitigasi: kolom `token_version` pada `admin_users`; ganti password menaikkan versi sehingga semua token lama otomatis ditolak. Secret disimpan di `JWT_SECRET`.
 
 ### ADR-06 — Topologi deploy: satu domain, Nginx reverse proxy
 **Keputusan:** frontend dan backend di bawah satu domain (`/` → Next, `/api` → Express).
@@ -200,6 +200,18 @@ backend/
 **Alur:** `backend-zacky` → `development` → `master`.
 **Aturan commit:** Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`). Wajib commit setiap tugas selesai. Wajib mencatat di `changelog.md`.
 
+### ADR-09 — Struktur repo: monorepo (frontend di root, backend di `backend/`)
+**Keputusan:** satu repo. Frontend tetap di root (`app/`, `public/`, `package.json`), backend di `backend/`.
+**Alasan:**
+1. Pekerjaan Alfin tidak perlu dipindah — tidak ada risiko konflik path atau kehilangan riwayat file.
+2. Satu set dokumen (`prd.md`, `plan.md`, `changelog.md`, `AGENTS.md`), satu alur branch, satu PR.
+3. Deploy di satu VPS: dua proses PM2 dari repo yang sama (`airindo-web` :3000, `airindo-api` :4000).
+4. Perubahan kontrak API dan konsumennya bisa masuk dalam satu commit — penting karena FE dan BE dikerjakan dua orang.
+
+**Konsekuensi:** ada dua `package.json` (root untuk frontend, `backend/` untuk API); build dijalankan terpisah.
+**Kapan sebaiknya dipecah:** jika backend nanti butuh siklus deploy sendiri (mis. dipakai aplikasi lain). Saat itu, pindahkan frontend ke `frontend/` — biayanya rendah karena `backend/` sudah mandiri.
+**Alternatif yang ditolak:** dua repo terpisah — menduplikasi dokumen, memaksa koordinasi lintas repo, dan menyulitkan sinkronisasi kontrak API untuk tim 2 orang.
+
 ---
 
 ## 9. Model data (draft)
@@ -212,11 +224,14 @@ backend/
 | `clients` | id, name, sector, logo_url, logo_public_id, sort_order | Ganti key index → `id` |
 | `company_profile` | id (tunggal), name, full_name, tagline, phone, phone_raw, email, address, map_query, maps_url, established_year, workshop_address | Satu baris |
 | `company_stats` | id, value, label, detail, sort_order | 4 baris |
-| `leads` | id, type (`rfq`/`contact`), name, company, contact, email, service, location, message, source_page, status, created_at | Opsional (F11) |
 | `media` | id, provider, public_id, url, format, width, height, bytes, folder, uploaded_by, created_at | Jejak audit upload |
-| `session` | sid, sess, expire | Diisi `connect-pg-simple` |
+| `faqs` | id, question, answer, sort_order | v1 |
+| `workshops` | id, name, location, map_query, maps_url, features, sort_order | v1 |
+| `highlights` | id, icon, title, text, badge, sort_order | v1 (4 kartu di bawah hero) |
+| `about_values` | id, icon, title, text, sort_order | v1 |
+| `cta_points` | id, icon, title, text, sort_order | v1 |
 
-Tabel v1.1 (bila UI admin-nya dibuat): `faqs`, `workshops`, `highlights`, `about_values`, `cta_points`.
+**Tidak dibuat di v1:** tabel `leads` (murni WhatsApp) dan `session` (auth memakai JWT stateless).
 
 ---
 
@@ -235,7 +250,7 @@ Prefiks: `/api/v1`
 | GET | `/public/services/:slug` | detail |
 | GET | `/public/clients` | daftar |
 | GET | `/public/company` | profil + statistik |
-| POST | `/public/leads` | simpan RFQ/kontak (rate-limited) |
+| GET | `/public/content/:type` | `faqs`, `workshops`, `highlights`, `about-values`, `cta-points` |
 
 **Auth**
 | Method | Path | Fungsi |
@@ -256,7 +271,7 @@ Prefiks: `/api/v1`
 | GET | `/admin/services` | list (4 pilar) |
 | PATCH | `/admin/services/:id` | update — **tanpa create/delete** (keputusan client) |
 | GET/PUT | `/admin/company` | profil + statistik |
-| GET/PATCH | `/admin/leads`, `/admin/leads/:id` | daftar + ubah status |
+| GET/PUT | `/admin/content/:type` | kelola 5 daftar konten pendukung (FAQ, workshop, highlights, values, CTA) |
 | POST/DELETE | `/admin/media`, `/admin/media/:id` | upload + hapus |
 | GET | `/admin/dashboard` | hitungan untuk kartu ringkasan |
 | GET | `/admin/export` | backup JSON |
@@ -267,7 +282,8 @@ Prefiks: `/api/v1`
 
 - Password: bcrypt cost 12; tidak pernah dikembalikan di respons API.
 - Login: rate limit (mis. 5 percobaan / 15 menit / IP), pesan error generik.
-- Cookie: `httpOnly`, `sameSite=lax`, `secure` (prod), `maxAge` 8 jam.
+- Cookie: `httpOnly`, `sameSite=lax`, `secure` (prod), berisi JWT dengan `exp` **24 jam**.
+- Ganti password menaikkan `token_version` → semua token lama langsung ditolak.
 - Semua input divalidasi Zod; semua query lewat Prisma (anti SQL injection).
 - Upload: whitelist MIME (`image/jpeg|png|webp|avif`), maks 5MB, nama file di-generate.
 - `helmet` untuk header; CORS hanya origin yang diizinkan.
@@ -331,14 +347,17 @@ Prefiks: `/api/v1`
 | Layanan | **Cukup edit 4 pilar** yang ada — tidak perlu tambah/hapus. Scope usaha client hanya 4 pilar. | 2 Nov 2026 |
 | Hosting | **Ditunda.** Paket Hostinger belum diketahui; kerjakan di localhost dulu, sesuaikan setelah client menjawab. | 2 Nov 2026 |
 | PostgreSQL lokal | **Podman container** (user memakai Podman CLI, bukan Docker). | 2 Nov 2026 |
+| Mekanisme auth | **JWT**, masa berlaku **24 jam**, disimpan di cookie httpOnly. | 2 Nov 2026 |
+| Lead / RFQ | **Murni WhatsApp** — tidak ada penyimpanan ke DB (permintaan client). | 2 Nov 2026 |
+| Cakupan upload | **Hanya gambar proyek & logo klien.** Tidak untuk hero/layanan (hindari over-engineering). | 2 Nov 2026 |
+| FAQ / Workshop / Highlights | **Masuk v1** (bukan v1.1). | 2 Nov 2026 |
+| Struktur repo | **Monorepo**: frontend di root, backend di `backend/` (ADR-09). | 2 Nov 2026 |
 
 ## 15b. Pertanyaan yang masih terbuka
 
-1. **Mekanisme auth:** session cookie (rekomendasi) atau JWT? — *belum dijawab; sementara jalan dengan rekomendasi.*
-2. **Lead:** tetap disimpan ke DB, atau murni WhatsApp tanpa penyimpanan?
-3. **Section Estimator** yang tidak pernah dirender: dihapus atau dibiarkan?
-4. **Cakupan upload:** proyek, logo klien, gambar layanan — apakah hero slideshow & logo perusahaan juga?
-5. **FAQ/Workshop/Highlights** masuk v1 atau v1.1?
+1. **Section Estimator** — client belum tahu komponen ini; penjelasan dikirim, menunggu keputusan (hapus / pertahankan / jadikan fitur).
+
+**Sudah terjawab:** mekanisme auth (JWT 24 jam), lead (murni WhatsApp), cakupan upload (proyek & logo klien), FAQ/Workshop/Highlights (v1).
 
 ---
 

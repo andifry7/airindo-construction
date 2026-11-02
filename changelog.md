@@ -11,6 +11,19 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Docs — 2 November 2026 (keputusan putaran kedua)
+- **Changed** `prd.md`: **ADR-05 diganti** — auth memakai **JWT 24 jam** di cookie httpOnly (bukan session), ditambah mitigasi `token_version` untuk logout paksa saat ganti password.
+- **Added** `prd.md` **ADR-09**: struktur repo **monorepo** — frontend di root, backend di `backend/`; alasan, konsekuensi, dan kapan sebaiknya dipecah.
+- **Changed** `prd.md`: **lead/RFQ tidak dibuat** (murni WhatsApp) → tabel `leads` & endpoint-nya dihapus dari rancangan; tabel `session` dihapus karena JWT stateless.
+- **Changed** `prd.md`: cakupan upload dipersempit ke **gambar proyek & logo klien** saja.
+- **Changed** `prd.md`: **FAQ / Workshop / Highlights masuk v1** → 5 tabel konten pendukung (`faqs`, `workshops`, `highlights`, `about_values`, `cta_points`) + endpoint `/public/content/:type` dan `/admin/content/:type`.
+- **Changed** `plan.md`: Fase 3 (JWT + `token_version`), Fase 4 (skema konten + batas upload), Fase 6 diubah dari "Lead" menjadi "Konten pendukung".
+
+### Infrastructure — 2 November 2026
+- **Added** container `airindo-postgres` (`postgres:16-alpine`, **PostgreSQL 16.15**) via Podman; port `5432` → host, volume persisten `airindo_pgdata`.
+- **Added** database `airindo_construction` (owner `airindo`).
+- **Verified** koneksi: port 5432 terbuka dari Windows host; `select version()` berhasil.
+
 ### Docs — 2 November 2026 (sesi lanjutan)
 - **Changed** `prd.md`: mencatat 5 keputusan client — storage **Cloudinary** dipilih; auth berupa **form login di dalam `/admin-portal`** (tanpa rute `/login`); **layanan cukup edit 4 pilar** (tanpa tambah/hapus); **hosting ditunda**, kerja di localhost; **PostgreSQL lokal via Podman**.
 - **Changed** `prd.md`: fitur F6 dari "CRUD Layanan" → "Edit Layanan"; endpoint `/admin/services` disesuaikan (hanya GET + PATCH, tanpa create/delete); ADR-04 dan seksi Deployment disesuaikan; pertanyaan terbuka menyusut dari 10 menjadi 5.

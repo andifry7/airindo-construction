@@ -28,7 +28,7 @@
 **Fase aktif:** F0 — Fondasi repo & dokumen
 **Branch aktif:** `development`
 **Terakhir diperbarui:** 2 November 2026
-**Catatan:** belum ada kode backend. Frontend berjalan (`npm run dev`, build sukses).
+**Catatan:** PostgreSQL lokal **siap** (`airindo-postgres`, PG 16.15, port 5432). Belum ada kode backend. Frontend berjalan (`npm run dev`, build sukses).
 
 ---
 
@@ -68,20 +68,35 @@ chore: setup eslint backend
 - [x] Tulis `changelog.md`
 - [x] Tulis aturan agent di `AGENTS.md`
 - [x] Push `development` & `backend-zacky` ke origin
-- [~] Siapkan PostgreSQL lokal — **via Podman** (user memakai Podman CLI, bukan Docker)
+- [x] Siapkan PostgreSQL lokal — **via Podman** (user memakai Podman CLI, bukan Docker)
   - [x] Terdeteksi: `podman 6.1.1`, mesin `podman-machine-default` (WSL), socket `127.0.0.1:61127`
-  - [!] **Terblokir:** VM Podman belum menyala, dan `podman machine start` butuh `wsl.exe` yang diblokir sandbox agent. User perlu menjalankan `podman machine start` dari terminal sendiri.
-  - [ ] `podman run` container `postgres:16` (port 5432, volume persisten)
-  - [ ] Buat database `airindo_construction`
-  - [ ] Verifikasi koneksi + catat `DATABASE_URL`
+  - [x] VM dinyalakan user (`podman machine start`) → socket aktif
+  - [x] `podman run` container `airindo-postgres` (`postgres:16-alpine`), port 5432, volume `airindo_pgdata`
+  - [x] Database `airindo_construction` dibuat
+  - [x] Verifikasi: **PostgreSQL 16.15**, port 5432 terbuka dari host Windows
+  - [ ] Tulis `DATABASE_URL` ke `backend/.env` (saat Fase 2 membuat folder backend)
 
-  Perintah acuan (password **jangan** ditulis di repo — simpan di `backend/.env`):
+  Status container saat ini:
+  | Item | Nilai |
+  |---|---|
+  | Nama container | `airindo-postgres` |
+  | Image | `postgres:16-alpine` (PostgreSQL 16.15) |
+  | User / DB | `airindo` / `airindo_construction` |
+  | Port | `5432` → host `5432` |
+  | Volume | `airindo_pgdata` |
+  | Password dev | lihat catatan privat (tidak di-commit) |
+
+  Perintah harian:
 
   ```bash
-  # 1) nyalakan VM Podman (dijalankan user, bukan agent)
-  podman machine start
+  podman start airindo-postgres     # setelah VM Podman hidup
+  podman stop airindo-postgres
+  podman logs -f airindo-postgres
+  ```
 
-  # 2) jalankan PostgreSQL 16
+  Perintah acuan pembuatan (password **jangan** ditulis di repo):
+
+  ```bash
   podman run -d --name airindo-postgres \
     -e POSTGRES_USER=airindo \
     -e POSTGRES_PASSWORD=<dev-password> \
@@ -89,9 +104,6 @@ chore: setup eslint backend
     -p 5432:5432 \
     -v airindo_pgdata:/var/lib/postgresql/data \
     docker.io/library/postgres:16-alpine
-
-  # 3) verifikasi
-  podman exec -it airindo-postgres psql -U airindo -d airindo_construction -c "select version();"
   ```
 
   `DATABASE_URL` yang diharapkan:
@@ -141,13 +153,13 @@ chore: setup eslint backend
 
 **Branch:** `backend-zacky`
 
-- [ ] Skema Prisma: `admin_users`, `session`
+- [ ] Skema Prisma: `admin_users` (termasuk kolom `token_version`)
 - [ ] Migrasi pertama
 - [ ] `seed.ts`: buat admin `admin-airindo` / `airindo123123` (bcrypt), idempoten
-- [ ] Modul `auth`: login, logout, me, ganti password
-- [ ] Middleware `requireAuth`
+- [ ] Modul `auth`: login (terbitkan JWT **24 jam** di cookie httpOnly), logout (hapus cookie), me, ganti password (naikkan `token_version`)
+- [ ] Middleware `requireAuth` (verifikasi JWT + cek `token_version`)
 - [ ] Rate limit login (5 / 15 menit)
-- [ ] Uji manual: login → cookie ter-set → `/auth/me` → logout
+- [ ] Uji manual: login → cookie ter-set → `/auth/me` → ganti password → token lama ditolak → logout
 
 **DoD:** seeder menghasilkan 1 admin; endpoint auth lulus uji; tidak ada password di respons.
 
@@ -157,13 +169,13 @@ chore: setup eslint backend
 
 **Branch:** `backend-zacky`
 
-- [ ] Skema Prisma: `projects`, `services`, `clients`, `company_profile`, `company_stats`, `media`
+- [ ] Skema Prisma: `projects`, `services`, `clients`, `company_profile`, `company_stats`, `media`, `faqs`, `workshops`, `highlights`, `about_values`, `cta_points`
 - [ ] Seed konten awal dari `app/lib/data.js` (agar data tidak hilang saat migrasi)
 - [ ] Modul `projects`: CRUD + toggle featured + filter publik
 - [ ] Modul `services`: CRUD (icon sebagai string)
 - [ ] Modul `clients`: CRUD (pakai `id`, bukan index)
 - [ ] Modul `company`: GET/PUT profil + statistik
-- [ ] Modul `media`: upload ke Cloudinary (multer memory, maks 5MB, whitelist MIME), hapus
+- [ ] Modul `media`: upload ke Cloudinary (multer memory, maks 5MB, whitelist MIME), hapus — **dipakai hanya untuk gambar proyek & logo klien**
 - [ ] Endpoint `public/bootstrap` untuk beranda
 - [ ] Endpoint `admin/dashboard` + `admin/export`
 
@@ -189,15 +201,17 @@ chore: setup eslint backend
 
 ---
 
-## Fase 6 — Lead (opsional)
+## Fase 6 — Konten pendukung (FAQ, Workshop, Highlights)
 
 **Branch:** `backend-zacky`
+**Catatan:** lead/RFQ **tidak dibuat** — murni WhatsApp sesuai keputusan client.
 
-- [ ] Skema `leads` + modul + rate limit
-- [ ] Sambungkan form kontak (dan RFQ bila dipertahankan)
-- [ ] Halaman daftar lead di admin (bila diminta)
+- [ ] Modul `content` menangani 5 daftar sederhana: `faqs`, `workshops`, `highlights`, `about-values`, `cta-points`
+- [ ] Endpoint publik `GET /public/content/:type` + admin `GET/PUT /admin/content/:type`
+- [ ] Seed dari `app/lib/data.js`
+- [ ] UI admin: 3 layar sederhana (FAQ, Workshop, Highlights) — pola serupa `ServicesManager`
 
-**DoD:** submit form tersimpan di DB dan terlihat di admin.
+**DoD:** admin bisa mengubah FAQ/workshop/highlights, dan tampil di halaman publik setelah revalidasi.
 
 ---
 
