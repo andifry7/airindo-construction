@@ -180,6 +180,7 @@ export default function AdminSidebar({
           <Link
             href="/"
             target="_blank"
+            rel="noopener"
             className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs font-medium transition"
           >
             <span className="flex items-center gap-2">

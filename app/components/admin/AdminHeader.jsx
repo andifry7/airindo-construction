@@ -80,6 +80,7 @@ export default function AdminHeader({
           <Link
             href="/"
             target="_blank"
+            rel="noopener"
             className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-brand hover:bg-[#0b2557] rounded-lg shadow-sm shadow-brand/20 transition"
           >
             <span>Buka Web</span>

@@ -58,6 +58,8 @@ model Project {
   @@index([categoryKey])
   @@index([featured])
   @@index([sortOrder])
+  /// Pencarian memakai `tags: { has: q }` → butuh indeks GIN agar tetap cepat.
+  @@index([tags], type: Gin)
   @@map("projects")
 }
 

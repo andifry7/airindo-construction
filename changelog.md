@@ -11,6 +11,51 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Fixed — 2 November 2026 (Fase 7 — hardening & QA)
+- **Fixed** logo klien di marquee beranda memakai `loading="lazy"`. Karena marquee bergerak terus, logo yang baru masuk layar tampil kosong sesaat. Atribut dihapus (52 logo, `decoding="async"`), gambar proyek tetap lazy.
+- **Fixed** dua `Link target="_blank"` internal (header & sidebar admin) tanpa `rel="noopener"`.
+- **Added** indeks **GIN** pada `projects.tags` — pencarian memakai `tags: { has: q }`; migrasi `20261102144726_add_gin_index_projects_tags`.
+
+### Verified — QA Fase 7 (2 November 2026)
+
+**Uji keamanan & validasi (33 pemeriksaan, semua lolos)**
+
+| Kelompok | Hasil |
+|---|---|
+| 10 endpoint admin tanpa sesi | semuanya `401` |
+| Cookie acak & JWT palsu | `401` |
+| Payload kosong / judul 1 huruf / tanpa nama | `422` |
+| UUID tidak valid, tipe konten salah, `phoneRaw` bukan angka, password < 8 | `422` |
+| Slug/id tidak ada, route tidak dikenal | `404` |
+| Query `' OR 1=1--` | `200` (aman — Prisma ter-parameterisasi) |
+| Query 500 karakter | `200` |
+| `limit=9999`, `page=-5` | `422` |
+| Upload `.txt` / >5 MB / folder tidak sah / tanpa file | `422` / `422` / `400` / `400` |
+| Header keamanan (nosniff, X-Frame-Options, CSP, HSTS) | semua ada |
+
+**Build & performa**
+
+| Item | Hasil |
+|---|---|
+| Backend `typecheck` + `build` | lolos |
+| Frontend `build` | lolos, 11/11 halaman statis |
+| TTFB beranda (produksi lokal) | 85 ms |
+| DOMContentLoaded | 352 ms |
+| JS terkirim | 186 KB |
+| CSS terkirim | 15 KB |
+| Gambar terkirim | 230 KB |
+| Node DOM | 979 |
+
+**Mobile (390×844)**
+
+| Uji | Hasil |
+|---|---|
+| Overflow horizontal (beranda, proyek, kontak, admin) | tidak ada |
+| Tombol menu mobile | ada & berfungsi |
+| Error halaman | 0 |
+
+**Catatan:** Lighthouse tidak dijalankan (CLI tidak tersedia di mesin ini). Pengukuran di atas memakai Resource Timing API; disarankan menjalankan PageSpeed Insights setelah deploy.
+
 ### Added — 2 November 2026 (Fase 6 — konten pendukung di panel admin)
 - **Added** `app/components/admin/ContentManager.jsx` — editor generik untuk 5 daftar konten: FAQ, Workshop, Highlight, Nilai Perusahaan, Poin CTA. Mendukung tambah, hapus, ubah urutan (naik/turun), dan simpan sekaligus.
 - **Added** field ikon dengan saran nama dari registry (`Wrench`, `ShieldCheck`, …) agar tidak salah tulis.

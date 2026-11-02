@@ -18,7 +18,9 @@ function ClientCard({ client }) {
             alt={`Logo ${client.name}`}
             className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-110"
             onError={() => setImageError(true)}
-            loading="lazy"
+            // Sengaja tanpa loading="lazy": marquee bergerak terus, sehingga logo
+            // yang baru masuk layar akan tampak kosong bila ditunda pemuatannya.
+            decoding="async"
           />
         ) : (
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-brand font-bold text-xs group-hover:bg-brand group-hover:text-white transition-colors">

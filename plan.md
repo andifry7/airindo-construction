@@ -25,10 +25,10 @@
 
 ## Posisi saat ini
 
-**Fase aktif:** Fase 7 — Hardening & QA
+**Fase aktif:** Fase 8 — Persiapan deploy
 **Branch aktif:** `development`
 **Terakhir diperbarui:** 2 November 2026
-**Catatan:** Fase 0–6 **selesai**. Publik & admin sepenuhnya berbasis database, upload Cloudinary, revalidasi otomatis, konten pendukung bisa diedit dari panel. Sisa: Fase 7 (hardening & QA) lalu Fase 8 (persiapan deploy).
+**Catatan:** Fase 0–7 **selesai**. 33 uji keamanan lolos, build backend & frontend bersih, mobile tanpa overflow. Sisa: Fase 8 (panduan deploy Hostinger, backup, ganti password default).
 
 ---
 
@@ -246,12 +246,13 @@ chore: setup eslint backend
 
 ## Fase 7 — Hardening & QA
 
-- [ ] Validasi Zod di semua endpoint
-- [ ] Uji negatif: akses admin tanpa sesi, upload file salah tipe, payload kosong
-- [ ] Cek N+1 query & indeks (`slug`, `featured`, `category_key`)
-- [ ] `npm run build` frontend + `tsc` backend bersih
-- [ ] Lighthouse halaman publik
-- [ ] Uji di viewport mobile
+- [x] Validasi Zod di semua endpoint
+- [x] Uji negatif: akses admin tanpa sesi, upload file salah tipe, payload kosong — 33 pemeriksaan lolos
+- [x] Cek N+1 query & indeks (`slug`, `featured`, `category_key`) + tambah indeks GIN untuk `tags`
+- [x] `npm run build` frontend + `tsc` backend bersih
+- [ ] Lighthouse halaman publik — **belum** (CLI tidak tersedia; diganti Resource Timing: TTFB 85 ms, DCL 352 ms, JS 186 KB, CSS 15 KB)
+- [x] Uji di viewport mobile (390×844) — tanpa overflow, menu mobile berfungsi
+- [x] Perbaiki temuan QA: logo marquee yang lazy-load, `rel="noopener"` pada 2 link internal
 
 **DoD:** tidak ada error konsol, tidak ada endpoint admin yang bisa diakses tanpa sesi.
 
@@ -292,3 +293,4 @@ chore: setup eslint backend
 | 2 Nov 2026 | F1 | PIN dihapus, form login username + password, ganti password via API — teruji |
 | 2 Nov 2026 | F5b | Panel admin baca/tulis database, upload Cloudinary, revalidasi otomatis — teruji end-to-end |
 | 2 Nov 2026 | F6 | Tab "Konten Pendukung": 5 daftar (FAQ, workshop, highlight, nilai, CTA) bisa diedit dari panel |
+| 2 Nov 2026 | F7 | 33 uji keamanan lolos; indeks GIN; fix lazy marquee; build & mobile bersih |
