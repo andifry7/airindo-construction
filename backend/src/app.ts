@@ -7,8 +7,8 @@ import { env } from "./config/env";
 import { errorHandler } from "./shared/middlewares/errorHandler";
 import { notFound } from "./shared/middlewares/notFound";
 import { logger } from "./shared/utils/logger";
-import { authRouter } from "./modules/auth/auth.routes";
 import { healthRouter } from "./modules/health/health.routes";
+import { apiRouter } from "./routes";
 
 /** Origin yang diizinkan, dipisah koma di env bila lebih dari satu. */
 function resolveCorsOrigins(): string[] {
@@ -50,7 +50,7 @@ export function createApp(): Express {
 
   // ── Routes ────────────────────────────────────────────────
   app.use("/health", healthRouter);
-  app.use("/api/v1/auth", authRouter);
+  app.use("/api/v1", apiRouter);
 
   // ── Fallback ──────────────────────────────────────────────
   app.use(notFound);

@@ -11,6 +11,40 @@ Kode kategori: `Added` (fitur baru), `Changed` (perubahan), `Fixed` (perbaikan b
 
 ## [Unreleased]
 
+### Added — 2 November 2026 (Fase 4 — modul konten + media)
+- **Added** 11 tabel konten: `projects`, `services`, `clients`, `company_profile`, `company_stats`, `media`, `faqs`, `workshops`, `highlights`, `about_values`, `cta_points`. Migrasi `20261102105149_content_tables`.
+- **Added** seeder konten dari `app/lib/data.js` — 4 proyek, 4 layanan, 26 klien, profil perusahaan, 4 statistik, 5 FAQ, 1 workshop, 4 highlight, 3 nilai perusahaan, 4 poin CTA. Idempoten.
+- **Added** modul `projects` — CRUD penuh + toggle `featured` + filter publik (`category`, `q`, `featured`, pagination).
+- **Added** modul `services` — **edit-only** sesuai keputusan client (GET + PATCH, tanpa create/delete).
+- **Added** modul `clients` — CRUD penuh berbasis `id` (bukan index array seperti versi lama).
+- **Added** modul `company` — profil + statistik; penggantian statistik dibungkus transaksi.
+- **Added** modul `content` — 5 daftar pendukung lewat `/public/content/:type` dan `/admin/content/:type`.
+- **Added** modul `media` — upload ke Cloudinary (multer memory, maks 5MB, whitelist MIME) + hapus; hanya folder `projects` dan `clients`.
+- **Added** adapter storage `shared/storage/cloudinary.storage.ts` agar provider bisa ditukar nanti.
+- **Added** `GET /public/bootstrap` — satu permintaan untuk seluruh kebutuhan halaman publik.
+- **Added** `GET /admin/dashboard` (hitungan dari DB) dan `GET /admin/export` (cadangan JSON).
+- **Fixed** mengubah judul proyek tidak lagi mengubah `slug` — URL yang sudah beredar tetap aman. Slug hanya berubah bila dikirim eksplisit.
+- **Fixed** error handler kini menangani `MulterError` (`LIMIT_FILE_SIZE` → 422 dengan pesan jelas).
+
+### Verified — uji Fase 4 (2 November 2026)
+
+| Uji | Hasil |
+|---|---|
+| `GET /public/bootstrap` | 4 layanan · 26 klien · 4 proyek (2 unggulan) · 4 highlight · 3 values · 4 CTA · 5 FAQ · 1 workshop |
+| `GET /public/projects?category=pipa` | 1 hasil (Water Intake Pipe PLTU) |
+| `GET /public/projects?featured=true` | 2 hasil |
+| `GET /public/projects/:slug` | detail benar; slug tidak ada → `404` |
+| Admin tanpa sesi | `401` |
+| CRUD proyek (create → toggle featured → update → delete) | semua `200`; total kembali ke 4 |
+| `PATCH /admin/services/:id` | `200`, `icon` tetap |
+| `PUT /admin/company` | `200`, statistik utuh |
+| `PUT /admin/content/faqs` | `200`, 5 item, `sortOrder` 0..4 |
+| Tipe konten salah | `422` + daftar tipe yang valid |
+| Upload Cloudinary | `200` — `airindo/projects/*.webp`, 1181x733, 156 KB; URL publik `200 image/webp` |
+| Hapus media | baris DB `0`; aset hilang dari Cloudinary Admin API (`resources: []`) |
+| `GET /admin/dashboard` | `{projects:4, featuredProjects:2, clients:26, services:4, faqs:5, workshops:1, sectors:12}` |
+| `GET /admin/export` | 9 kunci, 4 proyek · 26 klien · 4 layanan · 5 FAQ |
+
 ### Added — 2 November 2026 (Fase 2 — scaffold backend)
 - **Added** folder `backend/` — Express 5 + TypeScript (`strict`, `noUncheckedIndexedAccess`), arsitektur **modular monolith** (`src/modules`, `src/shared`, `src/config`).
 - **Added** validasi environment dengan Zod di `src/config/env.ts` — aplikasi gagal cepat bila `DATABASE_URL` atau `JWT_SECRET` tidak valid.

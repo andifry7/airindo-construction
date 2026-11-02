@@ -25,10 +25,10 @@
 
 ## Posisi saat ini
 
-**Fase aktif:** Fase 4 — Modul konten + media
-**Branch aktif:** `backend-zacky`
+**Fase aktif:** Fase 5 — Integrasi frontend ke API
+**Branch aktif:** `backend-zacky` (backend selesai sampai Fase 4)
 **Terakhir diperbarui:** 2 November 2026
-**Catatan:** Fase 0, 2, dan 3 **selesai**. Backend berjalan di `http://localhost:4000`, auth JWT 24 jam teruji end-to-end. PostgreSQL `airindo-postgres` aktif (PG 16.15). Berikutnya: tabel konten (projects, services, clients, company, media) + seed dari `app/lib/data.js`.
+**Catatan:** Fase 0, 2, 3, 4 **selesai**. Backend berjalan di `http://localhost:4000` dengan 11 tabel konten terisi (4 proyek, 4 layanan, 26 klien, 5 FAQ, 1 workshop, 4 highlight, 3 values, 4 CTA). Upload Cloudinary terverifikasi. Berikutnya: Fase 1 (form login di frontend) lalu Fase 5 (integrasi halaman publik + admin ke API).
 
 ---
 
@@ -178,15 +178,15 @@ chore: setup eslint backend
 
 **Branch:** `backend-zacky`
 
-- [ ] Skema Prisma: `projects`, `services`, `clients`, `company_profile`, `company_stats`, `media`, `faqs`, `workshops`, `highlights`, `about_values`, `cta_points`
-- [ ] Seed konten awal dari `app/lib/data.js` (agar data tidak hilang saat migrasi)
-- [ ] Modul `projects`: CRUD + toggle featured + filter publik
-- [ ] Modul `services`: CRUD (icon sebagai string)
-- [ ] Modul `clients`: CRUD (pakai `id`, bukan index)
-- [ ] Modul `company`: GET/PUT profil + statistik
-- [ ] Modul `media`: upload ke Cloudinary (multer memory, maks 5MB, whitelist MIME), hapus — **dipakai hanya untuk gambar proyek & logo klien**
-- [ ] Endpoint `public/bootstrap` untuk beranda
-- [ ] Endpoint `admin/dashboard` + `admin/export`
+- [x] Skema Prisma: `projects`, `services`, `clients`, `company_profile`, `company_stats`, `media`, `faqs`, `workshops`, `highlights`, `about_values`, `cta_points`
+- [x] Seed konten awal dari `app/lib/data.js` (agar data tidak hilang saat migrasi)
+- [x] Modul `projects`: CRUD + toggle featured + filter publik
+- [x] Modul `services`: edit-only (GET + PATCH, ikon sebagai string) — sesuai keputusan client
+- [x] Modul `clients`: CRUD (pakai `id`, bukan index)
+- [x] Modul `company`: GET/PUT profil + statistik
+- [x] Modul `media`: upload ke Cloudinary (multer memory, maks 5MB, whitelist MIME), hapus — **dipakai hanya untuk gambar proyek & logo klien**
+- [x] Endpoint `public/bootstrap` untuk beranda
+- [x] Endpoint `admin/dashboard` + `admin/export`
 
 **DoD:** semua endpoint teruji (curl/REST client), upload menghasilkan URL Cloudinary yang bisa dibuka.
 
@@ -267,3 +267,4 @@ chore: setup eslint backend
 | 2 Nov 2026 | F0 | Dokumen konteks + branch dibuat; PostgreSQL via Podman siap |
 | 2 Nov 2026 | F2 | Scaffold backend Express + TS, error handler, `/health` |
 | 2 Nov 2026 | F3 | Auth JWT 24 jam, seeder admin, rate limit — teruji end-to-end |
+| 2 Nov 2026 | F4 | 11 tabel konten, seed dari frontend, modul projects/services/clients/company/content/media, upload Cloudinary terverifikasi |

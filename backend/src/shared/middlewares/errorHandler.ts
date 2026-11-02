@@ -1,5 +1,6 @@
 import type { ErrorRequestHandler } from "express";
 import { Prisma } from "@prisma/client";
+import multer from "multer";
 import { ZodError } from "zod";
 import { AppError } from "../errors/AppError";
 import { logger } from "../utils/logger";
@@ -39,7 +40,20 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
     return;
   }
 
-  // 3. Error yang diketahui dari Prisma
+  // 3. Error upload (multer)
+  if (err instanceof multer.MulterError) {
+    const message =
+      err.code === "LIMIT_FILE_SIZE"
+        ? "Ukuran file maksimal 5 MB."
+        : `Upload gagal: ${err.message}`;
+    res.status(422).json({
+      success: false,
+      error: { code: "UPLOAD_ERROR", message },
+    });
+    return;
+  }
+
+  // 4. Error yang diketahui dari Prisma
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     if (err.code === "P2002") {
       const target = (err.meta?.target as string[] | undefined)?.join(", ") ?? "field";
@@ -62,7 +76,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
     }
   }
 
-  // 4. Sisanya dianggap bug
+  // 5. Sisanya dianggap bug
   logger.error({ err, method: req.method, url: req.originalUrl }, "Unhandled error");
 
   res.status(500).json({

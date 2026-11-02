@@ -1,6 +1,6 @@
 // Prisma schema — Airindo Construction
-// Fase 3: hanya autentikasi admin.
-// Tabel konten (projects, services, clients, company, media, content) ditambahkan di Fase 4.
+// Fase 3: autentikasi admin.
+// Fase 4: konten (proyek, layanan, klien, profil perusahaan, media, konten pendukung).
 
 generator client {
   provider = "prisma-client-js"
@@ -10,6 +10,10 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// ─────────────────────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────────────────────
 
 /// Akun admin. Hanya satu baris, dibuat oleh seeder. Tidak ada halaman register.
 model AdminUser {
@@ -24,4 +28,188 @@ model AdminUser {
   updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
 
   @@map("admin_users")
+}
+
+// ─────────────────────────────────────────────────────────────
+// KONTEN UTAMA
+// ─────────────────────────────────────────────────────────────
+
+model Project {
+  id            String   @id @default(uuid()) @db.Uuid
+  slug          String   @unique @db.VarChar(180)
+  title         String   @db.VarChar(220)
+  category      String   @db.VarChar(100)
+  categoryKey   String   @map("category_key") @db.VarChar(40)
+  imageUrl      String?  @map("image_url") @db.Text
+  imagePublicId String?  @map("image_public_id") @db.VarChar(255)
+  location      String   @db.VarChar(180)
+  client        String   @db.VarChar(180)
+  year          String   @db.VarChar(40)
+  capacity      String?  @db.VarChar(140)
+  specs         String?  @db.Text
+  scope         String?  @db.Text
+  description   String?  @db.Text
+  tags          String[] @default([])
+  featured      Boolean  @default(false)
+  sortOrder     Int      @default(0) @map("sort_order")
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([categoryKey])
+  @@index([featured])
+  @@index([sortOrder])
+  @@map("projects")
+}
+
+model Service {
+  id            String   @id @default(uuid()) @db.Uuid
+  /// Slug tetap: mechanical | electrical | automation | power-plant
+  slug          String   @unique @db.VarChar(60)
+  title         String   @db.VarChar(220)
+  shortTitle    String   @map("short_title") @db.VarChar(80)
+  /// Nama ikon lucide (mis. "Wrench") — dipetakan ke komponen di frontend.
+  icon          String   @db.VarChar(40)
+  imageUrl      String?  @map("image_url") @db.Text
+  imagePublicId String?  @map("image_public_id") @db.VarChar(255)
+  badge         String?  @db.VarChar(100)
+  lead          String   @db.Text
+  description   String   @db.Text
+  scopePoints   String[] @map("scope_points")
+  standards     String[] @default([])
+  caseHighlight String?  @map("case_highlight") @db.Text
+  sortOrder     Int      @default(0) @map("sort_order")
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([sortOrder])
+  @@map("services")
+}
+
+model Client {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @db.VarChar(180)
+  sector       String   @db.VarChar(140)
+  logoUrl      String?  @map("logo_url") @db.Text
+  logoPublicId String?  @map("logo_public_id") @db.VarChar(255)
+  sortOrder    Int      @default(0) @map("sort_order")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([sector])
+  @@index([sortOrder])
+  @@map("clients")
+}
+
+/// Profil perusahaan — hanya satu baris (id = "singleton").
+model CompanyProfile {
+  id              String   @id @default("singleton") @db.VarChar(20)
+  name            String   @db.VarChar(140)
+  fullName        String   @map("full_name") @db.VarChar(220)
+  tagline         String   @db.Text
+  phone           String   @db.VarChar(40)
+  phoneRaw        String   @map("phone_raw") @db.VarChar(40)
+  email           String   @db.VarChar(180)
+  address         String   @db.Text
+  mapQuery        String?  @map("map_query") @db.Text
+  mapsUrl         String?  @map("maps_url") @db.Text
+  establishedYear Int      @map("established_year")
+  workshopAddress String?  @map("workshop_address") @db.Text
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@map("company_profile")
+}
+
+model CompanyStat {
+  id        String   @id @default(uuid()) @db.Uuid
+  value     String   @db.VarChar(40)
+  label     String   @db.VarChar(140)
+  detail    String?  @db.Text
+  sortOrder Int      @default(0) @map("sort_order")
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([sortOrder])
+  @@map("company_stats")
+}
+
+/// Jejak setiap file yang diunggah ke storage.
+model Media {
+  id        String   @id @default(uuid()) @db.Uuid
+  provider  String   @default("cloudinary") @db.VarChar(40)
+  publicId  String   @map("public_id") @db.VarChar(255)
+  url       String   @db.Text
+  format    String?  @db.VarChar(20)
+  width     Int?
+  height    Int?
+  bytes     Int?
+  folder    String?  @db.VarChar(140)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@index([publicId])
+  @@map("media")
+}
+
+// ─────────────────────────────────────────────────────────────
+// KONTEN PENDUKUNG (daftar sederhana, diurutkan sort_order)
+// ─────────────────────────────────────────────────────────────
+
+model Faq {
+  id        String   @id @default(uuid()) @db.Uuid
+  question  String   @db.Text
+  answer    String   @db.Text
+  sortOrder Int      @default(0) @map("sort_order")
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([sortOrder])
+  @@map("faqs")
+}
+
+model Workshop {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @db.VarChar(180)
+  location  String   @db.Text
+  mapQuery  String?  @map("map_query") @db.Text
+  mapsUrl   String?  @map("maps_url") @db.Text
+  features  String?  @db.Text
+  sortOrder Int      @default(0) @map("sort_order")
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([sortOrder])
+  @@map("workshops")
+}
+
+model Highlight {
+  id        String   @id @default(uuid()) @db.Uuid
+  icon      String   @db.VarChar(40)
+  title     String   @db.VarChar(180)
+  text      String   @db.Text
+  badge     String?  @db.VarChar(100)
+  sortOrder Int      @default(0) @map("sort_order")
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([sortOrder])
+  @@map("highlights")
+}
+
+model AboutValue {
+  id        String   @id @default(uuid()) @db.Uuid
+  icon      String   @db.VarChar(40)
+  title     String   @db.VarChar(180)
+  text      String   @db.Text
+  sortOrder Int      @default(0) @map("sort_order")
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([sortOrder])
+  @@map("about_values")
+}
+
+model CtaPoint {
+  id        String   @id @default(uuid()) @db.Uuid
+  icon      String   @db.VarChar(40)
+  title     String   @db.VarChar(180)
+  text      String   @db.Text
+  sortOrder Int      @default(0) @map("sort_order")
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([sortOrder])
+  @@map("cta_points")
 }
